@@ -1,0 +1,65 @@
+---
+- hosts: all
+  tasks:
+    - name: Update homebrew
+      command: "brew update"
+
+    - homebrew_cask:
+        name: "{{ item }}"
+      with_items:
+        - java
+        - postgres
+        - virtualbox
+        - vagrant
+        - vagrant-manager
+        - ngrok
+        - keka
+        - iterm2
+        - smartgit
+
+    - homebrew:
+        name: "{{ item }}"
+      with_items:
+        - node
+        - watchman
+        - scala
+        - heroku
+        - python
+        - python3
+        - ruby
+        - elixir
+        - leiningen
+        - docker
+        - docker-compose
+        - ctags
+        - rabbitmq
+        - redis
+        - readline
+        - wget
+        - zsh
+        - zsh-completions
+        - zsh-syntax-highlighting
+        - pkg-config
+        - cairo
+        - libpng
+        - jpeg
+        - giflib
+
+    - homebrew:
+        update_homebrew: yes
+        upgrade_all: yes
+
+    - name: Clean homebrew
+      command: "brew cleanup"
+
+    - name: Clean homebrew cask
+      command: "brew cask cleanup"
+
+    - npm:
+        name: "{{ item }}"
+        global: yes
+      with_items:
+        - yarn
+        - n
+        - react-native-cli
+        - nodemon

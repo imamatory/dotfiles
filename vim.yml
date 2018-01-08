@@ -1,0 +1,25 @@
+---
+- hosts: all
+  vars:
+    ansible_python_interpreter: '/usr/bin/env python3'
+
+  tasks:
+    - homebrew:
+        name: "{{ item }}"
+      with_items:
+        - neovim
+        - ripgrep
+
+    - file: src={{ curdir }}/files/{{ item }} dest=~/.config/nvim/.init.vim
+    with_items:
+      - vimrc
+
+    - file: path=~/.config/nvim/{{ item }} state=directory recurse=Yes
+      with_items:
+        - autoload
+
+    - get_url:
+        dest: ~/.config/nvim/autoload/plug.vim
+        url: 'https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
+    - file: path=~/.config/nvim/spell state=directory

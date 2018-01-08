@@ -1,0 +1,320 @@
+set nocompatible
+
+let $PATH = $PATH . ':' . expand("~/.local/bin")
+
+call plug#begin('~/.local/share/nvim/plugged')
+
+Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'roxma/nvim-completion-manager'
+Plug 'w0rp/ale'
+Plug 'tpope/vim-sensible'
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/nerdtree'
+Plug 'nanotech/jellybeans.vim'
+Plug 'trevordmiller/nova-vim'
+Plug 'dracula/vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-easytags'
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'jiangmiao/auto-pairs'
+Plug 'terryma/vim-multiple-cursors'
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-commentary'
+Plug 'michaeljsmith/vim-indent-object'
+Plug 'Chiel92/vim-autoformat'
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'chemzqm/vim-jsx-improve', { 'for': 'javascript' }
+Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'sheerun/vim-polyglot'
+" Plug 'Valloric/MatchTagAlways'
+Plug 'elixir-lang/vim-elixir'
+Plug 'ap/vim-css-color'
+Plug 'slashmili/alchemist.vim'
+Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
+Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'ekalinin/Dockerfile.vim'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
+Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
+Plug 'tpope/vim-abolish'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+call plug#end()
+
+let mapleader = "\<Space>"
+
+" :let g:session_autoload = 'yes'
+" :let g:session_autosave = 'yes'
+
+nmap <C-i> :NERDTreeFind<CR>
+nmap <silent> <leader><leader> :NERDTreeToggle<CR>
+
+let NERDTreeIgnore = ['\.pyc$']
+let g:nerdtree_tabs_open_on_console_startup = 1
+
+" let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
+
+" Configure backspace so it acts as it should act
+set backspace=eol,start,indent
+
+" enhanced command completion
+set wildmenu
+
+set autoindent
+
+set visualbell
+
+set nowrap
+set number
+set hlsearch
+set ignorecase
+set smartcase
+
+set expandtab
+set softtabstop=2
+set shiftwidth=2
+
+set splitbelow
+set splitright
+
+if has('mouse')
+  set mouse=a
+endif
+
+set cursorline
+set hidden
+set t_Co=256
+
+" Don't redraw while executing macros (good performance config)
+set lazyredraw
+set ttyfast
+
+set shortmess=atI
+
+" Turn backup off, since most stuff is in SVN, git et.c anyway...
+set nobackup
+set nowritebackup
+set nowb
+set noswapfile
+
+" toggle paste mode
+set pastetoggle=<F2>
+
+" do incremental
+set incsearch
+" MAGIC LIVE SUBSTITUTE REPLACE SEARCH
+set inccommand=nosplit
+
+" colorscheme nova
+" let g:airline_theme='nova'
+colorscheme jellybeans
+let g:jellybeans_use_term_background_color = 1
+let g:airline_theme='badwolf'
+"
+" syntax on
+" color dracula
+
+" ================ Persistent Undo ==================
+" Keep undo history across sessions, by storing in file.
+" Only works all the time.
+if has('persistent_undo')
+  silent !mkdir ~/.vim/backups > /dev/null 2>&1
+  set undodir=~/.vim/backups
+  set undofile
+endif
+
+let g:javascript_plugin_flow = 0
+
+let g:easytags_async = 1
+let g:alchemist_iex_term_size = 15
+let g:alchemist_iex_term_split = 'split'
+let g:alchemist_tag_disable = 1
+
+" Always wrap prefered length
+let g:vimreason_extra_args_expr_reason = '"--print-width 100"'
+
+augroup au_common
+  au!
+
+  au BufWritePost init.vim,.vimrc source %
+  " au BufWritePost *.re,*.rei :ReasonPrettyPrint
+
+  " Automatically removing all trailing whitespace
+  au BufWritePre * :%s/\s\+$//e
+
+  au BufRead,BufNewFile {.babelrc,.eslintrc} set ft=json
+augroup END
+
+vmap <C-_> gc
+nmap <C-_> gcc
+
+" select all text
+nmap <C-a> ggVG<CR>
+
+" nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>w :w<CR>
+
+noremap <F3> :ALEFix<CR>
+noremap <F5> :e<CR>
+nmap <F8> :TagbarToggle<CR>
+
+vmap <Tab> >gv
+vmap <S-Tab> <gv
+
+vmap <Leader>y "+y
+vmap <Leader>d "+d
+nmap <Leader>p "+p
+nmap <Leader>P "+P
+vmap <Leader>p "+p
+vmap <Leader>P "+P
+
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#buffer_idx_mode = 1
+" nmap <leader>[ <Plug>AirlineSelectPrevTab
+" nmap <leader>] <Plug>AirlineSelectNextTab
+
+" Map ctrl-movement keys to window switching
+map <C-k> <C-w><Up>
+map <C-j> <C-w><Down>
+map <C-l> <C-w><Right>
+map <C-h> <C-w><Left>
+nnoremap <silent> <bs> <C-w><Left>
+
+nmap <silent> // :nohlsearch<CR>
+noremap ,hl :set hlsearch! hlsearch?<CR>
+
+nmap <silent> cp "_ciw<C-R>"<Esc>
+
+" Allow to copy/paste between VIM instances
+" "copy the current visual selection to ~/.vbuf
+vmap <Leader>y :w! ~/.vbuf<CR>
+" "copy the current line to the buffer file if no visual selection
+nmap <Leader>y :.w! ~/.vbuf<CR>
+" "paste the contents of the buffer file
+nmap <Leader>p :r ~/.vbuf<CR>
+
+" disable ex mode
+nnoremap Q <nop>
+
+" set text wrapping toggles
+nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
+
+" search and replace
+nnoremap <Leader>s :%s///g<Left><Left>
+vnoremap <Leader>s "hy:%s/<C-r>h//gc<left><left><left>
+
+" Move between linting errors
+nnoremap ]r :ALENextWrap<CR>
+nnoremap [r :ALEPreviousWrap<CR>
+
+" let g:deoplete#enable_at_startup = 1
+
+" " Multiple cursor fix for deoplete
+" function! Multiple_cursors_before()
+"   let g:deoplete#disable_auto_complete = 1
+" endfunction
+" function! Multiple_cursors_after()
+"   let g:deoplete#disable_auto_complete = 0
+" endfunction
+
+" let g:mta_filetypes = {
+"   \ 'javascript.jsx': 1,
+"   \ 'html' : 1,
+"   \ 'xhtml' : 1,
+"   \ 'xml' : 1,
+"   \ 'jinja' : 1,
+"   \ }
+
+let g:SuperTabDefaultCompletionType = "<c-n>"
+
+" ALE
+let g:ale_fix_on_save = 1
+let b:ale_reasonml_refmt_options = '--print-width 100'
+let g:ale_linters = {
+  \   'javascript': ['eslint'],
+  \}
+let g:ale_fixers = {
+  \ 'reason': ['refmt']
+  \}
+
+" LSP
+" Required for operations modifying multiple buffers like rename.
+set hidden
+
+let g:LanguageClient_diagnosticsList = 'location'
+let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['ocaml-language-server', '--stdio'],
+    \ 'javascript': ['node', expand('~/.config/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
+    \ 'javascript.jsx': ['node', expand('~/.config/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
+    \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ }
+
+" Automatically start language servers.
+let g:LanguageClient_autoStart = 1
+
+nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+
+" FZF
+" let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+"
+" " [Tags] Command to generate tags file
+let g:fzf_tags_command = 'ctags -R'
+
+nnoremap <silent> <Leader>b :Buffers<CR>
+nnoremap <silent> <Leader>; :Rg!<Space>
+nnoremap <silent> <Leader>T :BTags<CR>
+nnoremap <silent> <Leader>t :Tags<CR>
+nnoremap <silent> <Leader>h :History<CR>
+nnoremap <silent> <Leader>o :GFiles<CR>
+nnoremap <silent> <C-p> :Files<CR>
+nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
+
+nnoremap <silent> <C-K> :call SearchWordWithAg()<CR>
+vnoremap <silent> <C-K>  :call SearchVisualSelectionWithAg()<CR>
+" nnoremap <silent> <Leader>gl :Commits<CR>
+" nnoremap <silent> <Leader>ga :BCommits<CR>
+
+imap <C-x><C-f> <plug>(fzf-complete-file-ag)
+imap <C-x><C-l> <plug>(fzf-complete-line)
+
+command! -bang -nargs=? -complete=dir GFiles
+ \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+command! -bang -nargs=? -complete=dir Files
+ \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
+
+function! SearchWordWithAg()
+ execute 'Rg!' expand('<cword>')
+endfunction
+
+function! SearchVisualSelectionWithAg() range
+ let old_reg = getreg('"')
+ let old_regtype = getregtype('"')
+ let old_clipboard = &clipboard
+ set clipboard&
+ normal! ""gvy
+ let selection = getreg('"')
+ call setreg('"', old_reg, old_regtype)
+ let &clipboard = old_clipboard
+ execute 'Rg!' selection
+endfunction
+
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always --fixed-strings --smart-case --hidden --follow --glob "!.git/*" '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+" }}}
+
