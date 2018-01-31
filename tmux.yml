@@ -1,7 +1,8 @@
 ---
 - hosts: all
-  vars:
-    ansible_python_interpreter: '/usr/bin/env python3'
+
+  roles:
+    - tmux
 
   tasks:
 
@@ -13,18 +14,6 @@
         src: "{{ curdir }}/files/vimrc"
         dest: ~/.config/nvim/init.vim
         state: link
-
-    - homebrew:
-        name: "{{ item }}"
-      with_items:
-        - ripgrep
-
-    - pip: name=neovim state=latest
-      become: yes
-
-    - file: path=~/.local/share/nvim/site/autoload state=directory recurse=Yes
-      with_items:
-        - autoload
 
     - get_url:
         force: yes

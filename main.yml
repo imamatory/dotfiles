@@ -16,24 +16,21 @@
         - keka
         - iterm2
         - smartgit
+        - tig
 
     - homebrew:
         name: "{{ item }}"
       with_items:
         - node
         - watchman
-        - scala
         - heroku
         - python
         - python3
         - ruby
         - elixir
-        - leiningen
         - docker
         - docker-compose
         - ctags
-        - rabbitmq
-        - redis
         - readline
         - wget
         - zsh
