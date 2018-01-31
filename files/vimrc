@@ -32,9 +32,9 @@ Plug 'chemzqm/vim-jsx-improve', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'sheerun/vim-polyglot'
 " Plug 'Valloric/MatchTagAlways'
-Plug 'elixir-lang/vim-elixir'
 Plug 'ap/vim-css-color'
 Plug 'slashmili/alchemist.vim'
+Plug 'elixir-lang/vim-elixir'
 Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'ekalinin/Dockerfile.vim'
@@ -45,6 +45,10 @@ Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'tpope/vim-abolish'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
+Plug 'dyng/ctrlsf.vim'
+Plug 'lxhillwind/leader-clipboard'
+Plug 'tpope/vim-fugitive'
+Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 
 call plug#end()
 
@@ -91,7 +95,6 @@ endif
 
 set cursorline
 set hidden
-set t_Co=256
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -113,13 +116,17 @@ set incsearch
 " MAGIC LIVE SUBSTITUTE REPLACE SEARCH
 set inccommand=nosplit
 
+syntax on
+set cmdheight=2
+set showcmd       " display incomplete commands
+set autowrite     " Automatically :write before running commands
+
 " colorscheme nova
 " let g:airline_theme='nova'
 colorscheme jellybeans
 let g:jellybeans_use_term_background_color = 1
 let g:airline_theme='badwolf'
 "
-" syntax on
 " color dracula
 
 " ================ Persistent Undo ==================
@@ -139,7 +146,7 @@ let g:alchemist_iex_term_split = 'split'
 let g:alchemist_tag_disable = 1
 
 " Always wrap prefered length
-let g:vimreason_extra_args_expr_reason = '"--print-width 100"'
+let g:vimreason_extra_args_expr_reason = '"--print-width=100"'
 
 augroup au_common
   au!
@@ -160,6 +167,7 @@ nmap <C-_> gcc
 nmap <C-a> ggVG<CR>
 
 " nnoremap <Leader>o :CtrlP<CR>
+nnoremap <Leader>s :w<CR>
 nnoremap <Leader>w :w<CR>
 
 noremap <F3> :ALEFix<CR>
@@ -168,13 +176,6 @@ nmap <F8> :TagbarToggle<CR>
 
 vmap <Tab> >gv
 vmap <S-Tab> <gv
-
-vmap <Leader>y "+y
-vmap <Leader>d "+d
-nmap <Leader>p "+p
-nmap <Leader>P "+P
-vmap <Leader>p "+p
-vmap <Leader>P "+P
 
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -193,14 +194,6 @@ noremap ,hl :set hlsearch! hlsearch?<CR>
 
 nmap <silent> cp "_ciw<C-R>"<Esc>
 
-" Allow to copy/paste between VIM instances
-" "copy the current visual selection to ~/.vbuf
-vmap <Leader>y :w! ~/.vbuf<CR>
-" "copy the current line to the buffer file if no visual selection
-nmap <Leader>y :.w! ~/.vbuf<CR>
-" "paste the contents of the buffer file
-nmap <Leader>p :r ~/.vbuf<CR>
-
 " disable ex mode
 nnoremap Q <nop>
 
@@ -208,12 +201,27 @@ nnoremap Q <nop>
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 " search and replace
-nnoremap <Leader>s :%s///g<Left><Left>
-vnoremap <Leader>s "hy:%s/<C-r>h//gc<left><left><left>
+nnoremap <Leader>f :%s///g<Left><Left>
+vnoremap <Leader>f "hy:%s/<C-r>h//gc<left><left><left>
+
+" Search for selected text, forwards or backwards.
+vnoremap <silent> * :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy/<C-R><C-R>=substitute(
+  \escape(@", '/\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
+vnoremap <silent> # :<C-U>
+  \let old_reg=getreg('"')<Bar>let old_regtype=getregtype('"')<CR>
+  \gvy?<C-R><C-R>=substitute(
+  \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
+  \gV:call setreg('"', old_reg, old_regtype)<CR>
 
 " Move between linting errors
 nnoremap ]r :ALENextWrap<CR>
 nnoremap [r :ALEPreviousWrap<CR>
+
+" Edit .vimrc
+map <leader>vl :vsp $MYVIMRC<CR>
 
 " let g:deoplete#enable_at_startup = 1
 
@@ -237,12 +245,12 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ALE
 let g:ale_fix_on_save = 1
-let b:ale_reasonml_refmt_options = '--print-width 100'
 let g:ale_linters = {
   \   'javascript': ['eslint'],
   \}
 let g:ale_fixers = {
-  \ 'reason': ['refmt']
+  \ 'reason': ['refmt'],
+  \ 'javascript': ['eslint'],
   \}
 
 " LSP
@@ -265,6 +273,10 @@ nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
+" CtrlSF
+nmap <leader>gg <Plug>CtrlSFPrompt
+vmap <leader>gg <Plug>CtrlSFVwordPath
+
 " FZF
 " let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 "
@@ -280,10 +292,9 @@ nnoremap <silent> <Leader>o :GFiles<CR>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
 
-nnoremap <silent> <C-K> :call SearchWordWithAg()<CR>
-vnoremap <silent> <C-K>  :call SearchVisualSelectionWithAg()<CR>
-" nnoremap <silent> <Leader>gl :Commits<CR>
-" nnoremap <silent> <Leader>ga :BCommits<CR>
+nnoremap <leader><C-K> :call SearchWordWithAg()<CR>
+" vnoremap <silent> <C-K>  :call SearchVisualSelectionWithAg()<CR>
+vnoremap <leader>;  :call SearchVisualSelectionWithAg()<CR>
 
 imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <plug>(fzf-complete-line)
@@ -318,3 +329,9 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 " }}}
 
+" Git fugitive
+nnoremap <silent> <Leader>gl :Commits<CR>
+nnoremap <silent> <Leader>ga :BCommits<CR>
+nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
