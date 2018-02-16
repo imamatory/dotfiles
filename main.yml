@@ -16,38 +16,35 @@
         - keka
         - iterm2
         - smartgit
+        - tig
 
     - homebrew:
         name: "{{ item }}"
       with_items:
         - node
-        - watchman
-        - scala
         - heroku
         - python
         - python3
         - ruby
         - elixir
-        - leiningen
         - docker
         - docker-compose
         - ctags
-        - rabbitmq
-        - redis
         - readline
         - wget
         - zsh
         - zsh-completions
         - zsh-syntax-highlighting
         - pkg-config
-        - cairo
-        - libpng
-        - jpeg
-        - giflib
+        - fzf
+        - ripgrep
 
     - homebrew:
         update_homebrew: yes
         upgrade_all: yes
+
+    - name: Configure fzf
+      command: "$(brew --prefix)/opt/fzf/install"
 
     - name: Clean homebrew
       command: "brew cleanup"

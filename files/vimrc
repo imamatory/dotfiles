@@ -4,7 +4,8 @@ let $PATH = $PATH . ':' . expand("~/.local/bin")
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'autozimu/LanguageClient-neovim', { 'do': ':UpdateRemotePlugins' }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'sourcegraph/javascript-typescript-langserver', {'do': 'npm install && npm run build'}
 Plug 'roxma/nvim-completion-manager'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-sensible'
@@ -257,12 +258,13 @@ let g:ale_fixers = {
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-let g:LanguageClient_diagnosticsList = 'location'
+let g:LanguageClient_autoStart = 1
+let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'reason': ['ocaml-language-server', '--stdio'],
-    \ 'javascript': ['node', expand('~/.config/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
-    \ 'javascript.jsx': ['node', expand('~/.config/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
     \ 'ocaml': ['ocaml-language-server', '--stdio'],
     \ }
 
