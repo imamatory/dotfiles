@@ -8,7 +8,7 @@
         state: directory
 
     - file:
-        src: "{{ curdir }}/files/vimrc"
+        src: "{{ playbook_dir }}/files/vimrc"
         dest: ~/.config/nvim/init.vim
         state: link
 
@@ -23,4 +23,3 @@
         force: yes
         dest: ~/.local/share/nvim/site/autoload/plug.vim
         url: "https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
-
