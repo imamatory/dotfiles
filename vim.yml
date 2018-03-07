@@ -1,6 +1,8 @@
 ---
 - hosts: all
-
+  vars:
+    ansible_python_interpreter: '/usr/bin/env python3'
+    config: ~/.bash_profile
   tasks:
 
     - file:
@@ -12,8 +14,7 @@
         dest: ~/.config/nvim/init.vim
         state: link
 
-    - pip: name=neovim state=latest
-      become: yes
+    - homebrew: name=neovim state=latest
 
     - file: path=~/.local/share/nvim/site/autoload state=directory recurse=Yes
       with_items:

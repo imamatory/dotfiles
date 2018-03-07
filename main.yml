@@ -1,5 +1,8 @@
 ---
 - hosts: all
+  vars:
+    ansible_python_interpreter: '/usr/bin/env python3'
+    config: ~/.bash_profile
   tasks:
     - name: Update homebrew
       command: "brew update"
@@ -16,7 +19,7 @@
         - keka
         - iterm2
         - smartgit
-        - tig
+        - antigen
 
     - homebrew:
         name: "{{ item }}"
@@ -38,13 +41,11 @@
         - pkg-config
         - fzf
         - ripgrep
+        - tig
 
     - homebrew:
         update_homebrew: yes
         upgrade_all: yes
-
-    - name: Configure fzf
-      command: "$(brew --prefix)/opt/fzf/install"
 
     - name: Clean homebrew
       command: "brew cleanup"

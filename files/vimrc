@@ -247,7 +247,7 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " ALE
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-  \   'javascript': ['eslint'],
+  \   'javascript': ['eslint', 'flow'],
   \}
 let g:ale_fixers = {
   \ 'reason': ['refmt'],
