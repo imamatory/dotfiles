@@ -37,6 +37,7 @@
         - wget
         - zsh
         - zsh-completions
+        - zsh-autosuggestions
         - zsh-syntax-highlighting
         - pkg-config
         - fzf

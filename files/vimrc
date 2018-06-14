@@ -14,12 +14,12 @@ Plug 'tpope/vim-repeat'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'nanotech/jellybeans.vim'
-Plug 'trevordmiller/nova-vim'
-Plug 'dracula/vim'
+" Plug 'trevordmiller/nova-vim'
+" Plug 'dracula/vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-misc'
-Plug 'xolox/vim-easytags'
+" Plug 'xolox/vim-easytags'
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
@@ -31,11 +31,14 @@ Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'chemzqm/vim-jsx-improve', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'sheerun/vim-polyglot'
+Plug 'tpope/vim-bundler', { 'for': 'ruby' }
+Plug 'tpope/vim-rails', { 'for': 'ruby' }
+Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
+" Plug 'sheerun/vim-polyglot'
 " Plug 'Valloric/MatchTagAlways'
 Plug 'ap/vim-css-color'
 Plug 'slashmili/alchemist.vim'
-Plug 'elixir-lang/vim-elixir'
+Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'ekalinin/Dockerfile.vim'
@@ -50,11 +53,30 @@ Plug 'dyng/ctrlsf.vim'
 Plug 'lxhillwind/leader-clipboard'
 Plug 'tpope/vim-fugitive'
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
-
+Plug 'junegunn/gv.vim'
+Plug 'junegunn/vim-easy-align'
+" Plug 'flowtype/vim-flow', { 'autoload': { 'filetypes': 'javascript' } }
+Plug 'vtm9/vim-dispatch'
+Plug 'janko-m/vim-test'
+Plug 'airblade/vim-rooter'
+Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 call plug#end()
 
 let mapleader = "\<Space>"
 
+Plug 'airblade/vim-rooter'
+" {{{
+let g:rooter_patterns = ['Makefile','Rakefile', 'mix.exs', '.git/']
+" }}}
+
+let test#strategy = "dispatch"
+nnoremap <silent> <Leader>tf :TestFile<CR>
+nnoremap <silent> <Leader>tn :TestNearest<CR>
+nnoremap <silent> <Leader>ts :TestSuite<CR>
+nnoremap <silent> <Leader>tl :TestLast<CR>
+nnoremap <silent> <Leader>tv :TestVisit<CR>
+
+let g:dispatch_quickfix_height = 90
 " :let g:session_autoload = 'yes'
 " :let g:session_autosave = 'yes'
 
@@ -95,7 +117,6 @@ if has('mouse')
 endif
 
 set cursorline
-set hidden
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -124,8 +145,9 @@ set autowrite     " Automatically :write before running commands
 
 " colorscheme nova
 " let g:airline_theme='nova'
+" let g:jellybeans_background_color_256='NONE'
+" let g:jellybeans_use_term_background_color = 1
 colorscheme jellybeans
-let g:jellybeans_use_term_background_color = 1
 let g:airline_theme='badwolf'
 "
 " color dracula
@@ -201,6 +223,9 @@ nnoremap Q <nop>
 " set text wrapping toggles
 nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
+nmap <leader><S-O> o<esc>kk<CR>
+
+
 " search and replace
 nnoremap <Leader>f :%s///g<Left><Left>
 vnoremap <Leader>f "hy:%s/<C-r>h//gc<left><left><left>
@@ -247,11 +272,15 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 " ALE
 let g:ale_fix_on_save = 1
 let g:ale_linters = {
-  \   'javascript': ['eslint', 'flow'],
+  \ 'javascript': ['eslint', 'flow'],
+  \ 'css': ['stylelint'],
+  \ 'scss': ['stylelint'],
   \}
 let g:ale_fixers = {
   \ 'reason': ['refmt'],
   \ 'javascript': ['eslint'],
+  \ 'scss': ['stylelint'],
+  \ 'ruby': ['rubocop'],
   \}
 
 " LSP
@@ -263,9 +292,10 @@ let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'reason': ['ocaml-language-server', '--stdio'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'javascript': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
+    \ 'javascript.jsx': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
     \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ 'ruby': ['language_server-ruby'],
     \ }
 
 " Automatically start language servers.
@@ -294,7 +324,7 @@ nnoremap <silent> <Leader>o :GFiles<CR>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
 
-nnoremap <leader><C-K> :call SearchWordWithAg()<CR>
+nnoremap <C-K> :call SearchWordWithAg()<CR>
 " vnoremap <silent> <C-K>  :call SearchVisualSelectionWithAg()<CR>
 vnoremap <leader>;  :call SearchVisualSelectionWithAg()<CR>
 
@@ -337,3 +367,8 @@ nnoremap <silent> <Leader>ga :BCommits<CR>
 nnoremap <silent> <Leader>gb :Gblame<CR>
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
