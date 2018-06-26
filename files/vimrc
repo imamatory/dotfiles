@@ -225,6 +225,7 @@ nmap <silent> <leader>tw :set invwrap<CR>:set wrap?<CR>
 
 nmap <leader><S-O> o<esc>kk<CR>
 
+nnoremap Y y$
 
 " search and replace
 nnoremap <Leader>f :%s///g<Left><Left>
