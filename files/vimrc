@@ -56,10 +56,11 @@ Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 " Plug 'flowtype/vim-flow', { 'autoload': { 'filetypes': 'javascript' } }
-Plug 'vtm9/vim-dispatch'
-Plug 'janko-m/vim-test'
-Plug 'airblade/vim-rooter'
+Plug 'tpope/vim-dispatch', { 'for': 'ruby' }
+Plug 'janko-m/vim-test', { 'for': 'ruby' }
+Plug 'airblade/vim-rooter', { 'for': 'ruby' }
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 call plug#end()
 
 let mapleader = "\<Space>"
@@ -139,6 +140,7 @@ set incsearch
 set inccommand=nosplit
 
 syntax on
+filetype plugin indent on
 set cmdheight=2
 set showcmd       " display incomplete commands
 set autowrite     " Automatically :write before running commands
@@ -293,11 +295,13 @@ let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_diagnosticsEnable = 0
 let g:LanguageClient_serverCommands = {
     \ 'reason': ['ocaml-language-server', '--stdio'],
-    \ 'javascript': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
-    \ 'javascript.jsx': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
     \ 'ocaml': ['ocaml-language-server', '--stdio'],
     \ 'ruby': ['language_server-ruby'],
+    \ 'clojure': ['/usr/local/bin/clojure-lsp'],
+    \ 'javascript': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
+    \ 'javascript.jsx': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
     \ }
+
 
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 1
