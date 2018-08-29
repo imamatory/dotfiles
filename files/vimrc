@@ -1,10 +1,11 @@
 set nocompatible
 
 let $PATH = $PATH . ':' . expand("~/.local/bin")
+let $LANG = 'en'
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'sourcegraph/javascript-typescript-langserver', {'do': 'npm install && npm run build'}
 Plug 'roxma/nvim-completion-manager'
 Plug 'w0rp/ale'
@@ -56,7 +57,7 @@ Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
 " Plug 'flowtype/vim-flow', { 'autoload': { 'filetypes': 'javascript' } }
-Plug 'tpope/vim-dispatch', { 'for': 'ruby' }
+Plug 'vtm9/vim-dispatch', { 'for': 'ruby' }
 Plug 'janko-m/vim-test', { 'for': 'ruby' }
 Plug 'airblade/vim-rooter', { 'for': 'ruby' }
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
@@ -64,11 +65,6 @@ Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 call plug#end()
 
 let mapleader = "\<Space>"
-
-Plug 'airblade/vim-rooter'
-" {{{
-let g:rooter_patterns = ['Makefile','Rakefile', 'mix.exs', '.git/']
-" }}}
 
 let test#strategy = "dispatch"
 nnoremap <silent> <Leader>tf :TestFile<CR>
@@ -319,6 +315,10 @@ vmap <leader>gg <Plug>CtrlSFVwordPath
 "
 " " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
+
+
+" vim-rooter
+let g:rooter_patterns = ['Makefile','Rakefile', 'mix.exs', '.git/']
 
 nnoremap <silent> <Leader>b :Buffers<CR>
 nnoremap <silent> <Leader>; :Rg!<Space>
