@@ -62,11 +62,13 @@ Plug 'janko-m/vim-test', { 'for': 'ruby' }
 Plug 'airblade/vim-rooter', { 'for': 'ruby' }
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'christoomey/vim-tmux-navigator'
 call plug#end()
 
 let mapleader = "\<Space>"
 
 let test#strategy = "dispatch"
+let test#javasctipt#runner = "jest"
 nnoremap <silent> <Leader>tf :TestFile<CR>
 nnoremap <silent> <Leader>tn :TestNearest<CR>
 nnoremap <silent> <Leader>ts :TestSuite<CR>
@@ -377,3 +379,8 @@ nnoremap <silent> <leader>gd :Gdiff<CR>
 xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
+
+
+" rails
+nnoremap <silent> <Leader>e :A<CR>
+nnoremap <silent> <Leader>r :R<CR>
