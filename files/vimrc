@@ -63,6 +63,7 @@ Plug 'airblade/vim-rooter', { 'for': 'ruby' }
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'jszakmeister/vim-togglecursor'
 call plug#end()
 
 let mapleader = "\<Space>"
@@ -323,7 +324,7 @@ let g:fzf_tags_command = 'ctags -R'
 let g:rooter_patterns = ['Makefile','Rakefile', 'mix.exs', '.git/']
 
 nnoremap <silent> <Leader>b :Buffers<CR>
-nnoremap <silent> <Leader>; :Rg!<Space>
+nnoremap <silent> <Leader>/ :Rg!<Space>
 nnoremap <silent> <Leader>T :BTags<CR>
 nnoremap <silent> <Leader>t :Tags<CR>
 nnoremap <silent> <Leader>h :History<CR>
@@ -331,9 +332,8 @@ nnoremap <silent> <Leader>o :GFiles<CR>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
 
-nnoremap <C-K> :call SearchWordWithAg()<CR>
-" vnoremap <silent> <C-K>  :call SearchVisualSelectionWithAg()<CR>
-vnoremap <leader>;  :call SearchVisualSelectionWithAg()<CR>
+nnoremap <leader>k :call SearchWordWithAg()<CR>
+vnoremap <leader>/  :call SearchVisualSelectionWithAg()<CR>
 
 imap <C-x><C-f> <plug>(fzf-complete-file-ag)
 imap <C-x><C-l> <plug>(fzf-complete-line)
