@@ -7,7 +7,7 @@
 
     - file:
         src: "{{ playbook_dir }}/files/kitty.conf"
-        dest: ~/.config/kitty/.kitty.conf
+        dest: ~/.config/kitty/kitty.conf
         state: link
 
     - name: Download kitty
