@@ -1,0 +1,21 @@
+---
+- hosts: all
+  vars:
+    ansible_python_interpreter: '/usr/bin/env python3'
+    config: ~/.bash_profile
+  tasks:
+
+    - file:
+        src: "{{ playbook_dir }}/files/tmux.conf"
+        dest: ~/.tmux.conf
+        state: link
+
+    - name: Download kitty
+      get_url:
+        url: https://sw.kovidgoyal.net/kitty/installer.sh
+        dest: /tmp/kitty-installer.sh
+        mode: 0755
+
+    - name: Install kitty
+      command: /tmp/kitty-installer.sh
+

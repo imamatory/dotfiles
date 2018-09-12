@@ -9,4 +9,7 @@ vim-configure:
 tmux-configure:
 	ansible-playbook tmux.yml -vv -i local
 
+kitty-configure:
+	ansible-playbook kitty.yml -vv -i local
+
 install: run-playbook
