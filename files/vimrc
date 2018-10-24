@@ -5,7 +5,7 @@ let $LANG = 'en'
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
 Plug 'sourcegraph/javascript-typescript-langserver', {'do': 'npm install && npm run build'}
 Plug 'roxma/nvim-completion-manager'
 Plug 'w0rp/ale'
@@ -277,12 +277,14 @@ let g:ale_linters = {
   \ 'javascript': ['eslint', 'flow'],
   \ 'css': ['stylelint'],
   \ 'scss': ['stylelint'],
+  \ 'slim': ['slimlint'],
   \}
 let g:ale_fixers = {
   \ 'reason': ['refmt'],
   \ 'javascript': ['eslint'],
   \ 'scss': ['stylelint'],
   \ 'ruby': ['rubocop'],
+  \ 'slim': ['trim_whitespace'],
   \}
 
 " LSP
@@ -292,14 +294,14 @@ set hidden
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_serverCommands = {
-    \ 'reason': ['ocaml-language-server', '--stdio'],
-    \ 'ocaml': ['ocaml-language-server', '--stdio'],
-    \ 'ruby': ['language_server-ruby'],
-    \ 'clojure': ['/usr/local/bin/clojure-lsp'],
-    \ 'javascript': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
-    \ 'javascript.jsx': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
-    \ }
+" let g:LanguageClient_serverCommands = {
+"     \ 'reason': ['ocaml-language-server', '--stdio'],
+"     \ 'ocaml': ['ocaml-language-server', '--stdio'],
+"     \ 'ruby': ['language_server-ruby'],
+"     \ 'clojure': ['/usr/local/bin/clojure-lsp'],
+"     \ 'javascript': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
+"     \ 'javascript.jsx': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
+"     \ }
 
 
 " Automatically start language servers.
