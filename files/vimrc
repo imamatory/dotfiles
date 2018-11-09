@@ -6,7 +6,6 @@ let $LANG = 'en'
 call plug#begin('~/.local/share/nvim/plugged')
 
 Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'sourcegraph/javascript-typescript-langserver', {'do': 'npm install && npm run build'}
 Plug 'roxma/nvim-completion-manager'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-sensible'
@@ -29,7 +28,10 @@ Plug 'tpope/vim-commentary'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'Chiel92/vim-autoformat'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+Plug 'mitermayer/vim-prettier', {
+      \ 'do': 'npm install',
+      \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
+" Plug 'mxw/vim-jsx', { 'for': 'javascript' }
 Plug 'chemzqm/vim-jsx-improve', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
@@ -64,6 +66,7 @@ Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jszakmeister/vim-togglecursor'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 let mapleader = "\<Space>"
@@ -273,12 +276,13 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ALE
 let g:ale_fix_on_save = 1
-let g:ale_linters = {
-  \ 'javascript': ['eslint', 'flow'],
-  \ 'css': ['stylelint'],
-  \ 'scss': ['stylelint'],
-  \ 'slim': ['slimlint'],
-  \}
+" let g:ale_linters = {
+"   \ 'javascript': ['eslint', 'flow'],
+"   \ 'css': ['stylelint'],
+"   \ 'scss': ['stylelint'],
+"   \ 'slim': ['slimlint'],
+"   \ 'pug': ['slimlint'],
+"   \}
 let g:ale_fixers = {
   \ 'reason': ['refmt'],
   \ 'javascript': ['eslint'],
@@ -294,14 +298,16 @@ set hidden
 let g:LanguageClient_autoStart = 1
 let g:LanguageClient_diagnosticsList = 'Location'
 let g:LanguageClient_diagnosticsEnable = 0
-" let g:LanguageClient_serverCommands = {
-"     \ 'reason': ['ocaml-language-server', '--stdio'],
-"     \ 'ocaml': ['ocaml-language-server', '--stdio'],
-"     \ 'ruby': ['language_server-ruby'],
-"     \ 'clojure': ['/usr/local/bin/clojure-lsp'],
-"     \ 'javascript': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
-"     \ 'javascript.jsx': ['node', expand('~/.local/share/nvim/plugged/javascript-typescript-langserver/lib/language-server-stdio.js')],
-"     \ }
+let g:LanguageClient_serverCommands = {
+    \ 'reason': ['ocaml-language-server', '--stdio'],
+    \ 'ocaml': ['ocaml-language-server', '--stdio'],
+    \ 'clojure': ['/usr/local/bin/clojure-lsp'],
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'javascript.jsx': ['javascript-typescript-stdio'],
+    \ 'java': ['/usr/local/bin/jdtls'],
+    \ 'ruby': ['solargraph', 'stdio'],
+    \ 'python': ['pyls'],
+    \ }
 
 
 " Automatically start language servers.
@@ -314,6 +320,7 @@ nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 " CtrlSF
 nmap <leader>gg <Plug>CtrlSFPrompt
 vmap <leader>gg <Plug>CtrlSFVwordPath
+let g:ctrlsf_auto_focus = { "at": "start" }
 
 " FZF
 " let g:fzf_nvim_statusline = 0 " disable statusline overwriting
