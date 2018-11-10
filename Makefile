@@ -3,7 +3,6 @@ run-playbook:
 
 vim-configure:
 	ansible-playbook vim.yml -vv -i local -e curdir=$(pwd) -K
-	$(brew --prefix)/opt/fzf/install
 	nvim +PlugInstall +q +q
 
 tmux-configure:
