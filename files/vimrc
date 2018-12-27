@@ -1,11 +1,12 @@
 set nocompatible
 
-let $PATH = $PATH . ':' . expand("~/.local/bin")
+let $PATH = $PATH . ':' . expand('~/.local/bin') . ':' . '/usr/local/bin/'
 let $LANG = 'en'
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 Plug 'roxma/nvim-completion-manager'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-sensible'
@@ -32,6 +33,7 @@ Plug 'mitermayer/vim-prettier', {
       \ 'do': 'npm install',
       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
 " Plug 'mxw/vim-jsx', { 'for': 'javascript' }
+" Plug 'stephenway/postcss.vim', { 'for': 'css' }
 Plug 'chemzqm/vim-jsx-improve', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
@@ -46,7 +48,7 @@ Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'editorconfig/editorconfig-vim'
-Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
+" Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'tpope/vim-abolish'
@@ -67,6 +69,7 @@ Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'airblade/vim-gitgutter'
+Plug 'vtm9/vim-pry'
 call plug#end()
 
 let mapleader = "\<Space>"
@@ -100,7 +103,8 @@ set wildmenu
 
 set autoindent
 
-set visualbell
+" set visualbell
+set completeopt=noinsert,menuone,noselect
 
 set nowrap
 set number
@@ -141,11 +145,13 @@ set incsearch
 " MAGIC LIVE SUBSTITUTE REPLACE SEARCH
 set inccommand=nosplit
 
-syntax on
-filetype plugin indent on
 set cmdheight=2
+set scrolloff=3
 set showcmd       " display incomplete commands
 set autowrite     " Automatically :write before running commands
+
+syntax on
+filetype plugin indent on
 
 " colorscheme nova
 " let g:airline_theme='nova'
@@ -276,46 +282,53 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ALE
 let g:ale_fix_on_save = 1
-" let g:ale_linters = {
-"   \ 'javascript': ['eslint', 'flow'],
-"   \ 'css': ['stylelint'],
-"   \ 'scss': ['stylelint'],
-"   \ 'slim': ['slimlint'],
-"   \ 'pug': ['slimlint'],
-"   \}
+" let g:airline#extensions#ale#enabled = 1
+let g:ale_elixir_elixir_ls_release = expand('~/.elixir.d/elixir-ls')
+  " \ 'javascript': ['eslint', 'flow'],
+let g:ale_linters = {
+  \ 'css': ['stylelint'],
+  \ 'scss': ['stylelint'],
+  \ 'slim': ['slimlint'],
+  \ 'pug': ['slimlint'],
+  \ 'ruby': ['rubocop', 'brakeman'],
+  \ 'python': ['flake8'],
+  \ 'markdown': [],
+  \ 'yaml': ['yamllint'],
+  \ 'elixir': ['elixir-ls', 'mix', 'credo'],
+  \}
+" \ 'python': ['flake8'],
 let g:ale_fixers = {
   \ 'reason': ['refmt'],
   \ 'javascript': ['eslint'],
   \ 'scss': ['stylelint'],
+  \ 'css': ['stylelint'],
   \ 'ruby': ['rubocop'],
+  \ 'python': ['autopep8'],
   \ 'slim': ['trim_whitespace'],
+  \ 'elixir': ['mix_format'],
   \}
+" \ 'python': ['black'],
 
 " LSP
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-let g:LanguageClient_autoStart = 1
-let g:LanguageClient_diagnosticsList = 'Location'
-let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_serverCommands = {
-    \ 'reason': ['ocaml-language-server', '--stdio'],
-    \ 'ocaml': ['ocaml-language-server', '--stdio'],
-    \ 'clojure': ['/usr/local/bin/clojure-lsp'],
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'javascript.jsx': ['javascript-typescript-stdio'],
-    \ 'java': ['/usr/local/bin/jdtls'],
-    \ 'ruby': ['solargraph', 'stdio'],
-    \ 'python': ['pyls'],
-    \ }
-
-
 " Automatically start language servers.
 let g:LanguageClient_autoStart = 1
+" let g:LanguageClient_diagnosticsList = 'Location'
+" let g:LanguageClient_diagnosticsEnable = 0
+let g:LanguageClient_serverCommands = {
+  \ 'java': ['/usr/local/bin/jdtls'],
+  \ 'ruby': ['solargraph', 'stdio'],
+  \ 'python': ['python', '-m', 'pyls'],
+  \ 'elixir': ['sh', expand('~/.elixir.d/elixir-ls/language_server.sh')],
+  \ 'javascript': ['javascript-typescript-stdio'],
+  \ 'javascript.jsx': ['javascript-typescript-stdio'],
+  \ }
 
 nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " CtrlSF
 nmap <leader>gg <Plug>CtrlSFPrompt
@@ -323,7 +336,7 @@ vmap <leader>gg <Plug>CtrlSFVwordPath
 let g:ctrlsf_auto_focus = { "at": "start" }
 
 " FZF
-" let g:fzf_nvim_statusline = 0 " disable statusline overwriting
+let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 "
 " " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
@@ -389,7 +402,82 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
+nmap <Leader>pr :call pry#insert()<CR>
 
 " rails
 nnoremap <silent> <Leader>e :A<CR>
 nnoremap <silent> <Leader>r :R<CR>
+
+" >> COC
+" Use tab for trigger completion with characters ahead and navigate.
+" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> for trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+
+" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" Coc only does snippet and additional edit on confirm.
+
+" Use `[c` and `]c` for navigate diagnostics
+nmap <silent> [c <Plug>(coc-diagnostic-prev)
+nmap <silent> ]c <Plug>(coc-diagnostic-next)
+
+" Remap keys for gotos
+" nmap <silent> gd <Plug>(coc-definition)
+" nmap <silent> gy <Plug>(coc-type-definition)
+" nmap <silent> gi <Plug>(coc-implementation)
+" nmap <silent> gr <Plug>(coc-references)
+
+" Use K for show documentation in preview window
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if &filetype == 'vim'
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight symbol under cursor on CursorHold
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Remap for rename current word
+nmap <leader>rn <Plug>(coc-rename)
+
+" Remap for format selected region
+" vmap <leader>f  <Plug>(coc-format-selected)
+" nmap <leader>f  <Plug>(coc-format-selected)
+
+" Setup formatexpr specified filetype(s).
+augroup mygroup
+  autocmd!
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+augroup end
+
+" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+vmap <leader>a  <Plug>(coc-codeaction-selected)
+nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap for do codeAction of current line
+nmap <leader>ac  <Plug>(coc-codeaction)
+
+" Use `:Format` for format current buffer
+" command! -nargs=0 Format :call CocAction('format')
+
+" Use `:Fold` for fold current buffer
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" <<
