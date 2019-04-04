@@ -1,42 +1,48 @@
-FROM alpine:3.9.2
+FROM ubuntu:18.10
 
-RUN echo http://dl-cdn.alpinelinux.org/alpine/edge/community >> /etc/apk/repositories
-RUN apk update && apk upgrade
+RUN apt-get update && apt-get upgrade -y
+RUN apt-get install -y locales && locale-gen en_US.UTF-8
 
-RUN apk add --no-cache build-base git curl wget bash cmake sudo jq
-RUN apk add --no-cache libxml2-dev libxslt-dev libgcrypt-dev
-RUN apk add --no-cache libffi openssl-dev libffi-dev cargo
+ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+ENV HOME=/home
+
+WORKDIR /home
+
+RUN apt-get install -y --no-install-recommends git curl wget make cmake sudo inotify-tools \
+    && apt-get install -y --no-install-recommends \
+       python3 python3-dev \
+       ruby ruby-dev \
+       elixir erlang erlang-inets erlang-ssl \
+       nodejs \
+       neovim \
+       docker tmux zsh \
+       jq \
+       cargo
 
 RUN cargo install exa
 
-RUN apk add --no-cache python3 py-pip python2-dev python3-dev
-RUN apk add --no-cache ruby ruby-dev ruby-bundler ruby-json ruby-irb ruby-rake ruby-bigdecimal
-RUN apk add --no-cache inotify-tools elixir erlang erlang-inets erlang-ssl
-RUN apk add --no-cache openjdk8-jre nodejs nodejs-npm
-RUN apk add --no-cache neovim
-RUN apk add --no-cache docker tmux zsh
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+RUN curl -sSL git.io/antibody | bash -s
 
-RUN npm config set unsafe-perm true
+ENV BAT_VERSION 0.10.0
+ENV BAT_URL https://github.com/sharkdp/bat/releases/download/v${BAT_VERSION}/bat_${BAT_VERSION}_amd64.deb
+RUN curl -sSL ${BAT_URL} -o bat.deb; dpkg -i bat.deb; \
+    rm -rf bat.deb;
 
 RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
-      && ~/.fzf/install --key-bindings --update-rc --completion \
-      && cp /root/.fzf/bin/fzf /usr/local/bin
+    && ~/.fzf/install --key-bindings --update-rc --completion \
+    && cp ~/.fzf/bin/fzf /usr/local/bin
 
-RUN curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
+RUN curl -sSLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-RUN curl -sL git.io/antibody | sh -s
-
-RUN apk add --no-cache
-
-COPY files/vimrc /root/.config/nvim/init.vim
-COPY files/tmux.conf /root/tmux.conf
-COPY files/zshrc /root/.zshrc
+COPY files/vimrc /home/.config/nvim/init.vim
+COPY files/tmux.conf /home/.tmux.conf
+COPY files/zshrc_common /home/.zshrc
 
 RUN nvim -i NONE -c PlugInstall -c quitall
 
-ENV PATH="/usr/local/bin:${PATH}"
+# ENV PATH="/usr/local/bin:${PATH}"
 ENV VERSION 31032019
 
 CMD ["zsh"]

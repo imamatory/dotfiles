@@ -1,18 +1,4 @@
-export LANG=en_US
-export LC_MESSAGES=C
-
-export ANDROID_HOME=$HOME/Library/Android/sdk
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-# export PATH=$PATH:/usr/local/opt/python/libexec/bin
-# export PATH=$PATH:/usr/local/lib/python3.7/site-packages
-export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/.asdf/shims:$PATH
-export PATH="/usr/local/opt/sqlite/bin:$PATH"
-export PATH="/usr/local/sbin:$PATH"
 export EDITOR="nvim"
-export TMPDIR=/private/var/folders/tmp
-source ~/.bash_profile
 
 source <(antibody init)
 
@@ -144,7 +130,6 @@ alias doc="docker-compose"
 alias emacs="/usr/local/bin/emacs"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
 # alias ls="exa"
-# alias python2="/usr/bin/python"
 alias pip="pip3"
 alias doc="docker-compose"
 alias cat="bat"
@@ -155,8 +140,3 @@ bindkey "\C- " autosuggest-accept
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fpath+=~/.zfunc
-
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
-kitty + complete setup zsh | source /dev/stdin
