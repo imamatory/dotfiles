@@ -3,7 +3,12 @@
 - hosts: localhost
 
   vars:
-    myzsh: "alias myzsh='docker run --net host -it --rm -v /tmp:/tmp:cached -v $HOME/myzsh/backups:/root/.vim/backups:cached -v $(pwd):/app -w /app imamatory/dotfiles'"
+    myzsh: "alias myzsh='docker run --net host -it --rm \
+            -v /tmp:/tmp \
+            -v ~/.ssh:/home/.ssh/ \
+            -v $HOME/myzsh/backups:/root/.vim/backups \
+            -v $(pwd):/app \
+            -w /app imamatory/dotfiles'"
 
   tasks:
 
