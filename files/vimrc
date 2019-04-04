@@ -5,71 +5,76 @@ let $LANG = 'en'
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Plug 'autozimu/LanguageClient-neovim', { 'branch': 'next', 'do': 'bash install.sh' }
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
-Plug 'roxma/nvim-completion-manager'
+" Plug 'roxma/nvim-completion-manager'
 Plug 'w0rp/ale'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-endwise'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'nanotech/jellybeans.vim'
-" Plug 'trevordmiller/nova-vim'
-" Plug 'dracula/vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-misc'
-" Plug 'xolox/vim-easytags'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
+Plug 'tpope/vim-abolish'
+Plug 'tpope/vim-fugitive'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'Chiel92/vim-autoformat'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'mitermayer/vim-prettier', {
       \ 'do': 'npm install',
       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
-" Plug 'mxw/vim-jsx', { 'for': 'javascript' }
-" Plug 'stephenway/postcss.vim', { 'for': 'css' }
 Plug 'chemzqm/vim-jsx-improve', { 'for': 'javascript' }
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'tpope/vim-bundler', { 'for': 'ruby' }
 Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-" Plug 'sheerun/vim-polyglot'
-" Plug 'Valloric/MatchTagAlways'
+Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ap/vim-css-color'
 Plug 'slashmili/alchemist.vim'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
 Plug 'slim-template/vim-slim', { 'for': 'slim' }
-Plug 'ekalinin/Dockerfile.vim'
+Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'editorconfig/editorconfig-vim'
-" Plug 'eagletmt/ghcmod-vim', { 'for': 'haskell' }
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
 Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
-Plug 'tpope/vim-abolish'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'lxhillwind/leader-clipboard'
-Plug 'tpope/vim-fugitive'
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
-Plug 'junegunn/gv.vim'
+" Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
-" Plug 'flowtype/vim-flow', { 'autoload': { 'filetypes': 'javascript' } }
-Plug 'vtm9/vim-dispatch', { 'for': 'ruby' }
-Plug 'janko-m/vim-test', { 'for': 'ruby' }
+Plug 'vtm9/vim-dispatch'
+Plug 'janko-m/vim-test'
 Plug 'airblade/vim-rooter', { 'for': 'ruby' }
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jszakmeister/vim-togglecursor'
 Plug 'airblade/vim-gitgutter'
 Plug 'vtm9/vim-pry'
+Plug 'kana/vim-textobj-user'
+Plug 'whatyouhide/vim-textobj-xmlattr'
+Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
+Plug 'sheerun/vim-polyglot'
+
+" Clojure
+Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
+Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
+Plug 'tpope/vim-classpath', { 'for': 'clojure' }
+Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
+Plug 'venantius/vim-eastwood', { 'for': 'clojure' }
+Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
+Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
+Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure', 'scheme', 'racket'] }
+" Plug 'vim-scripts/paredit.vim', { 'for': ['clojure', 'scheme', 'racket'] }
+Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 call plug#end()
 
 let mapleader = "\<Space>"
@@ -85,15 +90,6 @@ nnoremap <silent> <Leader>tv :TestVisit<CR>
 let g:dispatch_quickfix_height = 90
 " :let g:session_autoload = 'yes'
 " :let g:session_autosave = 'yes'
-
-nmap <C-i> :NERDTreeFind<CR>
-nmap <silent> <leader><leader> :NERDTreeToggle<CR>
-
-let NERDTreeIgnore = ['\.pyc$']
-let g:nerdtree_tabs_open_on_console_startup = 1
-
-" let g:loaded_netrw       = 1
-let g:loaded_netrwPlugin = 1
 
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
@@ -188,9 +184,15 @@ augroup au_common
   " au BufWritePost *.re,*.rei :ReasonPrettyPrint
 
   " Automatically removing all trailing whitespace
-  au BufWritePre * :%s/\s\+$//e
+  " au BufWritePre * :%s/\s\+$//e
 
   au BufRead,BufNewFile {.babelrc,.eslintrc} set ft=json
+augroup END
+
+" Clojure
+augroup rainbow_lisp
+  autocmd!
+  autocmd FileType lisp,clojure,scheme RainbowParentheses
 augroup END
 
 vmap <C-_> gc
@@ -209,6 +211,8 @@ nmap <F8> :TagbarToggle<CR>
 
 vmap <Tab> >gv
 vmap <S-Tab> <gv
+nmap <Tab> >gv
+nmap <S-Tab> <gv
 
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -253,10 +257,6 @@ vnoremap <silent> # :<C-U>
   \escape(@", '?\.*$^~['), '\_s\+', '\\_s\\+', 'g')<CR><CR>
   \gV:call setreg('"', old_reg, old_regtype)<CR>
 
-" Move between linting errors
-nnoremap ]r :ALENextWrap<CR>
-nnoremap [r :ALEPreviousWrap<CR>
-
 " Edit .vimrc
 map <leader>vl :vsp $MYVIMRC<CR>
 
@@ -282,28 +282,35 @@ let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ALE
 let g:ale_fix_on_save = 1
-" let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 1
+let g:ale_completion_enabled = 1
+let g:ale_javascript_tsserver_use_global = 1
+let g:ale_javascript_eslint_use_global = 0
+let g:ale_linters_explicit = 1
+
 let g:ale_elixir_elixir_ls_release = expand('~/.elixir.d/elixir-ls')
-  " \ 'javascript': ['eslint', 'flow'],
 let g:ale_linters = {
   \ 'css': ['stylelint'],
   \ 'scss': ['stylelint'],
   \ 'slim': ['slimlint'],
-  \ 'pug': ['slimlint'],
   \ 'ruby': ['rubocop', 'brakeman'],
-  \ 'python': ['flake8'],
+  \ 'python': ['flake8', 'autopep8'],
   \ 'markdown': [],
   \ 'yaml': ['yamllint'],
-  \ 'elixir': ['elixir-ls', 'mix', 'credo'],
+  \ 'elixir': ['mix_format'],
+  \ 'clojure': ['jocker'],
+  \ 'pug': ['puglint'],
+  \ 'javascript': ['eslint'],
   \}
 " \ 'python': ['flake8'],
 let g:ale_fixers = {
+  \ '*': ['remove_trailing_lines', 'trim_whitespace'],
   \ 'reason': ['refmt'],
   \ 'javascript': ['eslint'],
+  \ 'json': ['jq'],
   \ 'scss': ['stylelint'],
   \ 'css': ['stylelint'],
   \ 'ruby': ['rubocop'],
-  \ 'python': ['autopep8'],
   \ 'slim': ['trim_whitespace'],
   \ 'elixir': ['mix_format'],
   \}
@@ -326,9 +333,9 @@ let g:LanguageClient_serverCommands = {
   \ 'javascript.jsx': ['javascript-typescript-stdio'],
   \ }
 
-nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
-nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
+" nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
+" nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
+" nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
 
 " CtrlSF
 nmap <leader>gg <Plug>CtrlSFPrompt
@@ -411,29 +418,29 @@ nnoremap <silent> <Leader>r :R<CR>
 " >> COC
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+"   let col = col('.') - 1
+"   return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
-" Use <c-space> for trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" " Use <c-space> for trigger completion.
+" inoremap <silent><expr> <c-space> coc#refresh()
 
-" Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
-" Coc only does snippet and additional edit on confirm.
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
+" " Coc only does snippet and additional edit on confirm.
+" inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
 " Use <cr> for confirm completion, `<C-g>u` means break undo chain at current position.
 " Coc only does snippet and additional edit on confirm.
 
 " Use `[c` and `]c` for navigate diagnostics
-nmap <silent> [c <Plug>(coc-diagnostic-prev)
-nmap <silent> ]c <Plug>(coc-diagnostic-next)
+" nmap <silent> [r <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]r <Plug>(coc-diagnostic-next)
 
 " Remap keys for gotos
 " nmap <silent> gd <Plug>(coc-definition)
@@ -442,42 +449,55 @@ nmap <silent> ]c <Plug>(coc-diagnostic-next)
 " nmap <silent> gr <Plug>(coc-references)
 
 " Use K for show documentation in preview window
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if &filetype == 'vim'
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" function! s:show_documentation()
+"   if &filetype == 'vim'
+"     execute 'h '.expand('<cword>')
+"   else
+"     call CocAction('doHover')
+"   endif
+" endfunction
 
-" Highlight symbol under cursor on CursorHold
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" " Highlight symbol under cursor on CursorHold
+" " autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Remap for rename current word
-nmap <leader>rn <Plug>(coc-rename)
+" " Remap for rename current word
+" nmap <leader>rn <Plug>(coc-rename)
 
-" Remap for format selected region
-" vmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
+" " Remap for format selected region
+" " vmap <leader>f  <Plug>(coc-format-selected)
+" " nmap <leader>f  <Plug>(coc-format-selected)
 
-" Setup formatexpr specified filetype(s).
-augroup mygroup
-  autocmd!
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-augroup end
+" " Setup formatexpr specified filetype(s).
+" augroup mygroup
+"   autocmd!
+"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+" augroup end
 
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-vmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" " Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
+" vmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
 
-" Remap for do codeAction of current line
-nmap <leader>ac  <Plug>(coc-codeaction)
+" " Remap for do codeAction of current line
+" nmap <leader>ac  <Plug>(coc-codeaction)
 
-" Use `:Format` for format current buffer
-" command! -nargs=0 Format :call CocAction('format')
+" " Use `:Format` for format current buffer
+" " command! -nargs=0 Format :call CocAction('format')
 
-" Use `:Fold` for fold current buffer
-" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-" <<
+" " Use `:Fold` for fold current buffer
+" " command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" " <<
+
+nmap <C-i> :NERDTreeFind<CR>
+nmap <silent> <leader><leader> :NERDTreeToggle<CR>
+
+let NERDTreeIgnore = ['\.pyc$']
+let g:nerdtree_tabs_open_on_console_startup = 1
+
+" let g:loaded_netrw       = 1
+let g:loaded_netrwPlugin = 1
+
+" Move between linting errors
+nnoremap ]r :ALENextWrap<CR>
+nnoremap [r :ALEPreviousWrap<CR>

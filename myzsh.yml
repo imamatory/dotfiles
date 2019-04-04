@@ -1,0 +1,14 @@
+---
+
+- hosts: localhost
+
+  vars:
+    myzsh: "alias myzsh='docker run --net host -it --rm -v /tmp:/tmp:cached -v $HOME/myzsh/backups:/root/.vim/backups:cached -v $(pwd):/app -w /app imamatory/dotfiles'"
+
+  tasks:
+
+    - lineinfile:
+        dest: /host/home/.bashrc
+        line: "{{ myzsh }}"
+        regexp: "myzsh"
+        state: present

@@ -1,3 +1,5 @@
+ANSIBLE_PREFIX := docker run -e "HOST_USER=$(USER)" -v $(HOME):/host/home -v $(CURDIR):/dotfiles -w /dotfiles williamyeh/ansible:ubuntu18.04 ansible-playbook -i local -vv
+
 run-playbook:
 	ansible-playbook main.yml -i local -vvv -K
 
@@ -12,3 +14,15 @@ kitty-configure:
 	ansible-playbook kitty.yml -vv -i local
 
 install: run-playbook
+
+docker-build:
+	docker build . -t imamatory/dotfiles
+
+docker-push:
+	docker push imamatory/dotfiles
+
+docker-bash:
+	docker run -it imamatory/dotfiles
+
+myzsh-install:
+	$(ANSIBLE_PREFIX) myzsh.yml

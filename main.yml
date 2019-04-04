@@ -36,15 +36,13 @@
         - readline
         - wget
         - zsh
-        - zsh-completions
-        - zsh-autosuggestions
-        - zsh-syntax-highlighting
         - pkg-config
         - fzf
         - ripgrep
         - tig
         - bat
         - exa
+        - jq
 
     - homebrew:
         update_homebrew: yes
