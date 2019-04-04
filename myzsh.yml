@@ -6,6 +6,7 @@
     myzsh: "alias myzsh='docker run --net host -it --rm \
             -v /tmp:/tmp \
             -v ~/.ssh:/home/.ssh/ \
+            -v ~/.bash_history:/home/.bash_history \
             -v $HOME/myzsh/backups:/root/.vim/backups \
             -v $(pwd):/app \
             -w /app imamatory/dotfiles'"
