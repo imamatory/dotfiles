@@ -32,7 +32,7 @@ RUN apt-get install -y --no-install-recommends  \
       zsh \
       jq \
       xclip \
-      kitty-terminfo
+      kitty
 
 RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 RUN curl -sSL git.io/antibody | bash -s
