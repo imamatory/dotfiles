@@ -4,8 +4,9 @@
 
   vars:
     myzsh: "alias myzsh='docker run --net host -it --rm \
+            -e SSH_AUTH_SOCK=/ssh-agent
             -v /tmp:/tmp \
-            -v ~/.ssh:/home/.ssh/ \
+            -v $SSH_AUTH_SOCK:/ssh-agent \
             -v ~/.bash_history:/home/.bash_history \
             -v $HOME/myzsh/backups:/root/.vim/backups \
             -v $(pwd):/app \

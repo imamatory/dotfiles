@@ -1,22 +1,26 @@
 FROM ubuntu:18.10
 
-RUN apt-get update && apt-get upgrade -y
-RUN apt-get install -y locales && locale-gen en_US.UTF-8
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y locales && locale-gen en_US.UTF-8
 
 ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 ENV HOME=/home
 
 WORKDIR /home
 
-RUN apt-get install -y --no-install-recommends git curl wget make cmake sudo inotify-tools \
-    && apt-get install -y --no-install-recommends \
-       python3 python3-dev \
+RUN curl -fsSL get.docker.com | sh
+
+RUN apt-get install -y --no-install-recommends git curl wget make cmake sudo inotify-tools openssh-client \
+       # python3 python3-dev \
        ruby ruby-dev \
-       elixir erlang erlang-inets erlang-ssl \
+       # elixir erlang erlang-inets erlang-ssl \
        nodejs \
        neovim \
-       docker tmux zsh \
+       docker-compose \
+       tmux zsh \
        jq \
+       xclip \
        cargo
 
 RUN cargo install exa

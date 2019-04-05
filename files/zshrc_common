@@ -16,21 +16,19 @@ set -o vi
 
 # Plugins
 antibody bundle robbyrussell/oh-my-zsh
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/git
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/ruby
-# antibody bundle robbyrussell/oh-my-zsh folder:plugins/rbenv
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/tmux
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/vi-mode
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/docker
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/docker-compose
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/felixr/docker-zsh-completion.git
+antibody bundle robbyrussell/oh-my-zsh path:plugins/asdf
+antibody bundle robbyrussell/oh-my-zsh path:plugins/git
+antibody bundle robbyrussell/oh-my-zsh path:plugins/mix
+antibody bundle robbyrussell/oh-my-zsh path:plugins/bundler
+antibody bundle robbyrussell/oh-my-zsh path:plugins/tmux
+antibody bundle robbyrussell/oh-my-zsh path:plugins/vi-mode
+antibody bundle robbyrussell/oh-my-zsh path:plugins/docker
+antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
 
 antibody bundle zsh-users/zsh-completions.git
 antibody bundle zsh-users/zsh-autosuggestions.git
 antibody bundle zsh-users/zsh-syntax-highlighting.git
-
-# HACK!
-# source ~/.oh-my-zsh/plugins/git/git.plugin.zsh
+antibody bundle felixr/docker-zsh-completion.git
 
 DISABLE_AUTO_UPDATE=true
 HIST_IGNORE_ALL_DUPS=true
