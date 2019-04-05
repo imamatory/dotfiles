@@ -1,4 +1,4 @@
-ANSIBLE_PREFIX := docker run -e --rm "HOST_USER=$(USER)" -v $(HOME):/host/home -v $(CURDIR):/dotfiles -w /dotfiles williamyeh/ansible:ubuntu18.04 ansible-playbook -i local -vv
+ANSIBLE_PREFIX := docker run --rm -e "HOST_USER=$(USER)" -v $(HOME):/host/home -v $(CURDIR):/dotfiles -w /dotfiles williamyeh/ansible:ubuntu18.04 ansible-playbook -i local -vv
 
 run-playbook:
 	ansible-playbook main.yml -i local -vvv -K
