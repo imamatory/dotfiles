@@ -132,6 +132,10 @@ alias pip="pip3"
 alias doc="docker-compose"
 alias cat="bat"
 
+if [ $TERM = "xterm-kitty" ]; then
+    alias ssh="kitty +kitten ssh"
+fi
+
 
 bindkey '^[^ ' autosuggest-execute
 bindkey "\C- " autosuggest-accept

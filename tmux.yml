@@ -10,4 +10,4 @@
         dest: ~/.tmux.conf
         state: link
 
-    - homebrew: name=tmux state=latest
+    - apt: name=tmux state=latest

@@ -16,7 +16,9 @@ kitty-configure:
 install: run-playbook
 
 docker-build:
-	docker build . -t imamatory/dotfiles
+	docker build . -t imamatory/dotfiles \
+	  --build-arg GIT_USER="Vadim Safonov" \
+	  --build-arg GIT_EMAIL="imamatory@gmail.com"
 
 docker-push:
 	docker push imamatory/dotfiles
