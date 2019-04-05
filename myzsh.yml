@@ -4,10 +4,11 @@
 
   vars:
     myzsh: "alias myzsh='docker run --net host -it --rm \
-            -e TERMINFO=$TERMINFO
+            -e TERMINFO=/terminfo
             -e SSH_AUTH_SOCK=/ssh-agent
             -v /tmp:/tmp \
             -v $SSH_AUTH_SOCK:/ssh-agent \
+            -v $TERMINFO:/terminfo \
             -v ~/.bash_history:/home/.bash_history \
             -v $HOME/myzsh/backups:/root/.vim/backups \
             -v $(pwd):/app \
