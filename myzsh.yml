@@ -4,6 +4,7 @@
 
   vars:
     myzsh: "alias myzsh='docker run --net host -it --rm \
+            -e TERMINFO=$TERMINFO
             -e SSH_AUTH_SOCK=/ssh-agent
             -v /tmp:/tmp \
             -v $SSH_AUTH_SOCK:/ssh-agent \
