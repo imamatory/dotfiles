@@ -4,17 +4,21 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y locales && locale-gen en_US.UTF-8
 
-ENV LANG=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
+ENV LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 ENV HOME=/home
 
 WORKDIR /home
 
+RUN apt-get update \
+    && apt-get upgrade -y \
+    && apt-get install -y locales && locale-gen en_US.UTF-8
+
 RUN curl -fsSL get.docker.com | sh
 
 RUN apt-get install -y --no-install-recommends git curl wget make cmake sudo inotify-tools openssh-client \
-       # python3 python3-dev \
+       ripgrep \
+       tig \
        ruby ruby-dev \
-       # elixir erlang erlang-inets erlang-ssl \
        nodejs \
        neovim \
        docker-compose \
