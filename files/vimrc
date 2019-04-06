@@ -17,7 +17,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-misc'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
@@ -70,10 +70,10 @@ Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
 Plug 'tpope/vim-classpath', { 'for': 'clojure' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'venantius/vim-eastwood', { 'for': 'clojure' }
-Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
+" Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure', 'scheme', 'racket'] }
-" Plug 'vim-scripts/paredit.vim', { 'for': ['clojure', 'scheme', 'racket'] }
+Plug 'vim-scripts/paredit.vim', { 'for': ['clojure', 'scheme', 'racket'] }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 call plug#end()
 
@@ -184,16 +184,16 @@ augroup au_common
   " au BufWritePost *.re,*.rei :ReasonPrettyPrint
 
   " Automatically removing all trailing whitespace
-  " au BufWritePre * :%s/\s\+$//e
+  au BufWritePre * :%s/\s\+$//e
 
   au BufRead,BufNewFile {.babelrc,.eslintrc} set ft=json
 augroup END
 
 " Clojure
-augroup rainbow_lisp
-  autocmd!
-  autocmd FileType lisp,clojure,scheme RainbowParentheses
-augroup END
+" augroup rainbow_lisp
+"   autocmd!
+"   autocmd FileType lisp,clojure,scheme RainbowParentheses
+" augroup END
 
 vmap <C-_> gc
 nmap <C-_> gcc
@@ -281,7 +281,7 @@ map <leader>vl :vsp $MYVIMRC<CR>
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ALE
-let g:ale_fix_on_save = 1
+" let g:ale_fix_on_save = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 let g:ale_javascript_tsserver_use_global = 1
@@ -303,8 +303,8 @@ let g:ale_linters = {
   \ 'javascript': ['eslint'],
   \}
 " \ 'python': ['flake8'],
+" \ '*': ['remove_trailing_lines'],
 let g:ale_fixers = {
-  \ '*': ['remove_trailing_lines', 'trim_whitespace'],
   \ 'reason': ['refmt'],
   \ 'javascript': ['eslint'],
   \ 'json': ['jq'],
@@ -488,6 +488,8 @@ nnoremap <silent> <Leader>r :R<CR>
 " " Use `:Fold` for fold current buffer
 " " command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 " " <<
+
+map \e :%Eval<cr>
 
 nmap <C-i> :NERDTreeFind<CR>
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>
