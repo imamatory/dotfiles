@@ -1,0 +1,22 @@
+export LANG=en_US
+export LC_MESSAGES=C
+
+export ANDROID_HOME=$HOME/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+# export PATH=$PATH:/usr/local/opt/python/libexec/bin
+# export PATH=$PATH:/usr/local/lib/python3.7/site-packages
+export PATH=/usr/local/bin:$PATH
+export PATH=$HOME/.asdf/shims:$PATH
+export PATH="/usr/local/opt/sqlite/bin:$PATH"
+export PATH="/usr/local/sbin:$PATH"
+export EDITOR="nvim"
+export TMPDIR=/private/var/folders/tmp
+source ~/.bash_profile
+
+source ~/.zshrc_common
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+kitty + complete setup zsh | source /dev/stdin

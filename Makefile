@@ -7,6 +7,9 @@ vim-configure:
 	ansible-playbook vim.yml -vv -i local -e curdir=$(pwd) -K
 	nvim +PlugInstall +q +q
 
+zsh-configure:
+	ansible-playbook zsh.yml -vv -i local -e curdir=$(pwd) -K
+
 tmux-configure:
 	ansible-playbook tmux.yml -vv -i local
 
