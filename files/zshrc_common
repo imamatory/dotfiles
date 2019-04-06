@@ -16,15 +16,14 @@ set -o vi
 
 # Plugins
 antibody bundle robbyrussell/oh-my-zsh
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/git
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/lein
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/brew
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/ruby
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/tmux
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/vi-mode
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/docker
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/docker-compose
-antibody bundle robbyrussell/oh-my-zsh folder:plugins/felixr/docker-zsh-completion.git
+antibody bundle robbyrussell/oh-my-zsh path:plugins/git
+antibody bundle robbyrussell/oh-my-zsh path:plugins/lein
+antibody bundle robbyrussell/oh-my-zsh path:plugins/brew
+antibody bundle robbyrussell/oh-my-zsh path:plugins/ruby
+antibody bundle robbyrussell/oh-my-zsh path:plugins/tmux
+antibody bundle robbyrussell/oh-my-zsh path:plugins/vi-mode
+antibody bundle robbyrussell/oh-my-zsh path:plugins/docker
+antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
 
 antibody bundle zsh-users/zsh-completions.git
 antibody bundle zsh-users/zsh-autosuggestions.git
@@ -81,10 +80,10 @@ SAVEHIST=1000
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(
-  git
-  zsh-completions
-)
+# plugins=(
+#   git
+#   zsh-completions
+# )
 
 # source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
@@ -134,6 +133,9 @@ alias cat="bat"
 
 if [ $TERM = "xterm-kitty" ]; then
     alias ssh="kitty +kitten ssh"
+
+    # Completion for kitty
+    kitty + complete setup zsh | source /dev/stdin
 fi
 
 bindkey '^[^ ' autosuggest-execute
@@ -141,3 +143,4 @@ bindkey "\C- " autosuggest-accept
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fpath+=~/.zfunc
+fpath=(/usr/local/share/zsh-completions $fpath)
