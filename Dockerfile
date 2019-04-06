@@ -60,8 +60,9 @@ ARG GIT_EMAIL
 
 RUN git config --global user.name $GIT_USER
 RUN git config --global user.email $GIT_EMAIL
+RUN git config --global credential.helper cache
 
 # ENV PATH="/usr/local/bin:${PATH}"
-ENV VERSION 31032019
+ENV VERSION 07042019
 
 CMD ["zsh"]
