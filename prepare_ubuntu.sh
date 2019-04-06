@@ -17,5 +17,5 @@ export LC_CTYPE=en_US.UTF-8
 export LC_ALL=C
 export LANGUAGE=en_US:en
 
-\$TERMINFO=~/.local/kitty.app/share/terminfo/x/xterm-kitty bash -i
+export TERMINFO=~/.local/kitty.app/share/terminfo/x/xterm-kitty bash -i
 EOM
