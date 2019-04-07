@@ -15,26 +15,38 @@ RUN apt-get update \
     && apt-get upgrade -y \
     && apt-get install -y locales && locale-gen en_US.UTF-8 \
     && apt-get install -y --no-install-recommends \
-      git curl wget make cmake sudo inotify-tools openssl openssh-client cargo
+      git \
+      curl wget \
+      make cmake \
+      sudo \
+      inotify-tools \
+      openssl openssh-client \
+      cargo \
+      xz-utils \
+      libfontconfig \
+      python
 
 RUN curl -fsSL get.docker.com | sh
 
 RUN cargo install exa
 
-RUN apt-get install -y --no-install-recommends  \
-      ripgrep \
-      tig \
-      ruby ruby-dev \
-      nodejs \
-      neovim \
-      docker-compose \
-      tmux \
-      zsh \
-      jq \
-      xclip \
-      kitty
+RUN apt-get install -y --no-install-recommends ripgrep
+RUN apt-get install -y --no-install-recommends tig
+RUN apt-get install -y --no-install-recommends ruby ruby-dev
+RUN apt-get install -y --no-install-recommends nodejs
+RUN apt-get install -y --no-install-recommends neovim
+RUN apt-get install -y --no-install-recommends docker-compose
+RUN apt-get install -y --no-install-recommends tmux
+RUN apt-get install -y --no-install-recommends zsh
+RUN apt-get install -y --no-install-recommends jq
+RUN apt-get install -y --no-install-recommends xclip
+RUN apt-get install -y --no-install-recommends kitty-terminfo
 
-RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
+RUN curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin \
+    && mkdir -p ~/.local/bin/ \
+    && ln -s ~/.local/kitty.app/bin/kitty /usr/local/bin
+
 RUN curl -sSL git.io/antibody | bash -s
 
 ENV BAT_VERSION 0.10.0
@@ -48,6 +60,8 @@ RUN git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
 
 RUN curl -sSLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+
+RUN sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
 COPY files/vimrc /home/.config/nvim/init.vim
 COPY files/tmux.conf /home/.tmux.conf

@@ -66,14 +66,13 @@ Plug 'sheerun/vim-polyglot'
 
 " Clojure
 Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-Plug 'tpope/vim-leiningen', { 'for': 'clojure' }
 Plug 'tpope/vim-classpath', { 'for': 'clojure' }
 Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
 Plug 'venantius/vim-eastwood', { 'for': 'clojure' }
 " Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure', 'scheme', 'racket'] }
-Plug 'vim-scripts/paredit.vim', { 'for': ['clojure', 'scheme', 'racket'] }
+Plug 'guns/vim-sexp', { 'for': ['clojure', 'scheme', 'racket'] }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 call plug#end()
 
@@ -86,6 +85,8 @@ nnoremap <silent> <Leader>tn :TestNearest<CR>
 nnoremap <silent> <Leader>ts :TestSuite<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
 nnoremap <silent> <Leader>tv :TestVisit<CR>
+
+let g:paredit_mode=1
 
 let g:dispatch_quickfix_height = 90
 " :let g:session_autoload = 'yes'
@@ -190,10 +191,10 @@ augroup au_common
 augroup END
 
 " Clojure
-" augroup rainbow_lisp
-"   autocmd!
-"   autocmd FileType lisp,clojure,scheme RainbowParentheses
-" augroup END
+augroup rainbow_lisp
+  autocmd!
+  autocmd FileType lisp,clojure,scheme RainbowParentheses
+augroup END
 
 vmap <C-_> gc
 nmap <C-_> gcc
