@@ -1,20 +1,20 @@
-ANSIBLE_PREFIX := docker run --rm -e "HOST_USER=$(USER)" -v $(HOME):/host/home -v $(CURDIR):/dotfiles -w /dotfiles williamyeh/ansible:ubuntu18.04 ansible-playbook -i local -vv
+ANSIBLE_PREFIX := docker run --rm -e "HOST_USER=$(USER)" -v $(HOME):/host/home -v $(CURDIR):/dotfiles -w /dotfiles williamyeh/ansible:ubuntu18.04 ansible-playbook -i inventory -vv
 
 run-playbook:
-	ansible-playbook main.yml -i local -vvv -K
+	ansible-playbook main.yml -i inventory -vvv -K
 
 vim-configure:
-	ansible-playbook vim.yml -vv -i local -e curdir=$(pwd) -K
+	ansible-playbook vim.yml -vv -i inventory -e curdir=$(pwd) -K
 	nvim +PlugInstall +q +q
 
 zsh-configure:
-	ansible-playbook zsh.yml -vv -i local -e curdir=$(pwd) -K
+	ansible-playbook zsh.yml -vv -i inventory -e curdir=$(pwd) -K
 
 tmux-configure:
-	ansible-playbook tmux.yml -vv -i local
+	ansible-playbook tmux.yml -vv -i inventory
 
 kitty-configure:
-	ansible-playbook kitty.yml -vv -i local
+	ansible-playbook kitty.yml -vv -i inventory
 
 install: run-playbook
 
