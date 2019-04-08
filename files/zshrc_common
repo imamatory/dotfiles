@@ -4,6 +4,9 @@ export LANGUAGE=en_US:en
 export LC_ALL=en_US.UTF-8
 export EDITOR="nvim"
 
+[ -d ~/.bash_profile ] && source ~/.bash_profile
+[ -d ~/.bashrc ] && source ~/.bashrc
+
 source <(antibody init)
 
 ZSH_THEME="robbyrussell"

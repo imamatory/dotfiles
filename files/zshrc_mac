@@ -10,9 +10,7 @@ export PATH=/usr/local/bin:$PATH
 export PATH=$HOME/.asdf/shims:$PATH
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
-export EDITOR="nvim"
 export TMPDIR=/private/var/folders/tmp
-source ~/.bash_profile
 
 source ~/.zshrc_common
 
