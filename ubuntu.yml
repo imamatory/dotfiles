@@ -1,14 +1,12 @@
 ---
 - hosts: all
+
   vars:
     config: ~/.bashrc
     git_user: imamatory
     git_email: imamatory@gmail.com
-  tasks:
-    - locale_gen:
-        name: en_US.UTF-8
-        state: present
 
+  tasks:
     - name: Upgrade all packages to the latest version
       apt:
         name: "*"
