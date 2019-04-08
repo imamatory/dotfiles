@@ -13,6 +13,14 @@
         state: latest
         update_cache: yes
 
+    - name: Install locales
+      apt:
+        name: locales
+        state: installed
+        install_recommends: false
+
+    - shell: locale-gen en_US.UTF-8
+
     - name: Install base packages
       apt:
         name: "{{ item }}"
@@ -21,6 +29,7 @@
       with_items:
         - sudo
         - libfontconfig
+        - ca-certificates
         - git
         - curl
         - wget
@@ -101,7 +110,7 @@
       with_items:
         - { regexp: '^.*PATH.*cargo', line: 'export PATH=$PATH:~/.cargo/bin' }
 
-    - name: Install oh-my-zsh
+    - name: Setup git
       shell: |
         git config --global user.name {{ git_user }}
         git config --global user.email {{ git_email }}
