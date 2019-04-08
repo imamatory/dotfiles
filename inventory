@@ -1,2 +1,4 @@
-localhost connection=local
+[targets]
+
+localhost ansible_connection=local
 
