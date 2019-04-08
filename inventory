@@ -1,10 +1,2 @@
-[inventory]
-
-# avoid "did not meet _ requirements" warnings when using -v
-# see https://github.com/ansible/ansible/issues/48859
-enable_plugins = ini
-
-[targets]
-
 localhost ansible_connection=local
 
