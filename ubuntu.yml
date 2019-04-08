@@ -8,7 +8,10 @@
 
   tasks:
     - apt_repository:
-      repo: ppa:neovim-ppa/stable
+        repo: ppa:neovim-ppa/stable
+        state: present
+        update_cache: yes
+      become: yes
 
     - name: Upgrade all packages to the latest version
       become: yes
@@ -52,13 +55,20 @@
           - libfontconfig
           - python
 
-    # - name: Install docker
-    #   shell: 'curl -fsSL get.docker.com | sh'
-    #   args:
-    #     creates: /usr/bin/docker
+    - name: Install docker
+      shell: "curl -fsSL get.docker.com | sh"
+      args:
+        creates: /usr/bin/docker
+
+    - name: "Install docker-compose"
+      become: yes
+      get_url:
+        url: "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-{{ ansible_system }}-{{ ansible_architecture }}"
+        dest: "/usr/local/bin/docker-compose"
+        mode: 0755
 
     - name: Install exa
-      shell: 'cargo install --force exa'
+      shell: "cargo install --force exa"
       args:
         creates: ~/.cargo/bin/exa
 
@@ -73,7 +83,6 @@
           - ruby-dev
           - nodejs
           - neovim
-          - docker-compose
           - tmux
           - zsh
           - jq
@@ -87,7 +96,7 @@
       vars:
         version: 0.13.3-1
 
-    - name: Install repgrep
+    - name: Install ripgrep
       become: yes
       apt:
         deb: "https://github.com/BurntSushi/ripgrep/releases/download/{{ version }}/ripgrep_{{ version }}_amd64.deb"
