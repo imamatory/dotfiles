@@ -1,7 +1,6 @@
 ---
 - hosts: all
   vars:
-    ansible_python_interpreter: '/usr/bin/env python3'
     config: ~/.bashrc
     git_user: imamatory
     git_email: imamatory@gmail.com
