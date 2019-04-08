@@ -5,7 +5,7 @@
     - name: Zsh
       file:
         src: "{{ playbook_dir }}/files/zshrc_common"
-        dest: ~/.zshrc_common
+        dest: ~/.zshrc
         state: link
 
     - name: Neovim
