@@ -31,3 +31,6 @@ docker-bash:
 
 myzsh-install:
 	$(ANSIBLE_PREFIX) myzsh.yml
+
+ubuntu-install:
+	$(ANSIBLE_PREFIX) -K ubuntu.yml

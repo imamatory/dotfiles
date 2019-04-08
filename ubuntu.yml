@@ -1,0 +1,105 @@
+---
+- hosts: all
+  vars:
+    ansible_python_interpreter: '/usr/bin/env python3'
+    config: ~/.bashrc
+    git_user: imamatory
+    git_email: imamatory@gmail.com
+  tasks:
+    - locale_gen:
+        name: en_US.UTF-8
+        state: present
+
+    - name: Upgrade all packages to the latest version
+        apt:
+          name: "*"
+          state: latest
+          update_cache: yes
+
+    - name: Install base packages
+        apt:
+          name: "{{ item }}"
+          state: installed
+          install_recommends: false
+        with_items:
+          - sudo
+          - libfontconfig
+          - git
+          - curl
+          - wget
+          - make
+          - cmake
+          - sudo
+          - inotify-tools
+          - openssl
+          - openssh-client
+          - cargo
+          - xz-utils
+          - libfontconfig
+          - python
+
+#     - name: Install docker
+#       shell: 'curl -fsSL get.docker.com | sh'
+#       creates: /usr/bin/docker
+
+    - name: Install exa
+      shell: 'cargo install exa'
+      creates: ~/.cargo/bin/exa
+
+    - name: Install dev packages
+        apt:
+          name: "{{ item }}"
+          state: installed
+          install_recommends: false
+        with_items:
+          - antigen
+          - ripgrep
+          - tig
+          - ruby
+          - ruby-dev
+          - nodejs
+          - neovim
+          - docker-compose
+          - tmux
+          - zsh
+          - jq
+          - xclip
+          - kitty-terminfo
+
+    - name: Install antibody
+      shell: 'curl -sSL git.io/antibody | bash -s'
+      creates: /usr/local/bin/antibody
+
+    - name: Install bat
+      shell: 'curl -sSL ${BAT_URL} -o bat.deb; dpkg -i bat.deb; rm -rf bat.deb;'
+      creates: /usr/bin/bat
+      vars:
+        bat_version: 0.10.0
+      environment:
+        BAT_URL: https://github.com/sharkdp/bat/releases/download/v{{ bat_version }}/bat_{{ bat_version }}_amd64.deb
+
+    - name: Install fzf
+      shell: |
+        git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
+        && ~/.fzf/install --key-bindings --update-rc --completion \
+        && cp ~/.fzf/bin/fzf /usr/local/bin
+      creates: /usr/local/bin/fzf
+
+    - name: Install oh-my-zsh
+      shell: |
+        sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+      creates: ~/.oh-my-zsh/
+
+    - name: Set env vars
+        lineinfile:
+            dest: "{{ config }}"
+            regexp: "{{ item.regexp }}"
+            line: "{{ item.line }}"
+          with_items:
+            - { regexp: '^.*PATH.*cargo', line: 'export PATH=$PATH:~/.cargo/bin' }
+
+    - name: Install oh-my-zsh
+      shell: |
+        git config --global user.name {{ git_user }}
+        git config --global user.email {{ git_email }}
+        git config --global credential.helper cache
