@@ -92,11 +92,11 @@
 
     - name: Set env vars
       lineinfile:
-          dest: "{{ config }}"
-          regexp: "{{ item.regexp }}"
-          line: "{{ item.line }}"
-        with_items:
-          - { regexp: '^.*PATH.*cargo', line: 'export PATH=$PATH:~/.cargo/bin' }
+        dest: "{{ config }}"
+        regexp: "{{ item.regexp }}"
+        line: "{{ item.line }}"
+      with_items:
+        - { regexp: '^.*PATH.*cargo', line: 'export PATH=$PATH:~/.cargo/bin' }
 
     - name: Install oh-my-zsh
       shell: |
