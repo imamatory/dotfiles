@@ -8,6 +8,9 @@
     term: xterm-kitty
 
   tasks:
+    - apt_repository:
+      repo: ppa:neovim-ppa/stable
+
     - name: Upgrade all packages to the latest version
       become: yes
       apt:
@@ -76,6 +79,7 @@
           - zsh
           - jq
           - xclip
+          - neovim
 
     - name: Install kitty-terminfo
       become: yes

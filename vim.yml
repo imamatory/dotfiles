@@ -13,11 +13,10 @@
         dest: ~/.config/nvim/init.vim
         state: link
 
-    - homebrew: name=neovim state=latest
-
-    - file: path=~/.local/share/nvim/site/autoload state=directory recurse=Yes
-      with_items:
-        - autoload
+    - file:
+        path: ~/.local/share/nvim/site/autoload
+        state: directory
+        recurse: Yes
 
     - get_url:
         force: yes
