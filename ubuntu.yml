@@ -38,13 +38,15 @@
         - libfontconfig
         - python
 
-#     - name: Install docker
-#       shell: 'curl -fsSL get.docker.com | sh'
-#       creates: /usr/bin/docker
+    # - name: Install docker
+    #   shell: 'curl -fsSL get.docker.com | sh'
+    #   args:
+    #     creates: /usr/bin/docker
 
     - name: Install exa
       shell: 'cargo install exa'
-      creates: ~/.cargo/bin/exa
+      args:
+        creates: ~/.cargo/bin/exa
 
     - name: Install dev packages
       apt:
@@ -68,11 +70,13 @@
 
     - name: Install antibody
       shell: 'curl -sSL git.io/antibody | bash -s'
-      creates: /usr/local/bin/antibody
+      args:
+        creates: /usr/local/bin/antibody
 
     - name: Install bat
       shell: 'curl -sSL ${BAT_URL} -o bat.deb; dpkg -i bat.deb; rm -rf bat.deb;'
-      creates: /usr/bin/bat
+      args:
+        creates: /usr/bin/bat
       vars:
         bat_version: 0.10.0
       environment:
@@ -83,12 +87,14 @@
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
         && ~/.fzf/install --key-bindings --update-rc --completion \
         && cp ~/.fzf/bin/fzf /usr/local/bin
-      creates: /usr/local/bin/fzf
+      args:
+        creates: /usr/local/bin/fzf
 
     - name: Install oh-my-zsh
       shell: |
         sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-      creates: ~/.oh-my-zsh/
+      args:
+        creates: ~/.oh-my-zsh/
 
     - name: Set env vars
       lineinfile:
