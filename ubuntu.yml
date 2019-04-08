@@ -5,44 +5,50 @@
     config: ~/.bashrc
     git_user: imamatory
     git_email: imamatory@gmail.com
+    term: xterm-kitty
 
   tasks:
     - name: Upgrade all packages to the latest version
+      become: yes
       apt:
         name: "*"
         state: latest
         update_cache: yes
+        force_apt_get: True
 
     - name: Install locales
+      become: yes
       apt:
         name: locales
-        state: installed
+        state: latest
         install_recommends: false
 
-    - shell: locale-gen en_US.UTF-8
+    - name: Gen locale
+      become: yes
+      shell: locale-gen en_US.UTF-8
 
     - name: Install base packages
+      become: yes
       apt:
-        name: "{{ item }}"
-        state: installed
+        state: latest
         install_recommends: false
-      with_items:
-        - sudo
-        - libfontconfig
-        - ca-certificates
-        - git
-        - curl
-        - wget
-        - make
-        - cmake
-        - sudo
-        - inotify-tools
-        - openssl
-        - openssh-client
-        - cargo
-        - xz-utils
-        - libfontconfig
-        - python
+        name:
+          - sudo
+          - libfontconfig
+          - ca-certificates
+          - git
+          - curl
+          - wget
+          - make
+          - cmake
+          - sudo
+          - inotify-tools
+          - openssl
+          - openssh-client
+          - cargo
+          - xz-utils
+          - libfontconfig
+          - python
 
     # - name: Install docker
     #   shell: 'curl -fsSL get.docker.com | sh'
@@ -50,51 +56,64 @@
     #     creates: /usr/bin/docker
 
     - name: Install exa
-      shell: 'cargo install exa'
+      shell: 'cargo install --force exa'
       args:
         creates: ~/.cargo/bin/exa
 
     - name: Install dev packages
+      become: yes
       apt:
-        name: "{{ item }}"
-        state: installed
+        state: latest
         install_recommends: false
-      with_items:
-        - antigen
-        - ripgrep
-        - tig
-        - ruby
-        - ruby-dev
-        - nodejs
-        - neovim
-        - docker-compose
-        - tmux
-        - zsh
-        - jq
-        - xclip
-        - kitty-terminfo
+        name:
+          - tig
+          - ruby
+          - ruby-dev
+          - nodejs
+          - neovim
+          - docker-compose
+          - tmux
+          - zsh
+          - jq
+          - xclip
+
+    - name: Install kitty-terminfo
+      become: yes
+      apt:
+        deb: "http://ftp.de.debian.org/debian/pool/main/k/kitty/kitty-terminfo_{{ version }}_all.deb"
+      vars:
+        version: 0.13.3-1
+
+    - name: Install repgrep
+      become: yes
+      apt:
+        deb: "https://github.com/BurntSushi/ripgrep/releases/download/{{ version }}/ripgrep_{{ version }}_amd64.deb"
+      vars:
+        version: 0.10.0
+
+    - name: Install bat
+      become: yes
+      apt:
+        deb: "https://github.com/sharkdp/bat/releases/download/v{{ version }}/bat_{{ version }}_amd64.deb"
+      vars:
+        version: 0.10.0
 
     - name: Install antibody
+      become: yes
       shell: 'curl -sSL git.io/antibody | bash -s'
       args:
         creates: /usr/local/bin/antibody
 
-    - name: Install bat
-      shell: 'curl -sSL ${BAT_URL} -o bat.deb; dpkg -i bat.deb; rm -rf bat.deb;'
-      args:
-        creates: /usr/bin/bat
-      vars:
-        bat_version: 0.10.0
-      environment:
-        BAT_URL: https://github.com/sharkdp/bat/releases/download/v{{ bat_version }}/bat_{{ bat_version }}_amd64.deb
-
     - name: Install fzf
+      become: yes
       shell: |
         git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf \
         && ~/.fzf/install --key-bindings --update-rc --completion \
         && cp ~/.fzf/bin/fzf /usr/local/bin
       args:
         creates: /usr/local/bin/fzf
+      environment:
+        TERM: "{{ term }}"
 
     - name: Install oh-my-zsh
       shell: |
@@ -108,10 +127,14 @@
         regexp: "{{ item.regexp }}"
         line: "{{ item.line }}"
       with_items:
-        - { regexp: '^.*PATH.*cargo', line: 'export PATH=$PATH:~/.cargo/bin' }
+        - { line: 'export PATH=$PATH:~/.cargo/bin' }
 
     - name: Setup git
       shell: |
         git config --global user.name {{ git_user }}
         git config --global user.email {{ git_email }}
         git config --global credential.helper cache
+
+    - name: Setup shell
+      become: yes
+      shell: "chsh $USER -s $(which zsh);"

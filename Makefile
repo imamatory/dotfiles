@@ -1,7 +1,25 @@
-ANSIBLE_PREFIX := docker run --rm -e "HOST_USER=$(USER)" -v $(HOME):/host/home -v $(CURDIR):/dotfiles -w /dotfiles williamyeh/ansible:ubuntu18.04 ansible-playbook -i inventory -vv
+ANSIBLE_PREFIX := docker run --rm \
+  -e HOST_USER=$(USER) \
+  -e SSH_AUTH_SOCK=/ssh-agent \
+  -v $(SSH_AUTH_SOCK):/ssh-agent \
+  -v $(HOME):/host/home \
+  -v $(CURDIR):/dotfiles \
+  -w /dotfiles \
+  williamyeh/ansible:ubuntu18.04 \
+  ansible-playbook -i inventory -vv
 
 run-playbook:
 	ansible-playbook main.yml -i inventory -vvv -K
+
+# ansible:
+# 	docker run --rm -it \
+# 	-e HOST_USER=$(USER) \
+# 	-e SSH_AUTH_SOCK=/ssh-agent \
+# 	-v $(SSH_AUTH_SOCK):/ssh-agent \
+# 	-v $(HOME):/host/home \
+# 	-v $(CURDIR):/dotfiles \
+# 	-w /dotfiles \
+# 	williamyeh/ansible:ubuntu18.04 bash
 
 vim-configure:
 	ansible-playbook vim.yml -vv -i inventory -e curdir=$(pwd) -K
@@ -32,5 +50,8 @@ docker-bash:
 myzsh-install:
 	$(ANSIBLE_PREFIX) myzsh.yml
 
+dotfiles:
+	ansible-playbook -i inventory -vv dotfiles.yml
+
 ubuntu-install:
-	$(ANSIBLE_PREFIX) ubuntu.yml
+	ansible-playbook -i inventory -vv ubuntu.yml

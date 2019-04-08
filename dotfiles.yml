@@ -1,0 +1,31 @@
+---
+- hosts: all
+  tasks:
+
+    - name: Zsh
+      file:
+        src: "{{ playbook_dir }}/files/zshrc_common"
+        dest: ~/.zshrc_common
+        state: link
+
+    - name: Neovim
+      file:
+        dest: ~/.config/nvim
+        state: directory
+
+    - file:
+        src: "{{ playbook_dir }}/files/vimrc"
+        dest: ~/.config/nvim/init.vim
+        state: link
+
+    - name: Tmux
+      file:
+        src: "{{ playbook_dir }}/files/tmux.conf"
+        dest: ~/.tmux.conf
+        state: link
+
+    - name: Kitty
+      file:
+        src: "{{ playbook_dir }}/files/kitty.conf"
+        dest: ~/.config/kitty/kitty.conf
+        state: link
