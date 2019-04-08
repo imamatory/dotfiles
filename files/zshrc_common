@@ -5,7 +5,7 @@ export LC_ALL=en_US.UTF-8
 export EDITOR="nvim"
 
 [ -f ~/.bash_profile ] && source ~/.bash_profile
-[ -f ~/.bashrc ] && source ~/.bashrc
+[ -f ~/.zsh_vars ] && source ~/.zsh_vars
 
 source <(antibody init)
 
@@ -151,3 +151,5 @@ bindkey "\C- " autosuggest-accept
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 fpath+=~/.zfunc
 fpath=(/usr/local/share/zsh-completions $fpath)
+
+export PATH=$PATH:~/.cargo/bin

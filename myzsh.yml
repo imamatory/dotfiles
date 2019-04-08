@@ -17,7 +17,7 @@
   tasks:
 
     - lineinfile:
-        dest: /host/home/.bashrc
+        dest: /host/home/.zshrc
         line: "{{ myzsh }}"
         regexp: "myzsh"
         state: present
