@@ -11,10 +11,10 @@
         state: present
 
     - name: Upgrade all packages to the latest version
-        apt:
-          name: "*"
-          state: latest
-          update_cache: yes
+      apt:
+        name: "*"
+        state: latest
+        update_cache: yes
 
     - name: Install base packages
       apt:
