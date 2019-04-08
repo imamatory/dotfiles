@@ -6,26 +6,31 @@
       file:
         src: "{{ playbook_dir }}/files/zshrc_common"
         dest: ~/.zshrc
+        force: yes
         state: link
 
     - name: Neovim
       file:
         dest: ~/.config/nvim
+        force: yes
         state: directory
 
     - file:
         src: "{{ playbook_dir }}/files/vimrc"
         dest: ~/.config/nvim/init.vim
+        force: yes
         state: link
 
     - name: Tmux
       file:
         src: "{{ playbook_dir }}/files/tmux.conf"
         dest: ~/.tmux.conf
+        force: yes
         state: link
 
     - name: Kitty
       file:
         src: "{{ playbook_dir }}/files/kitty.conf"
         dest: ~/.config/kitty/kitty.conf
+        force: yes
         state: link
