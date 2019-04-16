@@ -69,7 +69,7 @@ Plug 'guns/vim-clojure-static' ", { 'for': 'clojure' }
 " Plug 'tpope/vim-classpath', { 'for': 'clojure' }
 Plug 'tpope/vim-fireplace' ", { 'for': 'clojure' }
 Plug 'venantius/vim-eastwood' ", { 'for': 'clojure' }
-Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
+Plug 'venantius/vim-cljfmt' ", { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
 Plug 'fbeline/kibit-vim', { 'for': 'clojure' }
 Plug 'junegunn/rainbow_parentheses.vim'
