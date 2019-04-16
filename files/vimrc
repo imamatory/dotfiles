@@ -17,7 +17,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-misc'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
@@ -65,13 +65,14 @@ Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'sheerun/vim-polyglot'
 
 " Clojure
-Plug 'guns/vim-clojure-static', { 'for': 'clojure' }
-Plug 'tpope/vim-classpath', { 'for': 'clojure' }
-Plug 'tpope/vim-fireplace', { 'for': 'clojure' }
-Plug 'venantius/vim-eastwood', { 'for': 'clojure' }
-" Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
+Plug 'guns/vim-clojure-static' ", { 'for': 'clojure' }
+" Plug 'tpope/vim-classpath', { 'for': 'clojure' }
+Plug 'tpope/vim-fireplace' ", { 'for': 'clojure' }
+Plug 'venantius/vim-eastwood' ", { 'for': 'clojure' }
+Plug 'venantius/vim-cljfmt', { 'for': 'clojure' }
 Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
-Plug 'junegunn/rainbow_parentheses.vim', { 'for': ['clojure', 'scheme', 'racket'] }
+Plug 'fbeline/kibit-vim', { 'for': 'clojure' }
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'guns/vim-sexp', { 'for': ['clojure', 'scheme', 'racket'] }
 Plug 'wlangstroth/vim-racket', { 'for': 'racket' }
 call plug#end()
@@ -88,7 +89,7 @@ nnoremap <silent> <Leader>tv :TestVisit<CR>
 
 let g:paredit_mode=1
 
-let g:dispatch_quickfix_height = 90
+" let g:dispatch_quickfix_height = 90
 " :let g:session_autoload = 'yes'
 " :let g:session_autosave = 'yes'
 
@@ -282,7 +283,7 @@ map <leader>vl :vsp $MYVIMRC<CR>
 let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ALE
-" let g:ale_fix_on_save = 1
+let g:ale_fix_on_save = 1
 let g:airline#extensions#ale#enabled = 1
 let g:ale_completion_enabled = 1
 let g:ale_javascript_tsserver_use_global = 1
@@ -491,6 +492,9 @@ nnoremap <silent> <Leader>r :R<CR>
 " " <<
 
 map \e :%Eval<cr>
+vmap \f :CljfmtRange<cr>
+
+let g:clj_fmt_autosave = 0
 
 nmap <C-i> :NERDTreeFind<CR>
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>

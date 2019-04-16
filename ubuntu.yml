@@ -82,6 +82,7 @@
           - ruby
           - ruby-dev
           - nodejs
+          - npm
           - neovim
           - tmux
           - zsh
