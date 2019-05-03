@@ -18,3 +18,5 @@ source ~/.zshrc_common
 . $HOME/.asdf/completions/asdf.bash
 
 kitty + complete setup zsh | source /dev/stdin
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

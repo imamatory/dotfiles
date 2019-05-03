@@ -21,9 +21,8 @@ run-playbook:
 # 	-w /dotfiles \
 # 	williamyeh/ansible:ubuntu18.04 bash
 
-vim-configure:
-	ansible-playbook vim.yml -vv -i inventory -e curdir=$(pwd) -K
-	nvim +PlugInstall +q +q
+editors:
+	ansible-playbook editors.yml -vv -i inventory -e curdir=$(pwd) -K
 
 zsh-configure:
 	ansible-playbook zsh.yml -vv -i inventory -e curdir=$(pwd) -K

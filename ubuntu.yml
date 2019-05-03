@@ -134,6 +134,11 @@
       args:
         creates: ~/.oh-my-zsh/
 
+    - name: Install spacemacs
+      git:
+        repo: "https://github.com/syl20bnr/spacemacs"
+        dest: ~/.emacs.d
+
     - name: Setup git
       shell: |
         git config --global user.name {{ git_user }}

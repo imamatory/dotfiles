@@ -10,7 +10,7 @@
 
 ### Setup
 
-Install vim 
+Install editors
 ```sh
-make configure-vim
+make editors
 ```

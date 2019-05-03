@@ -34,3 +34,10 @@
         dest: ~/.config/kitty/kitty.conf
         force: yes
         state: link
+
+    - name: Spacemacs
+      file:
+        src: "{{ playbook_dir }}/files/spacemacs"
+        dest: ~/.spacemacs
+        force: yes
+        state: link
