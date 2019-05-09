@@ -134,7 +134,7 @@ alias doc="docker-compose"
 alias emacs="/usr/local/bin/emacs"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
 # alias ls="exa"
-alias pip="pip3"
+# alias pip="pip3"
 alias doc="docker-compose"
 alias cat="bat"
 

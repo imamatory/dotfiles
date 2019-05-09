@@ -1,59 +1,34 @@
 ---
 - hosts: all
-  vars:
-    ansible_python_interpreter: '/usr/bin/env python3'
-    config: ~/.bash_profile
   tasks:
-    - name: Update homebrew
-      command: "brew update"
+    - homebrew_tap:
+        name: d12frosted/emacs-plus
 
     - homebrew_cask:
-        name: "{{ item }}"
-      with_items:
-        - java
-        - postgres
-        - virtualbox
-        - vagrant
-        - vagrant-manager
-        - ngrok
-        - keka
-        - iterm2
-        - smartgit
-        - antigen
+        name:
+          - java
+          - postgres
+          - ngrok
 
     - homebrew:
-        name: "{{ item }}"
-      with_items:
-        - node
-        - heroku
-        - python
-        - python3
-        - ruby
-        - elixir
-        - docker
-        - docker-compose
-        - ctags
-        - readline
-        - wget
-        - zsh
-        - zsh-completions
-        - pkg-config
-        - fzf
-        - ripgrep
-        - tig
-        - bat
-        - exa
-        - jq
-
-    - homebrew:
-        update_homebrew: yes
-        upgrade_all: yes
+        name:
+          - node
+          - readline
+          - wget
+          - zsh
+          - zsh-completions
+          - pkg-config
+          - fzf
+          - ripgrep
+          - tig
+          # - bat
+          # - exa
+          # - jq
+          - getantibody/tap/antibody
+          - emacs-plus
 
     - name: Clean homebrew
       command: "brew cleanup"
-
-    - name: Clean homebrew cask
-      command: "brew cask cleanup"
 
     - npm:
         name: "{{ item }}"
@@ -61,5 +36,4 @@
       with_items:
         - yarn
         - n
-        - react-native-cli
         - nodemon

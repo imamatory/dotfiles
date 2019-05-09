@@ -8,7 +8,7 @@ ANSIBLE_PREFIX := docker run --rm \
   williamyeh/ansible:ubuntu18.04 \
   ansible-playbook -i inventory -vv
 
-run-playbook:
+install:
 	ansible-playbook main.yml -i inventory -vvv -K
 
 # ansible:
@@ -32,8 +32,6 @@ tmux-configure:
 
 kitty-configure:
 	ansible-playbook kitty.yml -vv -i inventory
-
-install: run-playbook
 
 docker-build:
 	docker build . -t imamatory/dotfiles \
