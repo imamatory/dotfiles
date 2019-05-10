@@ -5,9 +5,14 @@
   tasks:
 
     - file:
+        dest: ~/.config/kitty/
+        state: directory
+
+    - file:
         src: "{{ playbook_dir }}/files/kitty.conf"
         dest: ~/.config/kitty/kitty.conf
         state: link
+        force: yes
 
     - name: Download kitty
       get_url:

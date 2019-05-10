@@ -50,5 +50,11 @@ myzsh-install:
 dotfiles:
 	ansible-playbook -i inventory -vv dotfiles.yml
 
-ubuntu-install:
-	ansible-playbook -i inventory -vv ubuntu.yml
+ubuntu:
+	ansible-playbook -i inventory -vv ubuntu.yml -K
+
+arch:
+	ansible-playbook -i inventory -vvv arch.yml -K
+
+common: dotfiles editors
+	ansible-playbook -i inventory -vvv common.yml -K

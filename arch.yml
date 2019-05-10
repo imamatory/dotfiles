@@ -1,0 +1,47 @@
+---
+
+- hosts: all
+
+  tasks:
+    - pacman:
+        state: latest
+        update_cache: yes
+        name:
+          - neovim
+          - emacs
+          - telegram-desktop
+          - ripgrep
+          - zsh
+          - fzf
+          - tmux
+          - jq
+          - kitty
+          - xsel
+          - adobe-source-code-pro-fonts
+      become: true
+
+    - name: "install Yay"
+      args:
+        creates: /usr/bin/yay
+      shell: |
+        cd /tmp/ \
+        && rm -rf yay/ \
+        && git clone https://aur.archlinux.org/yay.git \
+        && cd yay/ \
+        && makepkg -si --noconfirm \
+        && cd ../ \
+        && rm -rf yay/
+
+    - name: "Yay"
+      shell: |
+        yay -S --noconfirm \
+          debtap \
+          google-chrome
+
+    - pip:
+        extra_args: "--user"
+        state: latest
+        name:
+          - pylint
+          - ansible-lint
+          - yamllint
