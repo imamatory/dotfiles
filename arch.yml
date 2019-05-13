@@ -3,6 +3,20 @@
 - hosts: all
 
   tasks:
+    - name: Add pacman repos
+      blockinfile:
+        path: /etc/pacman.conf
+        block: |
+          [pritunl]
+          Server = https://repo.pritunl.com/stable/pacman
+      become: yes
+
+    - name: Add pacman keys
+      shell: |
+        pacman-key --keyserver hkp://keyserver.ubuntu.com -r 7568D9BB55FF9E5287D586017AE645C0CF8E292A \
+        && pacman-key --lsign-key 7568D9BB55FF9E5287D586017AE645C0CF8E292A
+      become: yes
+
     - pacman:
         state: latest
         update_cache: yes
@@ -14,11 +28,16 @@
           - zsh
           - fzf
           - tmux
+          - tig
           - jq
           - kitty
           - xsel
           - adobe-source-code-pro-fonts
-      become: true
+          - lsof
+          - transmission-gtk
+          - pritunl-client-electron
+          - pritunl-client-electron-numix-theme
+      become: yes
 
     - name: "install Yay"
       args:

@@ -142,12 +142,12 @@ alias cat="bat"
 alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 
-if [ $TERM = "xterm-kitty" ]; then
-    alias ssh="kitty +kitten ssh"
+# if [ $TERM = "xterm-kitty" ]; then
+#     alias ssh="kitty +kitten ssh"
 
-    # Completion for kitty
-    type kitty > /dev/null && kitty + complete setup zsh | source /dev/stdin
-fi
+#     # Completion for kitty
+#     type kitty > /dev/null && kitty + complete setup zsh | source /dev/stdin
+# fi
 
 bindkey '^[^ ' autosuggest-execute
 bindkey "\C- " autosuggest-accept
