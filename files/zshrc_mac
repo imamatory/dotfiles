@@ -14,9 +14,6 @@ export TMPDIR=/private/var/folders/tmp
 
 source ~/.zshrc_common
 
-. $HOME/.asdf/asdf.sh
-. $HOME/.asdf/completions/asdf.bash
-
 kitty + complete setup zsh | source /dev/stdin
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

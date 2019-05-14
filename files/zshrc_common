@@ -95,6 +95,9 @@ SAVEHIST=1000
 # source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
 
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
 # source /usr/local/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
