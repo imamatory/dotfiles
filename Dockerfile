@@ -7,7 +7,7 @@ RUN apt-get update \
 
 ENV LANG=en_US.UTF-8 LC_CTYPE=en_US.UTF-8 LANGUAGE=en_US:en LC_ALL=en_US.UTF-8
 ENV HOME=/home
-ENV TERM=xterm-kitty
+ENV TERM=xterm-256color
 
 WORKDIR /home
 

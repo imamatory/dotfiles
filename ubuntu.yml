@@ -4,7 +4,7 @@
   vars:
     git_user: imamatory
     git_email: imamatory@gmail.com
-    term: xterm-kitty
+    term: xterm-256color
 
   tasks:
     - apt_repository:
