@@ -32,11 +32,19 @@
           - jq
           - kitty
           - xsel
+          - htop
           - adobe-source-code-pro-fonts
+          - python-pip
           - lsof
+          - binutils  # for makepkg
+          - gcc  # for makepkg
+          - base-devel  # various build tool
+          - xorg-xinit  # for xinitrc
           - transmission-gtk
           - pritunl-client-electron
           - pritunl-client-electron-numix-theme
+          - docker
+          - docker-compose
       become: yes
 
     - name: "install Yay"
@@ -61,6 +69,5 @@
         extra_args: "--user"
         state: latest
         name:
-          - pylint
           - ansible-lint
           - yamllint

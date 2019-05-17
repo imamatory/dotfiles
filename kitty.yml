@@ -1,7 +1,5 @@
 ---
 - hosts: all
-  vars:
-    config: ~/.bash_profile
   tasks:
 
     - file:
