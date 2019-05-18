@@ -36,6 +36,7 @@
           - adobe-source-code-pro-fonts
           - python-pip
           - lsof
+          - rlwrap  # for clj
           - binutils  # for makepkg
           - gcc  # for makepkg
           - base-devel  # various build tool
@@ -43,6 +44,8 @@
           - transmission-gtk
           - pritunl-client-electron
           - pritunl-client-electron-numix-theme
+          - pygtk  # for deluge
+          - deluge  # torrent
           - docker
           - docker-compose
       become: yes
@@ -61,7 +64,7 @@
 
     - name: "Yay"
       shell: |
-        yay -S --noconfirm \
+        yay -S --noconfirm --needed \
           debtap \
           google-chrome
 
