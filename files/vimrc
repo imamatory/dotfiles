@@ -14,6 +14,9 @@ Plug 'tpope/vim-endwise'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'nanotech/jellybeans.vim'
+Plug 'itchyny/lightline.vim'
+Plug 'NLKNguyen/papercolor-theme'
+Plug 'trevordmiller/nova-vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-misc'
@@ -26,6 +29,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'michaeljsmith/vim-indent-object'
 Plug 'Chiel92/vim-autoformat'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
+Plug 'maxmellon/vim-jsx-pretty'
 Plug 'mitermayer/vim-prettier', {
       \ 'do': 'npm install',
       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
@@ -152,13 +156,20 @@ set autowrite     " Automatically :write before running commands
 syntax on
 filetype plugin indent on
 
+" THEME
+
 " colorscheme nova
 " let g:airline_theme='nova'
+
+" colorscheme jellybeans
 " let g:jellybeans_background_color_256='NONE'
 " let g:jellybeans_use_term_background_color = 1
-colorscheme jellybeans
-let g:airline_theme='badwolf'
+" let g:airline_theme='badwolf'
 "
+colorscheme PaperColor
+let g:lightline = { 'colorscheme': 'PaperColor' }
+set background=light
+
 " color dracula
 
 " ================ Persistent Undo ==================
@@ -304,12 +315,14 @@ let g:ale_linters = {
   \ 'clojure': ['jocker'],
   \ 'pug': ['puglint'],
   \ 'javascript': ['eslint'],
+  \ 'typescript': ['eslint', 'tslint'],
   \}
 " \ 'python': ['flake8'],
 " \ '*': ['remove_trailing_lines'],
 let g:ale_fixers = {
   \ 'reason': ['refmt'],
   \ 'javascript': ['eslint'],
+  \ 'typescript': ['eslint', 'tslint'],
   \ 'json': ['jq'],
   \ 'scss': ['stylelint'],
   \ 'css': ['stylelint'],
@@ -362,7 +375,7 @@ nnoremap <silent> <Leader>t :Tags<CR>
 nnoremap <silent> <Leader>h :History<CR>
 nnoremap <silent> <Leader>o :GFiles<CR>
 nnoremap <silent> <C-p> :Files<CR>
-nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--exact --select-1 --exit-0'})<CR>
+nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--color light --exact --select-1 --exit-0'})<CR>
 
 nnoremap <leader>k :call SearchWordWithAg()<CR>
 vnoremap <leader>/  :call SearchVisualSelectionWithAg()<CR>

@@ -59,7 +59,7 @@ values."
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
-     spell-checking
+     ;; spell-checking
      syntax-checking
      version-control
      )
@@ -371,12 +371,12 @@ you should place your code here."
 ;; OS copy-paste
 (defun pbcopy ()
   (interactive)
-  (call-process-region (point) (mark) "pbcopy")
+  (call-process-region (point) (mark) "xsel --clipboard --input")
   (setq deactivate-mark t))
 
 (defun pbpaste ()
   (interactive)
-  (call-process-region (point) (if mark-active (mark) (point)) "pbpaste" t t))
+  (call-process-region (point) (if mark-active (mark) (point)) "xsel --clipboard --output" t t))
 
 (defun pbcut ()
   (interactive)

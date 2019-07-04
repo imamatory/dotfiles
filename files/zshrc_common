@@ -3,6 +3,8 @@ export LC_CTYPE=en_US.UTF-8
 export LANGUAGE=en_US:en
 export LC_ALL=en_US.UTF-8
 export EDITOR="nvim"
+export BAT_THEME="Monokai Extended Light"
+export FZF_DEFAULT_OPTS=' --color light'
 
 # [ -f ~/.bash_profile ] && source ~/.bash_profile
 [ -f ~/.zsh_vars ] && source ~/.zsh_vars
@@ -137,7 +139,7 @@ alias e="emacs"
 alias d="docker"
 alias doc="docker-compose"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
-# alias ls="exa"
+alias ls="lsd"
 # alias pip="pip3"
 alias doc="docker-compose"
 alias cat="bat"

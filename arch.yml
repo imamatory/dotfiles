@@ -30,6 +30,9 @@
           - tmux
           - tig
           - jq
+          - lsd
+          - fd
+          - alacritty
           - kitty
           - xsel
           - htop

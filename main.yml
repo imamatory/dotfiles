@@ -21,9 +21,9 @@
           - fzf
           - ripgrep
           - tig
-          # - bat
-          # - exa
-          # - jq
+          - bat
+          - lsd
+          - jq
           - getantibody/tap/antibody
           - emacs-plus
 
