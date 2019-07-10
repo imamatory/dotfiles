@@ -58,3 +58,10 @@
         dest: ~/.config/kitty/kitty.conf
         state: link
         force: yes
+
+    - name: Tig
+      file:
+        src: "{{ playbook_dir }}/files/tigrc"
+        dest: ~/.tigrc
+        state: link
+        force: yes
