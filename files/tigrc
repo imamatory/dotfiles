@@ -1,2 +1,2 @@
-bind status D !@rm %(file)
+bind status D !@?rm %(file)
 set main-options = --all
