@@ -15,5 +15,3 @@ export TMPDIR=/private/var/folders/tmp
 source ~/.zshrc_common
 
 kitty + complete setup zsh | source /dev/stdin
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
