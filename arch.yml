@@ -13,7 +13,7 @@
 
     - name: Add pacman keys
       shell: |
-        pacman-key --keyserver hkp://keyserver.ubuntu.com -r 7568D9BB55FF9E5287D586017AE645C0CF8E292A \
+        pacman-key --keyserver hkps://hkps.pool.sks-keyservers.net:443 -r 7568D9BB55FF9E5287D586017AE645C0CF8E292A \
         && pacman-key --lsign-key 7568D9BB55FF9E5287D586017AE645C0CF8E292A
       become: yes
 
@@ -69,7 +69,8 @@
       shell: |
         yay -S --noconfirm --needed \
           debtap \
-          google-chrome
+          google-chrome \
+          antibody
 
     - pip:
         extra_args: "--user"
