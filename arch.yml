@@ -31,6 +31,7 @@
           - tig
           - jq
           - lsd
+          - bat
           - fd
           - alacritty
           - kitty
@@ -51,6 +52,7 @@
           - deluge  # torrent
           - docker
           - docker-compose
+          - noto-fonts-emoji
       become: yes
 
     - name: "install Yay"
