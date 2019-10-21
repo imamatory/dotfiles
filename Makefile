@@ -56,5 +56,5 @@ ubuntu:
 arch:
 	ansible-playbook -i inventory -vvv arch.yml -K
 
-common: dotfiles editors
+common:
 	ansible-playbook -i inventory -vvv common.yml -K

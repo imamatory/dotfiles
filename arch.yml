@@ -53,6 +53,7 @@
           - docker
           - docker-compose
           - noto-fonts-emoji
+          - keychain
       become: yes
 
     - name: "install Yay"
