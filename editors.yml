@@ -18,6 +18,11 @@
         state: directory
         recurse: Yes
 
+    - file:
+        src: "{{ playbook_dir }}/files/coc-settings.json"
+        dest: ~/.config/nvim/coc-settings.json
+        state: link
+
     - get_url:
         force: yes
         dest: ~/.local/share/nvim/site/autoload/plug.vim
