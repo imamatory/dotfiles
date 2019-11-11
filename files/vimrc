@@ -314,7 +314,9 @@ let g:ale_linters = {
   \ 'clojure': ['jocker'],
   \ 'pug': ['puglint'],
   \ 'javascript': ['eslint'],
+  \ 'javascriptreact': ['eslint'],
   \ 'typescript': ['eslint'],
+  \ 'typescriptreact': ['eslint'],
   \}
 " \ 'python': ['flake8'],
 " \ '*': ['remove_trailing_lines'],
