@@ -150,7 +150,7 @@ alias cat="bat"
 alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 
-alias last-week="last-week='git log --oneline --since '\''last week'\'"
+alias last-week="git log --oneline --since \'last week\'"
 
 # if [ $TERM = "xterm-kitty" ]; then
 #     alias ssh="kitty +kitten ssh"
