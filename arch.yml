@@ -9,17 +9,17 @@
         block: |
           [pritunl]
           Server = https://repo.pritunl.com/stable/pacman
-      become: yes
+      become: true
 
     - name: Add pacman keys
       shell: |
         pacman-key --keyserver hkps://hkps.pool.sks-keyservers.net:443 -r 7568D9BB55FF9E5287D586017AE645C0CF8E292A \
         && pacman-key --lsign-key 7568D9BB55FF9E5287D586017AE645C0CF8E292A
-      become: yes
+      become: true
 
     - pacman:
         state: latest
-        update_cache: yes
+        update_cache: true
         name:
           - neovim
           - emacs
@@ -54,7 +54,9 @@
           - docker-compose
           - noto-fonts-emoji
           - keychain
-      become: yes
+          - dnsutils
+          - traceroute
+      become: true
 
     - name: "install Yay"
       args:
