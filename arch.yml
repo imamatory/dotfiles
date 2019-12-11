@@ -37,6 +37,7 @@
           - kitty
           - xsel
           - htop
+          - hub
           - adobe-source-code-pro-fonts
           - python-pip
           - lsof
@@ -56,7 +57,10 @@
           - keychain
           - dnsutils
           - traceroute
+          - kubectl
+          - kubectx
       become: true
+      tags: pacman
 
     - name: "install Yay"
       args:
