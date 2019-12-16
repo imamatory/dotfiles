@@ -317,6 +317,7 @@ let g:ale_linters = {
   \ 'javascriptreact': ['eslint'],
   \ 'typescript': ['eslint'],
   \ 'typescriptreact': ['eslint'],
+  \ 'haskell': ['hlint'],
   \}
 " \ 'python': ['flake8'],
 " \ '*': ['remove_trailing_lines'],
@@ -332,6 +333,7 @@ let g:ale_fixers = {
   \ 'ruby': ['rubocop'],
   \ 'slim': ['trim_whitespace'],
   \ 'elixir': ['mix_format'],
+  \ 'haskell': ['hlint'],
   \}
 " \ 'python': ['black'],
 
