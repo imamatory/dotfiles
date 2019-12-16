@@ -10,7 +10,7 @@ call plug#begin('~/.local/share/nvim/plugged')
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-endwise'
+" Plug 'tpope/vim-endwise'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'nanotech/jellybeans.vim'
@@ -22,7 +22,6 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'xolox/vim-misc'
 Plug 'jiangmiao/auto-pairs'
 Plug 'terryma/vim-multiple-cursors'
-" Plug 'ervandew/supertab'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-abolish'
 Plug 'tpope/vim-fugitive'
@@ -82,7 +81,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'guns/vim-sexp', { 'for': ['clojure', 'scheme', 'racket'] }
 
 " coc
-Plug 'neoclide/coc.nvim', { 'branch': 'release' }
+Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()} }
 
 nnoremap <silent> <leader>a :<C-u>CocList -A --normal yank<CR>
 let g:coc_global_extensions = [
@@ -265,10 +264,10 @@ nnoremap <Leader>w :w<CR>
 noremap <F5> :e<CR>
 nmap <F8> :TagbarToggle<CR>
 
-vmap <Tab> >gv
-vmap <S-Tab> <gv
-nmap <Tab> >gv
-nmap <S-Tab> <gv
+" vmap <Tab> >gv
+" vmap <S-Tab> <gv
+" nmap <Tab> >gv
+" nmap <S-Tab> <gv
 
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#buffer_idx_mode = 1
@@ -315,26 +314,6 @@ vnoremap <silent> # :<C-U>
 
 " Edit .vimrc
 map <leader>vl :vsp $MYVIMRC<CR>
-
-" let g:deoplete#enable_at_startup = 1
-
-" " Multiple cursor fix for deoplete
-" function! Multiple_cursors_before()
-"   let g:deoplete#disable_auto_complete = 1
-" endfunction
-" function! Multiple_cursors_after()
-"   let g:deoplete#disable_auto_complete = 0
-" endfunction
-
-" let g:mta_filetypes = {
-"   \ 'javascript.jsx': 1,
-"   \ 'html' : 1,
-"   \ 'xhtml' : 1,
-"   \ 'xml' : 1,
-"   \ 'jinja' : 1,
-"   \ }
-
-" let g:SuperTabDefaultCompletionType = "<c-n>"
 
 " ALE
 " let g:ale_fix_on_save = 1
@@ -516,11 +495,11 @@ set signcolumn=yes
 
 " Use tab for trigger completion with characters ahead and navigate.
 " Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? "\<C-n>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <silent><expr> <TAB>
+"       \ pumvisible() ? "\<C-n>" :
+"       \ <SID>check_back_space() ? "\<TAB>" :
+"       \ coc#refresh()
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1
@@ -596,6 +575,8 @@ xmap <silent> <C-d> <Plug>(coc-range-select)
 
 " Use `:Format` to format current buffer
 command! -nargs=0 Format :call CocAction('format')
+
+nnoremap <Leader>l :Format<CR>
 
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)

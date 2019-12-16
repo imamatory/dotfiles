@@ -1,4 +1,5 @@
 {
+  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "json"],
   "suggest.noselect": false,
   "diagnostic.infoSign": "？",
   "diagnostic.warningSign": "⚠",
@@ -26,6 +27,34 @@
       "filetypes": ["dart"],
       "disableDynamicRegister": true,
       "trace.server": "verbose"
+    },
+    "haskell": {
+      "command": "hie-wrapper",
+      "rootPatterns": [
+        "stack.yaml",
+        "cabal.config",
+        "package.yaml"
+      ],
+      "filetypes": [
+        "hs",
+        "lhs",
+        "haskell"
+      ],
+      "initializationOptions": {
+        "languageServerHaskell": {
+          "hlintOn": true
+        }
+      }
+    },
+    "clojure-lsp": {
+      "command": "bash",
+      "args": ["-c", "clojure-lsp"],
+      "filetypes": ["clojure"],
+      "rootPatterns": ["project.clj", "deps.edn"],
+      "additionalSchemes": ["jar", "zipfile"],
+      "trace.server": "verbose",
+      "initializationOptions": {
+      }
     }
   },
   "diagnostic-languageserver.filetypes": {
