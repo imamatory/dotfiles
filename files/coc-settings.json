@@ -1,5 +1,4 @@
 {
-  "coc.preferences.formatOnSaveFiletypes": ["javascript", "typescript", "json"],
   "suggest.noselect": false,
   "diagnostic.infoSign": "？",
   "diagnostic.warningSign": "⚠",
@@ -8,7 +7,10 @@
   "eslint.trace.server": "verbose",
   "eslint.packageManager": "yarn",
   "eslint.autoFix": true,
-  "eslint.autoFixOnSave": true,
+  "eslint.autoFixOnSave": false,
+  "eslint.workingDirectories": [
+    { "mode": "auto" }
+  ],
   "eslint.filetypes": [
     "javascript",
     "javascript.jsx",
@@ -74,13 +76,7 @@
     "javascriptreact": [
       "eslint"
     ],
-    "javascript.jsx": [
-      "eslint"
-    ],
     "typescriptreact": [
-      "eslint"
-    ],
-    "typescript.jsx": [
       "eslint"
     ],
     "sh": "shellcheck"

@@ -37,6 +37,7 @@ antibody bundle robbyrussell/oh-my-zsh path:plugins/docker
 antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
 antibody bundle robbyrussell/oh-my-zsh path:plugins/kubectl
 antibody bundle robbyrussell/oh-my-zsh path:plugins/yarn
+antibody bundle robbyrussell/oh-my-zsh path:plugins/stack
 
 antibody bundle zsh-users/zsh-completions.git
 antibody bundle zsh-users/zsh-autosuggestions.git
@@ -144,14 +145,13 @@ alias d="docker"
 alias doc="docker-compose"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
 alias ls="lsd"
-# alias pip="pip3"
 alias doc="docker-compose"
 alias cat="bat"
 alias pbcopy="xsel --clipboard --input"
 alias pbpaste="xsel --clipboard --output"
 alias last-week="git log --oneline --since 'last week'"
-
-alias last-week="git log --oneline --since 'last week'"
+# alias ghc="stack ghc"
+# alias ghci="stack ghci"
 
 # if [ $TERM = "xterm-kitty" ]; then
 #     alias ssh="kitty +kitten ssh"
@@ -175,4 +175,5 @@ export PATH=$PATH:$ANDROID_HOME/emulator
 export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:`stack path --compiler-bin`
 export DART_SDK=`asdf where dart`
