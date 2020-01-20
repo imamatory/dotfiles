@@ -19,6 +19,7 @@
     "javascriptreact",
     "typescriptreact"
   ],
+  "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
   "languageserver": {
     "dart": {
       "command": "dart",

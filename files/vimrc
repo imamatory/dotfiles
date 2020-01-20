@@ -42,7 +42,7 @@ Plug 'ap/vim-css-color'
 Plug 'slashmili/alchemist.vim'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
-Plug 'slim-template/vim-slim', { 'for': 'slim' }
+Plug 'onemanstartup/vim-slim', { 'for': ['slim', 'slime', 'slimleex'] }
 Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
@@ -464,6 +464,8 @@ nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 
 let NERDTreeIgnore = ['\.pyc$']
 let g:nerdtree_tabs_open_on_console_startup = 1
+let NERDTreeMapJumpNextSibling='<C-N>'
+let NERDTreeMapJumpPrevSibling='<C-O>'
 
 " let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
@@ -534,6 +536,11 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" slim
+autocmd BufNewFile,BufRead *.slim setlocal filetype=slim
+autocmd BufNewFile,BufRead *.slime setlocal filetype=slim
+autocmd BufNewFile,BufRead *.slimleex setlocal filetype=slim
 
 " Highlight symbol under cursor on CursorHold
 autocmd CursorHold * silent call CocActionAsync('highlight')

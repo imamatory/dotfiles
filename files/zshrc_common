@@ -38,6 +38,7 @@ antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
 antibody bundle robbyrussell/oh-my-zsh path:plugins/kubectl
 antibody bundle robbyrussell/oh-my-zsh path:plugins/yarn
 antibody bundle robbyrussell/oh-my-zsh path:plugins/stack
+antibody bundle robbyrussell/oh-my-zsh path:plugins/pyenv
 
 antibody bundle zsh-users/zsh-completions.git
 antibody bundle zsh-users/zsh-autosuggestions.git
@@ -137,6 +138,8 @@ autoload -U compinit && compinit
 alias zshconfig="nvim ~/.zshrc"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 
+alias t="tmux"
+alias tn="tmux new"
 alias v="nvim"
 alias v.="nvim ."
 alias emacs="emacs -nw"
@@ -152,6 +155,8 @@ alias pbpaste="xsel --clipboard --output"
 alias last-week="git log --oneline --since 'last week'"
 # alias ghc="stack ghc"
 # alias ghci="stack ghci"
+alias ips='iex -S mix phx.server'
+alias ism='iex -S mix'
 
 # if [ $TERM = "xterm-kitty" ]; then
 #     alias ssh="kitty +kitten ssh"

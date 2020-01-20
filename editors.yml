@@ -43,3 +43,8 @@
         src: "{{ playbook_dir }}/files/spacemacs"
         dest: ~/.spacemacs
         state: link
+
+    - name: Install elixir-ls
+      git:
+        repo: "https://github.com/elixir-lsp/elixir-ls"
+        dest: ~/.elixir-ls
