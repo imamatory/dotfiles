@@ -4,22 +4,8 @@
   "diagnostic.warningSign": "⚠",
   "diagnostic.errorSign": "✕",
   "suggest.maxCompleteItemCount": 30,
-  "eslint.trace.server": "verbose",
-  "eslint.packageManager": "yarn",
-  "eslint.autoFix": true,
-  "eslint.autoFixOnSave": false,
-  "eslint.workingDirectories": [
-    { "mode": "auto" }
-  ],
-  "eslint.filetypes": [
-    "javascript",
-    "javascript.jsx",
-    "typescript",
-    "typescript.jsx",
-    "javascriptreact",
-    "typescriptreact"
-  ],
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
+  "eslint.autoFixOnSave": true,
   "languageserver": {
     "dart": {
       "command": "dart",
@@ -59,28 +45,6 @@
       "initializationOptions": {
       }
     }
-  },
-  "diagnostic-languageserver.filetypes": {
-    "markdown": [
-      "write-good",
-      "markdownlint"
-    ],
-    "ruby": [
-      "solargraph"
-    ],
-    "javascript": [
-      "eslint"
-    ],
-    "typescript": [
-      "eslint"
-    ],
-    "javascriptreact": [
-      "eslint"
-    ],
-    "typescriptreact": [
-      "eslint"
-    ],
-    "sh": "shellcheck"
   },
   "solargraph.diagnostics": true,
   "solargraph.hover": true,

@@ -106,6 +106,8 @@ let g:coc_global_extensions = [
       \ 'coc-diagnostic',
       \ 'coc-rls',
       \ 'coc-eslint',
+      \ 'coc-tsserver',
+      \ 'coc-python',
       \ 'coc-docker',
       \ 'coc-jest',
       \]
