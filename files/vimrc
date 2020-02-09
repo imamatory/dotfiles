@@ -106,10 +106,10 @@ let g:coc_global_extensions = [
       \ 'coc-diagnostic',
       \ 'coc-rls',
       \ 'coc-eslint',
-      \ 'coc-tsserver',
       \ 'coc-python',
       \ 'coc-docker',
       \ 'coc-jest',
+      \ 'coc-tsserver',
       \]
 
 call plug#end()
@@ -444,6 +444,7 @@ nnoremap <silent> <Leader>ga :BCommits<CR>
 nnoremap <silent> <Leader>gb :Gblame<CR>
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gvdiffsplit!<CR>
 
 " Start interactive EasyAlign in visual mode (e.g. vipga)
 xmap ga <Plug>(EasyAlign)
