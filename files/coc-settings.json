@@ -3,6 +3,7 @@
   "diagnostic.infoSign": "？",
   "diagnostic.warningSign": "⚠",
   "diagnostic.errorSign": "✕",
+  "diagnostic.messageTarget": "echo",
   "suggest.maxCompleteItemCount": 30,
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
   "eslint.autoFixOnSave": true,
