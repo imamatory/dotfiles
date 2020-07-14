@@ -27,10 +27,10 @@ set -o vi
 antibody bundle robbyrussell/oh-my-zsh
 antibody bundle robbyrussell/oh-my-zsh path:plugins/asdf
 antibody bundle robbyrussell/oh-my-zsh path:plugins/git
-antibody bundle robbyrussell/oh-my-zsh path:plugins/lein
-antibody bundle robbyrussell/oh-my-zsh path:plugins/brew
-antibody bundle robbyrussell/oh-my-zsh path:plugins/ruby
-antibody bundle robbyrussell/oh-my-zsh path:plugins/bundler
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/lein
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/brew
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/ruby
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/bundler
 antibody bundle robbyrussell/oh-my-zsh path:plugins/tmux
 antibody bundle robbyrussell/oh-my-zsh path:plugins/vi-mode
 antibody bundle robbyrussell/oh-my-zsh path:plugins/docker

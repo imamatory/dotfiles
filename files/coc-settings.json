@@ -7,6 +7,9 @@
   "suggest.maxCompleteItemCount": 30,
   "elixir.pathToElixirLS": "~/.elixir-ls/release/language_server.sh",
   "eslint.autoFixOnSave": true,
+  "python.jediEnabled": false,
+  "stylelintplus.autoFixOnSave": true,
+  "coc.preferences.formatOnSaveFiletypes": ["css", "scss"],
   "languageserver": {
     "dart": {
       "command": "dart",

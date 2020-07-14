@@ -39,6 +39,7 @@ Plug 'tpope/vim-rails', { 'for': 'ruby' }
 Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
 Plug 'AndrewRadev/splitjoin.vim'
 Plug 'ap/vim-css-color'
+Plug 'hhsnopek/vim-sugarss'
 Plug 'slashmili/alchemist.vim'
 Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
 Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
@@ -60,7 +61,7 @@ Plug 'airblade/vim-rooter', { 'for': 'ruby' }
 Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'jszakmeister/vim-togglecursor'
-Plug 'airblade/vim-gitgutter'
+" Plug 'airblade/vim-gitgutter'
 Plug 'vtm9/vim-pry'
 Plug 'kana/vim-textobj-user'
 Plug 'whatyouhide/vim-textobj-xmlattr'
@@ -81,7 +82,7 @@ Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'guns/vim-sexp', { 'for': ['clojure', 'scheme', 'racket'] }
 
 " coc
-Plug 'neoclide/coc.nvim', { 'branch': 'release', 'do': { -> coc#util#install()} }
+Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': { -> coc#util#install()} }
 
 nnoremap <silent> <leader>a :<C-u>CocList -A --normal yank<CR>
 let g:coc_global_extensions = [
@@ -91,13 +92,10 @@ let g:coc_global_extensions = [
       \ 'coc-sh',
       \ 'coc-css',
       \ 'coc-go',
-      \ 'coc-stylelint',
+      \ 'coc-stylelintplus',
       \ 'coc-elixir',
-      \ 'coc-json',
       \ 'coc-solargraph',
       \ 'coc-word',
-      \ 'coc-python',
-      \ 'coc-java',
       \ 'coc-yaml',
       \ 'coc-highlight',
       \ 'coc-ultisnips',
@@ -106,11 +104,13 @@ let g:coc_global_extensions = [
       \ 'coc-diagnostic',
       \ 'coc-rls',
       \ 'coc-eslint',
+      \ 'coc-prettier',
       \ 'coc-python',
       \ 'coc-docker',
       \ 'coc-jest',
       \ 'coc-tsserver',
       \]
+      \ " \ 'coc-json',
 
 call plug#end()
 
@@ -389,6 +389,8 @@ let g:fzf_nvim_statusline = 0 " disable statusline overwriting
 " " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
 
+nmap <silent> [b :bp<CR>
+nmap <silent> ]b :bn<CR>
 
 " vim-rooter
 let g:rooter_patterns = ['Makefile','Rakefile', 'mix.exs', '.git/']
