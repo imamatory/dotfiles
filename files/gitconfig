@@ -1,0 +1,7 @@
+[user]
+  name = Vadim Safonov
+  email = imamatory@gmail.com
+[pull]
+	rebase = true
+[credential]
+  helper = cache

@@ -51,7 +51,6 @@ Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'dyng/ctrlsf.vim'
-Plug 'lxhillwind/leader-clipboard'
 Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
 " Plug 'junegunn/gv.vim'
 Plug 'junegunn/vim-easy-align'
@@ -440,6 +439,12 @@ command! -bang -nargs=* Rg
   \   <bang>0)
 " }}}
 
+" Clipboard
+nmap <Leader>p :set paste<CR><esc>"+p: set nopaste<cr>
+nmap <Leader>P :set paste<CR><esc>o<Esc>"+p: set nopaste<cr>
+vmap <Leader>y "+y
+nnoremap Y y$
+
 " Git fugitive
 nnoremap <silent> <Leader>gl :Commits<CR>
 nnoremap <silent> <Leader>ga :BCommits<CR>
@@ -615,3 +620,5 @@ nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+
