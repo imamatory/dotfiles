@@ -7,6 +7,7 @@
         state: latest
         update_cache: true
         name:
+          - nautilus
           - neovim
           - emacs
           - telegram-desktop
