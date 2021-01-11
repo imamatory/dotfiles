@@ -40,8 +40,10 @@ antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
 antibody bundle robbyrussell/oh-my-zsh path:plugins/kubectl
 antibody bundle robbyrussell/oh-my-zsh path:plugins/yarn
 # antibody bundle robbyrussell/oh-my-zsh path:plugins/stack
-antibody bundle robbyrussell/oh-my-zsh path:plugins/pyenv
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/pyenv
+antibody bundle darvid/zsh-poetry
 
+antibody bundle mattberther/zsh-pyenv
 antibody bundle zsh-users/zsh-completions.git
 antibody bundle zsh-users/zsh-autosuggestions.git
 antibody bundle zsh-users/zsh-syntax-highlighting.git
@@ -97,10 +99,11 @@ SAVEHIST=1000
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-# plugins=(
+plugins=(
+  poetry
 #   git
 #   zsh-completions
-# )
+)
 
 # source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
@@ -148,6 +151,7 @@ alias emacs="emacs -nw"
 alias e="emacs"
 alias d="docker"
 alias doc="docker-compose"
+alias kx="kubectx"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
 alias ls="lsd"
 alias cat="bat"
@@ -183,3 +187,5 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 # export PATH=$PATH:`stack path --compiler-bin`
 export DART_SDK=`asdf where dart`
+
+export PATH="$HOME/.poetry/bin:$PATH"

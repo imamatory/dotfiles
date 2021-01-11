@@ -60,6 +60,7 @@
           - kubectl
           - kubectx
           - k9s
+          - github-cli
       become: true
       tags: pacman
 

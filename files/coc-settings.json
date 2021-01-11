@@ -10,8 +10,11 @@
   "python.jediEnabled": false,
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
-  "python.setInterpreter": "/home/im/.asdf/shims/python",
-  "python.setLinter": "flake8",
+  "python.linting.flake8Args": ["--config", "setup.cfg"],
+  "python.linting.enabled": true,
+  "python.sortImports.path": "isort",
+  "python.autoComplete.extraPaths": ["./cc/"],
+  "python.poetryPath": "~/.poetry/bin/poetry",
   "stylelintplus.autoFixOnSave": true,
   "coc.preferences.formatOnSaveFiletypes": ["css", "scss"],
   "languageserver": {
@@ -27,16 +30,8 @@
     },
     "haskell": {
       "command": "hie-wrapper",
-      "rootPatterns": [
-        "stack.yaml",
-        "cabal.config",
-        "package.yaml"
-      ],
-      "filetypes": [
-        "hs",
-        "lhs",
-        "haskell"
-      ],
+      "rootPatterns": ["stack.yaml", "cabal.config", "package.yaml"],
+      "filetypes": ["hs", "lhs", "haskell"],
       "initializationOptions": {
         "languageServerHaskell": {
           "hlintOn": true
@@ -50,80 +45,7 @@
       "rootPatterns": ["project.clj", "deps.edn"],
       "additionalSchemes": ["jar", "zipfile"],
       "trace.server": "verbose",
-      "initializationOptions": {
-      }
-    },
-    "python": {
-      "command": "python",
-      "args": [
-        "-mpyls",
-        "-vv",
-        "--log-file",
-        "/tmp/lsp_python.log"
-      ],
-      "trace.server": "verbose",
-      "filetypes": [
-        "python"
-      ],
-      "settings": {
-        "pyls": {
-          "enable": true,
-          "trace": {
-            "server": "verbose"
-          },
-          "commandPath": "",
-          "configurationSources": [
-            "pycodestyle"
-          ],
-          "plugins": {
-            "jedi_completion": {
-              "enabled": true
-            },
-            "jedi_hover": {
-              "enabled": true
-            },
-            "jedi_references": {
-              "enabled": true
-            },
-            "jedi_signature_help": {
-              "enabled": true
-            },
-            "jedi_symbols": {
-              "enabled": true,
-              "all_scopes": true
-            },
-            "mccabe": {
-              "enabled": true,
-              "threshold": 15
-            },
-            "preload": {
-              "enabled": true
-            },
-            "pycodestyle": {
-              "enabled": true
-            },
-            "pydocstyle": {
-              "enabled": false,
-              "match": "(?!test_).*\\.py",
-              "matchDir": "[^\\.].*"
-            },
-            "pyflakes": {
-              "enabled": true
-            },
-            "rope_completion": {
-              "enabled": true
-            },
-            "yapf": {
-              "enabled": true
-            }
-          }
-        }
-      }
+      "initializationOptions": {}
     }
-  },
-  "solargraph.diagnostics": true,
-  "solargraph.hover": true,
-  "solargraph.autoformat": true,
-  "solargraph.useBundler": true,
-  "solargraph.bundlerPath": "~/.rbenv/shims/bundle"
+  }
 }

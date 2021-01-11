@@ -14,7 +14,6 @@ Plug 'tpope/vim-repeat'
 Plug 'nathanaelkane/vim-indent-guides'
 Plug 'scrooloose/nerdtree'
 Plug 'nanotech/jellybeans.vim'
-" Plug 'itchyny/lightline.vim'
 Plug 'NLKNguyen/papercolor-theme'
 Plug 'trevordmiller/nova-vim'
 Plug 'vim-airline/vim-airline'
@@ -29,6 +28,7 @@ Plug 'michaeljsmith/vim-indent-object'
 Plug 'Chiel92/vim-autoformat'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'maxmellon/vim-jsx-pretty'
+Plug 'imamatory/leader-clipboard'
 " Plug 'mitermayer/vim-prettier', {
 "       \ 'do': 'npm install',
 "       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
@@ -296,9 +296,11 @@ nmap <leader><S-O> o<esc>kk<CR>
 
 nnoremap Y y$
 
+nnoremap <Leader>ft :Filetypes<CR>
+
 " search and replace
-nnoremap <Leader>f :%s///g<Left><Left>
-vnoremap <Leader>f "hy:%s/<C-r>h//gc<left><left><left>
+nnoremap <Leader>fr :%s///g<Left><Left>
+vnoremap <Leader>fr "hy:%s/<C-r>h//gc<left><left><left>
 
 " Search for selected text, forwards or backwards.
 vnoremap <silent> * :<C-U>
@@ -314,6 +316,8 @@ vnoremap <silent> # :<C-U>
 
 " Edit .vimrc
 map <leader>vl :vsp $MYVIMRC<CR>
+
+map <leader>vc :CocConfig<CR>
 
 " ALE
 " let g:ale_fix_on_save = 1
@@ -440,10 +444,10 @@ command! -bang -nargs=* Rg
 " }}}
 
 " Clipboard
-nmap <Leader>p :set paste<CR><esc>"+p: set nopaste<cr>
-nmap <Leader>P :set paste<CR><esc>o<Esc>"+p: set nopaste<cr>
-vmap <Leader>y "+y
-nnoremap Y y$
+" nmap <Leader>p :set paste<CR><esc>"+p: set nopaste<cr>
+" nmap <Leader>P :set paste<CR><esc>o<Esc>"+p: set nopaste<cr>
+" vmap <Leader>y "+y
+" nnoremap Y y$
 
 " Git fugitive
 nnoremap <silent> <Leader>gl :Commits<CR>
@@ -621,4 +625,4 @@ nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
 " Resume latest coc list
 " nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
-
+call coc#config('python', {'pythonPath': $PYENV_VIRTUAL_ENV})

@@ -35,4 +35,4 @@
 
     - name: Set shell
       become: yes
-      shell: "chsh {{ ansible_user }} -s $(which zsh);"
+      shell: "chsh -s $(which zsh);"
