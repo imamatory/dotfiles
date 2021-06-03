@@ -43,7 +43,7 @@ antibody bundle robbyrussell/oh-my-zsh path:plugins/yarn
 # antibody bundle robbyrussell/oh-my-zsh path:plugins/pyenv
 antibody bundle darvid/zsh-poetry
 
-antibody bundle mattberther/zsh-pyenv
+# antibody bundle mattberther/zsh-pyenv
 antibody bundle zsh-users/zsh-completions.git
 antibody bundle zsh-users/zsh-autosuggestions.git
 antibody bundle zsh-users/zsh-syntax-highlighting.git
@@ -100,6 +100,7 @@ SAVEHIST=1000
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 plugins=(
+  pyenv
   poetry
 #   git
 #   zsh-completions
