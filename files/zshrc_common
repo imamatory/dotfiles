@@ -6,7 +6,6 @@ export EDITOR="nvim"
 export BAT_THEME="Monokai Extended Light"
 export FZF_DEFAULT_OPTS=' --color light'
 
-# [ -f ~/.bash_profile ] && source ~/.bash_profile
 [ -f ~/.zsh_vars ] && source ~/.zsh_vars
 
 source <(antibody init)
