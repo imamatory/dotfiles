@@ -48,7 +48,7 @@ antibody bundle zsh-users/zsh-completions.git
 antibody bundle zsh-users/zsh-autosuggestions.git
 antibody bundle zsh-users/zsh-syntax-highlighting.git
 
-source ~/.asdf/plugins/java/set-java-home.zsh
+# source ~/.asdf/plugins/java/set-java-home.zsh
 
 DISABLE_AUTO_UPDATE=true
 HIST_IGNORE_ALL_DUPS=true

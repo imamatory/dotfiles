@@ -35,6 +35,13 @@
         force: yes
         state: link
 
+    - name: alacritty config
+      file:
+        src: "{{ playbook_dir }}/files/alacrity.yml"
+        dest: ~/.config/alacritty/alacrity.yml
+        force: yes
+        state: link
+
     - name: xprofile
       file:
         src: "{{ playbook_dir }}/files/xprofile"
