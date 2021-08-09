@@ -29,6 +29,7 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
 Plug 'maxmellon/vim-jsx-pretty'
 Plug 'imamatory/leader-clipboard'
+Plug 'digitaltoad/vim-pug'
 " Plug 'mitermayer/vim-prettier', {
 "       \ 'do': 'npm install',
 "       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
@@ -66,6 +67,7 @@ Plug 'kana/vim-textobj-user'
 Plug 'whatyouhide/vim-textobj-xmlattr'
 Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
 Plug 'sheerun/vim-polyglot'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
 " Clojure
 Plug 'guns/vim-clojure-static' ", { 'for': 'clojure' }
@@ -104,7 +106,7 @@ let g:coc_global_extensions = [
       \ 'coc-rls',
       \ 'coc-eslint',
       \ 'coc-prettier',
-      \ 'coc-python',
+      \ 'coc-pyright',
       \ 'coc-docker',
       \ 'coc-jest',
       \ 'coc-tsserver',
@@ -117,6 +119,8 @@ let mapleader = "\<Space>"
 
 let test#strategy = "dispatch"
 let test#javasctipt#runner = "jest"
+let test#python#pytest#options = '--reuse-db'
+
 nnoremap <silent> <Leader>tf :TestFile<CR>
 nnoremap <silent> <Leader>tn :TestNearest<CR>
 nnoremap <silent> <Leader>ts :TestSuite<CR>
@@ -213,12 +217,17 @@ set background=light
 
 " color dracula
 
+let vimDir = '$HOME/.vim'
+let &runtimepath.=','.vimDir
+
 " ================ Persistent Undo ==================
 " Keep undo history across sessions, by storing in file.
 " Only works all the time.
 if has('persistent_undo')
-  silent !mkdir ~/.vim/backups > /dev/null 2>&1
-  set undodir=~/.vim/backups
+  let myUndoDir = expand(vimDir . '/undodir')
+  call system('mkdir ' . vimDir)
+  call system('mkdir ' . myUndoDir)
+  let &undodir = myUndoDir
   set undofile
 endif
 
@@ -249,6 +258,10 @@ augroup rainbow_lisp
   autocmd!
   autocmd FileType lisp,clojure,scheme RainbowParentheses
 augroup END
+
+" augroup filetype_detect
+"   autocmd BufNewFile,BufRead *.pug setlocal filetype=pug
+" augroup END
 
 vmap <C-_> gc
 nmap <C-_> gcc
@@ -319,46 +332,6 @@ map <leader>vl :vsp $MYVIMRC<CR>
 
 map <leader>vc :CocConfig<CR>
 
-" ALE
-" let g:ale_fix_on_save = 1
-" let g:ale_completion_enabled = 1
-" let g:ale_javascript_eslint_use_global = 0
-" let g:ale_linters_explicit = 1
-
-" let g:ale_elixir_elixir_ls_release = expand('~/.elixir.d/elixir-ls')
-" let g:ale_linters = {
-"   \ 'css': ['stylelint'],
-"   \ 'scss': ['stylelint'],
-"   \ 'slim': ['slimlint'],
-"   \ 'ruby': ['rubocop', 'brakeman'],
-"   \ 'python': ['flake8', 'autopep8'],
-"   \ 'markdown': [],
-"   \ 'yaml': ['yamllint'],
-"   \ 'elixir': ['mix_format'],
-"   \ 'clojure': ['jocker'],
-"   \ 'pug': ['puglint'],
-"   \ 'javascript': ['eslint'],
-"   \ 'javascriptreact': ['eslint'],
-"   \ 'typescript': ['eslint'],
-"   \ 'typescriptreact': ['eslint'],
-"   \ 'haskell': ['hlint'],
-"   \}
-" " \ 'python': ['flake8'],
-" " \ '*': ['remove_trailing_lines'],
-" let g:ale_fixers = {
-"   \ 'reason': ['refmt'],
-"   \ 'javascript': 'eslint',
-"   \ 'typescript': ['eslint'],
-"   \ 'javascriptreact': ['eslint'],
-"   \ 'typescriptreact': ['eslint'],
-"   \ 'json': ['jq'],
-"   \ 'scss': ['stylelint'],
-"   \ 'css': ['stylelint'],
-"   \ 'ruby': ['rubocop'],
-"   \ 'slim': ['trim_whitespace'],
-"   \ 'elixir': ['mix_format'],
-"   \ 'haskell': ['hlint'],
-"   \}
 
 " LSP
 " Required for operations modifying multiple buffers like rename.
@@ -407,6 +380,10 @@ nnoremap <silent> <Leader>o :GFiles<CR>
 nnoremap <silent> <C-p> :Files<CR>
 nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--color light --exact --select-1 --exit-0'})<CR>
 
+nmap <leader>mp <Plug>MarkdownPreview
+nmap <leader>ms <Plug>MarkdownPreviewStop
+nmap <leader>mt <Plug>MarkdownPreviewToggle
+
 nnoremap <leader>k :call SearchWordWithAg()<CR>
 vnoremap <leader>/  :call SearchVisualSelectionWithAg()<CR>
 
@@ -452,7 +429,7 @@ command! -bang -nargs=* Rg
 " Git fugitive
 nnoremap <silent> <Leader>gl :Commits<CR>
 nnoremap <silent> <Leader>ga :BCommits<CR>
-nnoremap <silent> <Leader>gb :Gblame<CR>
+nnoremap <silent> <Leader>gb :Git blame<CR>
 nnoremap <silent> <Leader>gs :Gstatus<CR>
 nnoremap <silent> <leader>gd :Gdiff<CR>
 nnoremap <silent> <leader>gc :Gvdiffsplit!<CR>
@@ -589,7 +566,7 @@ xmap af <Plug>(coc-funcobj-a)
 omap if <Plug>(coc-funcobj-i)
 omap af <Plug>(coc-funcobj-a)
 
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver, coc-python
+" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver
 nmap <silent> <C-d> <Plug>(coc-range-select)
 xmap <silent> <C-d> <Plug>(coc-range-select)
 
@@ -597,6 +574,7 @@ xmap <silent> <C-d> <Plug>(coc-range-select)
 command! -nargs=0 Format :call CocAction('format')
 
 nnoremap <Leader>l :Format<CR>
+nnoremap <Leader>i :CocCommand python.sortImports<CR>
 
 " Use `:Fold` to fold current buffer
 command! -nargs=? Fold :call     CocAction('fold', <f-args>)
