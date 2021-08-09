@@ -9,8 +9,6 @@ export FZF_DEFAULT_OPTS=' --color light'
 # [ -f ~/.bash_profile ] && source ~/.bash_profile
 [ -f ~/.zsh_vars ] && source ~/.zsh_vars
 
-source ~/.asdf/plugins/java/set-java-home.zsh
-
 source <(antibody init)
 
 ZSH_THEME="robbyrussell"
@@ -24,6 +22,8 @@ set -o vi
 # POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(root_indicator dir vcs vi_mode)
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 # antibody bundle bhilburn/powerlevel9k
+
+. /opt/asdf-vm/asdf.sh
 
 # Plugins
 antibody bundle robbyrussell/oh-my-zsh
@@ -47,6 +47,8 @@ antibody bundle darvid/zsh-poetry
 antibody bundle zsh-users/zsh-completions.git
 antibody bundle zsh-users/zsh-autosuggestions.git
 antibody bundle zsh-users/zsh-syntax-highlighting.git
+
+source ~/.asdf/plugins/java/set-java-home.zsh
 
 DISABLE_AUTO_UPDATE=true
 HIST_IGNORE_ALL_DUPS=true
@@ -187,6 +189,5 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 # export PATH=$PATH:`stack path --compiler-bin`
-export DART_SDK=`asdf where dart`
 
 export PATH="$HOME/.poetry/bin:$PATH"
