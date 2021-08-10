@@ -60,7 +60,7 @@ ubuntu:
 arch-packages:
 	ansible-playbook -i inventory -vvv arch.yml -K
 
-setup-arch: prepare-setup arch-packages asdf
+setup-arch: prepare-setup gnome-settings arch-packages asdf
 	ansible-playbook -i inventory -vvv setup-arch.yml
 
 asdf:
@@ -73,6 +73,10 @@ asdf:
 	asdf plugin-add java || true
 	asdf install nodejs latest
 	asdf global nodejs latest
+
+gnome-settings:
+	gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 14
+	gsettings set org.gnome.desktop.peripherals.keyboard delay 190
 
 common:
 	ansible-playbook -i inventory -vvv common.yml -K
