@@ -1,0 +1,1 @@
+eval `keychain --noask --agents ssh --eval id_ed25519`
