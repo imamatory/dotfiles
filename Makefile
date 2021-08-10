@@ -8,6 +8,10 @@ ANSIBLE_PREFIX := docker run --rm \
   williamyeh/ansible:ubuntu18.04 \
   ansible-playbook -i inventory -vv
 
+prepare-setup:
+	sudo pacman -S --needed ansible
+
+
 install:
 	ansible-playbook main.yml -i inventory -vvv -K
 
@@ -53,8 +57,22 @@ dotfiles:
 ubuntu:
 	ansible-playbook -i inventory -vv ubuntu.yml -K
 
-arch:
+arch-packages:
 	ansible-playbook -i inventory -vvv arch.yml -K
+
+setup-arch: prepare-setup arch-packages asdf
+	ansible-playbook -i inventory -vvv setup-arch.yml
+
+asdf:
+	yay -S --needed asdf-vm
+	sh -c "source /opt/asdf-vm/asdf.sh"
+	asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
+	asdf plugin-add ruby || true
+	asdf plugin-add golang || true
+	asdf plugin-add python || true
+	asdf plugin-add java || true
+	asdf install nodejs latest
+	asdf global nodejs latest
 
 common:
 	ansible-playbook -i inventory -vvv common.yml -K

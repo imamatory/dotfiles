@@ -2,15 +2,11 @@
 
 ### Requirements
 
-* Linux Or Mac
-* git
-* python3
-* ansible (see http://docs.ansible.com/ansible/intro_installation.html)
-* nvim
+* Archlinux (tested on Manjaro GNOME)
+* make
 
 ### Setup
 
-Install editors
 ```sh
-make editors
+make setup-arch
 ```

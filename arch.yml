@@ -64,27 +64,8 @@
         yay -S --noconfirm --needed \
           debtap \
           google-chrome \
-          antibody \
-          asdf-vm
+          antibody
 
-    - name: "asdf-vm autocomplete"
-      shell: source /opt/asdf-vm/asdf.sh
-
-    - name: "asdf-vm autocomplete"
-      shell: source /opt/asdf-vm/asdf.sh
-
-    - name: "asdf-vm plugins"
-      shell: |
-         asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true && \
-         asdf plugin-add ruby || true && \
-         asdf plugin-add golang || true && \
-         asdf plugin-add python || true && \
-         asdf plugin-add java || true
-
-    - name: "asdf-vm versions"
-      shell: |
-         asdf install nodejs latest && \
-         asdf global nodejs latest
 
     - pip:
         extra_args: "--user"
