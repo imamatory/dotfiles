@@ -29,6 +29,7 @@
           - k9s
           - gh
           - git
+          - gnupg
 
     - name: Clean homebrew
       command: "brew cleanup"

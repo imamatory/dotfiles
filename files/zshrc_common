@@ -7,6 +7,7 @@ export BAT_THEME="Monokai Extended Light"
 export FZF_DEFAULT_OPTS=' --color light'
 
 [ -f ~/.zsh_vars ] && source ~/.zsh_vars
+[ -f ~/.zprofile ] && source ~/.zprofile
 
 source <(antibody init)
 
@@ -15,6 +16,8 @@ ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SL
 
 set -o vi
 
+. $HOME/.asdf/asdf.sh
+
 # Theme
 
 # POWERLEVEL9K_PROMPT_ON_NEWLINE=true
@@ -22,11 +25,9 @@ set -o vi
 # POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
 # antibody bundle bhilburn/powerlevel9k
 
-. /opt/asdf-vm/asdf.sh
-
 # Plugins
 antibody bundle robbyrussell/oh-my-zsh
-antibody bundle robbyrussell/oh-my-zsh path:plugins/asdf
+# antibody bundle robbyrussell/oh-my-zsh path:plugins/asdf
 antibody bundle robbyrussell/oh-my-zsh path:plugins/git
 # antibody bundle robbyrussell/oh-my-zsh path:plugins/lein
 # antibody bundle robbyrussell/oh-my-zsh path:plugins/brew

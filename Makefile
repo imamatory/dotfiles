@@ -8,6 +8,8 @@ ANSIBLE_PREFIX := docker run --rm \
   williamyeh/ansible:ubuntu18.04 \
   ansible-playbook -i inventory -vv
 
+OS_FAMILY := $(shell uname -s)
+
 prepare-setup:
 	sudo pacman -S --needed ansible
 
@@ -66,7 +68,8 @@ setup-arch: prepare-setup gnome-settings arch-packages asdf
 	ansible-playbook -i inventory -vvv setup-arch.yml
 
 asdf:
-	sh -c "source /opt/asdf-vm/asdf.sh"
+	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1 || true
+	. $(HOME)/.asdf/asdf.sh
 	asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
 	asdf plugin-add ruby || true
 	asdf plugin-add golang || true
@@ -79,6 +82,10 @@ gnome-settings:
 	gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 14
 	gsettings set org.gnome.desktop.peripherals.keyboard delay 190
 
+mac-settings:
+	defaults write -g InitialKeyRepeat -int 8 # normal minimum is 15 (225 ms)
+	defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+
 common:
 	ansible-playbook -i inventory -vvv common.yml -K
 
@@ -88,7 +95,7 @@ homebrew:
 	eval "$$(/opt/homebrew/bin/brew shellenv)"
 
 x-code:
-	xcode-select --install || true	
+	xcode-select --install || true
 
 mac-prepare: x-code homebrew
 	brew install ansible

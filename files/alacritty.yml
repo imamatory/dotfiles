@@ -23,16 +23,16 @@ shell:
 
 font:
   normal:
-    family: Source Code Pro
+    family: Monaco
   size: 12
   glyph_offset:
     y: 1
   bold:
-    family: Source Code Pro Medium
+    family: Monaco
     style: Bold
 
   italic:
-    family: Source Code Pro Light
+    family: Monaco
     style: Italic
 
 # Colors (Gruvbox dark)
