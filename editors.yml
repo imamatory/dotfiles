@@ -34,7 +34,7 @@
         dest: ~/.config/nvim/init.vim
         state: link
     - name: Install vim deps
-      shell: "nvim -E -s -V -u ~/.config/nvim/init.vim +PlugInstall +qall"
+      shell: "nvim -E -s -V -u ~/.config/nvim/init.vim +PlugInstall +qall || true"
 
     - name: Install spacemacs
       git:

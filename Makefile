@@ -12,8 +12,10 @@ prepare-setup:
 	sudo pacman -S --needed ansible
 
 
-install:
-	ansible-playbook main.yml -i inventory -vvv -K
+mac-install: mac dotfiles editors
+
+mac:
+	ansible-playbook mac.yml -i inventory -vvv -K
 
 # ansible:
 # 	docker run --rm -it \
@@ -64,7 +66,6 @@ setup-arch: prepare-setup gnome-settings arch-packages asdf
 	ansible-playbook -i inventory -vvv setup-arch.yml
 
 asdf:
-	yay -S --needed asdf-vm
 	sh -c "source /opt/asdf-vm/asdf.sh"
 	asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
 	asdf plugin-add ruby || true
@@ -80,3 +81,14 @@ gnome-settings:
 
 common:
 	ansible-playbook -i inventory -vvv common.yml -K
+
+homebrew:
+	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sudo -u $$USER bash
+	echo 'eval "$$(/opt/homebrew/bin/brew shellenv)"' >> /Users/`whoami`/.zprofile
+	eval "$$(/opt/homebrew/bin/brew shellenv)"
+
+x-code:
+	xcode-select --install || true	
+
+mac-prepare: x-code homebrew
+	brew install ansible

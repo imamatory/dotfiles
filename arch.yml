@@ -64,7 +64,8 @@
         yay -S --noconfirm --needed \
           debtap \
           google-chrome \
-          antibody
+          antibody \
+          asdf-vm
 
 
     - pip:

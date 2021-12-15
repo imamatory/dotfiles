@@ -1,18 +1,9 @@
 ---
 - hosts: all
   tasks:
-    - homebrew_tap:
-        name: d12frosted/emacs-plus
-
-    - homebrew_cask:
-        name:
-          - java
-          - postgres
-          - ngrok
-
     - homebrew:
+        state: presen
         name:
-          - node
           - readline
           - wget
           - zsh
@@ -25,15 +16,19 @@
           - lsd
           - jq
           - getantibody/tap/antibody
-          - emacs-plus
+          - neovim
+          - tmux
+          - tig
+          - fd
+          - alacritty
+          - htop
+          - lsof
+          - keychain
+          - kubectl
+          - kubectx
+          - k9s
+          - gh
+          - git
 
     - name: Clean homebrew
       command: "brew cleanup"
-
-    - npm:
-        name: "{{ item }}"
-        global: yes
-      with_items:
-        - yarn
-        - n
-        - nodemon
