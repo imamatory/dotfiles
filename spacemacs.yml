@@ -1,0 +1,16 @@
+---
+- hosts: all
+  vars:
+    config: ~/.bash_profile
+  tasks:
+    - name: Install spacemacs
+      git:
+        repo: "https://github.com/syl20bnr/spacemacs"
+        dest: ~/.emacs.d
+        version: develop
+
+    - file:
+        src: "{{ playbook_dir }}/files/spacemacs"
+        dest: ~/.spacemacs
+        state: link
+

@@ -9,7 +9,7 @@ env:
 window:
   dynamic_title: true
   startup_mode: Maximized
-  decorations: none
+  # decorations: none
   padding:
     x: 2
     y: 2
@@ -23,7 +23,8 @@ shell:
 
 font:
   normal:
-    family: Monaco
+    # family: Monaco
+    family: Hack Nerd Font Mono
   size: 12
   glyph_offset:
     y: 1
@@ -83,12 +84,11 @@ mouse:
   hide_when_typing: true
 
   # url:
-    # URL launcher
-    #
-    # This program is executed when clicking on a text which is recognized as a URL.
-    # The URL is always added to the Control as the last parameter.
-    # launcher: xdg-open
-
+  # URL launcher
+  #
+  # This program is executed when clicking on a text which is recognized as a URL.
+  # The URL is always added to the Control as the last parameter.
+  # launcher: xdg-open
 
   # hints:
   # enabled:
@@ -114,9 +114,16 @@ selection:
   # clipboard.
   save_to_clipboard: true
 
-
 key_bindings:
   - { key: Q, mods: Control, action: Quit }
   - { key: Key0, mods: Control, action: ResetFontSize }
   - { key: Equals, mods: Control, action: IncreaseFontSize }
   - { key: Minus, mods: Control, action: DecreaseFontSize }
+  - { key: T, mods: Command, chars: "\x02\x63" }
+  - { key: H, mods: Command, chars: "\x06\x48" }
+  - { key: J, mods: Command, chars: "\x06\x4a" }
+  - { key: K, mods: Command, chars: "\x06\x4b" }
+  - { key: L, mods: Command, chars: "\x06\x4c" }
+
+    # Toggle the zoom state of the current tmux pane
+  - { key: O, mods: Command, chars: "\x02\x7a" }

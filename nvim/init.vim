@@ -1,3 +1,5 @@
+lua require('init')
+
 set nocompatible
 
 let $PATH = $PATH . ':' . expand('~/.local/bin') . ':' . '/usr/local/bin/'
@@ -5,82 +7,6 @@ let $LANG = 'en'
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" Plug 'roxma/nvim-completion-manager'
-" Plug 'w0rp/ale'
-Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-" Plug 'tpope/vim-endwise'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'scrooloose/nerdtree'
-Plug 'nanotech/jellybeans.vim'
-Plug 'NLKNguyen/papercolor-theme'
-Plug 'trevordmiller/nova-vim'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'xolox/vim-misc'
-Plug 'jiangmiao/auto-pairs'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-abolish'
-Plug 'tpope/vim-fugitive'
-Plug 'michaeljsmith/vim-indent-object'
-Plug 'Chiel92/vim-autoformat'
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' }
-Plug 'maxmellon/vim-jsx-pretty'
-Plug 'imamatory/leader-clipboard'
-Plug 'digitaltoad/vim-pug'
-" Plug 'mitermayer/vim-prettier', {
-"       \ 'do': 'npm install',
-"       \ 'for': ['javascript', 'typescript', 'css', 'less', 'scss'] }
-Plug 'chemzqm/vim-jsx-improve', { 'for': 'javascript' }
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'tpope/vim-bundler', { 'for': 'ruby' }
-Plug 'tpope/vim-rails', { 'for': 'ruby' }
-Plug 'vim-ruby/vim-ruby', { 'for': 'ruby' }
-Plug 'AndrewRadev/splitjoin.vim'
-Plug 'ap/vim-css-color'
-Plug 'hhsnopek/vim-sugarss'
-Plug 'slashmili/alchemist.vim'
-Plug 'elixir-lang/vim-elixir', { 'for': 'elixir' }
-Plug 'c-brenn/phoenix.vim', { 'for': 'elixir' }
-Plug 'onemanstartup/vim-slim', { 'for': ['slim', 'slime', 'slimleex'] }
-Plug 'ekalinin/Dockerfile.vim', { 'for': 'Dockerfile' }
-Plug 'editorconfig/editorconfig-vim'
-Plug 'neovimhaskell/haskell-vim', { 'for': 'haskell' }
-Plug 'reasonml-editor/vim-reason-plus', { 'for': 'reason' }
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'dyng/ctrlsf.vim'
-Plug 'stephpy/vim-yaml', { 'for': 'yaml' }
-" Plug 'junegunn/gv.vim'
-Plug 'junegunn/vim-easy-align'
-Plug 'vtm9/vim-dispatch'
-Plug 'janko-m/vim-test'
-Plug 'airblade/vim-rooter', { 'for': 'ruby' }
-Plug 'udalov/kotlin-vim', { 'for': 'kotlin' }
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'jszakmeister/vim-togglecursor'
-" Plug 'airblade/vim-gitgutter'
-Plug 'vtm9/vim-pry'
-Plug 'kana/vim-textobj-user'
-Plug 'whatyouhide/vim-textobj-xmlattr'
-Plug 'nelstrom/vim-textobj-rubyblock', { 'for': 'ruby' }
-Plug 'sheerun/vim-polyglot'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-
-" Clojure
-Plug 'guns/vim-clojure-static' ", { 'for': 'clojure' }
-" Plug 'tpope/vim-classpath', { 'for': 'clojure' }
-Plug 'tpope/vim-fireplace' ", { 'for': 'clojure' }
-Plug 'venantius/vim-eastwood' ", { 'for': 'clojure' }
-" Plug 'venantius/vim-cljfmt' ", { 'for': 'clojure' }
-Plug 'clojure-vim/vim-cider' ", { 'for': 'clojure' }
-Plug 'guns/vim-clojure-highlight', { 'for': 'clojure' }
-" Plug 'eraserhd/parinfer-rust', {'do': 'cargo build --release'}
-Plug 'fbeline/kibit-vim', { 'for': 'clojure' }
-Plug 'junegunn/rainbow_parentheses.vim'
-Plug 'guns/vim-sexp', { 'for': ['clojure', 'scheme', 'racket'] }
 
 " coc
 Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': { -> coc#util#install()} }
@@ -192,28 +118,14 @@ filetype plugin indent on
 
 " THEME
 
-" colorscheme nova
-" let g:airline_theme='nova'
-
 " colorscheme jellybeans
 " let g:jellybeans_background_color_256='NONE'
 " let g:jellybeans_use_term_background_color = 1
 " let g:airline_theme='badwolf'
-"
-colorscheme PaperColor
-let g:airline_theme='papercolor'
-" let g:lightline = {
-"       \ 'colorscheme': 'PaperColor',
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ], [ 'cocstatus', 'readonly', 'filename', 'modified' ] ],
-"       \   'right': [ [ 'lineinfo' ], [ 'percent' ], [ 'filetype' ] ]
-"       \ },
-"       \ 'component_function': {
-"       \   'filename': 'LightlineFilename',
-"       \   'cocstatus': 'coc#status'
-"       \ },
-"       \ }
-set background=light
+
+
+" supress error during setup
+silent! colorscheme material
 
 " color dracula
 
@@ -309,8 +221,6 @@ nmap <leader><S-O> o<esc>kk<CR>
 
 nnoremap Y y$
 
-nnoremap <Leader>ft :Filetypes<CR>
-
 " search and replace
 nnoremap <Leader>fr :%s///g<Left><Left>
 vnoremap <Leader>fr "hy:%s/<C-r>h//gc<left><left><left>
@@ -337,19 +247,6 @@ map <leader>vc :CocConfig<CR>
 " Required for operations modifying multiple buffers like rename.
 set hidden
 
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
-" let g:LanguageClient_diagnosticsList = 'Location'
-" let g:LanguageClient_diagnosticsEnable = 0
-let g:LanguageClient_serverCommands = {
-  \ 'java': ['/usr/local/bin/jdtls'],
-  \ 'ruby': ['solargraph', 'stdio'],
-  \ 'python': ['python', '-m', 'pyls'],
-  \ 'elixir': ['sh', expand('~/.elixir.d/elixir-ls/language_server.sh')],
-  \ 'javascript': ['javascript-typescript-stdio'],
-  \ 'javascript.jsx': ['javascript-typescript-stdio'],
-  \ }
-
 " nnoremap <silent> K :call LanguageClient_textDocument_hover()<CR>
 " nnoremap <silent> gd :call LanguageClient_textDocument_definition()<CR>
 " nnoremap <silent> <F2> :call LanguageClient_textDocument_rename()<CR>
@@ -359,58 +256,27 @@ nmap <leader>gg <Plug>CtrlSFPrompt
 vmap <leader>gg <Plug>CtrlSFVwordPath
 let g:ctrlsf_auto_focus = { "at": "start" }
 
-" FZF
-let g:fzf_nvim_statusline = 0 " disable statusline overwriting
-"
-" " [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
-
 nmap <silent> [b :bp<CR>
 nmap <silent> ]b :bn<CR>
 
 " vim-rooter
 let g:rooter_patterns = ['Makefile','Rakefile', 'mix.exs', '.git/']
 
-nnoremap <silent> <Leader>b :Buffers<CR>
-nnoremap <silent> <Leader>/ :Rg!<Space>
-nnoremap <silent> <Leader>T :BTags<CR>
-nnoremap <silent> <Leader>t :Tags<CR>
-nnoremap <silent> <Leader>h :History<CR>
-nnoremap <silent> <Leader>o :GFiles<CR>
-nnoremap <silent> <C-p> :Files<CR>
-nnoremap <leader>d :call fzf#vim#tags(expand('<cword>'), {'options': '--color light --exact --select-1 --exit-0'})<CR>
+nnoremap <silent> <Leader>b <cmd>lua require('fzf-lua').buffers()<CR>
+nnoremap <silent> <Leader>T <cmd>lua require('fzf-lua').btsgs()<CR>
+nnoremap <silent> <Leader>t <cmd>lua require('fzf-lua').tags()<CR>
+nnoremap <silent> <Leader>h <cmd>lua require('fzf-lua').oldfiles()<CR>
+nnoremap <silent> <Leader>o <cmd>lua require('fzf-lua').git_files()<CR>
+nnoremap <silent> <C-p> <cmd>lua require('fzf-lua').files()<CR>
+nnoremap <Leader>ft <cmd>lua require('fzf-lua').filetypes()<CR>
+
+nnoremap <silent> <Leader>/ <cmd>lua require('fzf-lua').grep_project()<CR>
+vnoremap <leader>/  <cmd>lua require('fzf-lua').grep_visual()<CR>
+vnoremap <leader>k  <cmd>lua require('fzf-lua').grep_cword()<CR>
 
 nmap <leader>mp <Plug>MarkdownPreview
 nmap <leader>ms <Plug>MarkdownPreviewStop
 nmap <leader>mt <Plug>MarkdownPreviewToggle
-
-nnoremap <leader>k :call SearchWordWithAg()<CR>
-vnoremap <leader>/  :call SearchVisualSelectionWithAg()<CR>
-
-imap <C-x><C-f> <plug>(fzf-complete-file-ag)
-imap <C-x><C-l> <plug>(fzf-complete-line)
-
-command! -bang -nargs=? -complete=dir GFiles
- \ call fzf#vim#gitfiles(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-command! -bang -nargs=? -complete=dir Files
- \ call fzf#vim#files(<q-args>, fzf#vim#with_preview(), <bang>0)
-
-function! SearchWordWithAg()
- execute 'Rg!' expand('<cword>')
-endfunction
-
-function! SearchVisualSelectionWithAg() range
- let old_reg = getreg('"')
- let old_regtype = getregtype('"')
- let old_clipboard = &clipboard
- set clipboard&
- normal! ""gvy
- let selection = getreg('"')
- call setreg('"', old_reg, old_regtype)
- let &clipboard = old_clipboard
- execute 'Rg!' selection
-endfunction
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
@@ -418,7 +284,6 @@ command! -bang -nargs=* Rg
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
-" }}}
 
 " Clipboard
 " nmap <Leader>p :set paste<CR><esc>"+p: set nopaste<cr>
@@ -458,12 +323,7 @@ let g:nerdtree_tabs_open_on_console_startup = 1
 let NERDTreeMapJumpNextSibling='<C-N>'
 let NERDTreeMapJumpPrevSibling='<C-O>'
 
-" let g:loaded_netrw       = 1
 let g:loaded_netrwPlugin = 1
-
-" " Move between linting errors
-" nnoremap ]r :ALENextWrap<CR>
-" nnoremap [r :ALEPreviousWrap<CR>
 
 " COC
 " if hidden is not set, TextEdit might fail.
@@ -484,14 +344,6 @@ set updatetime=300
 
 " always show signcolumns
 set signcolumn=yes
-
-" Use tab for trigger completion with characters ahead and navigate.
-" Use command ':verbose imap <tab>' to make sure tab is not mapped by other plugin.
-" inoremap <silent><expr> <TAB>
-"       \ pumvisible() ? "\<C-n>" :
-"       \ <SID>check_back_space() ? "\<TAB>" :
-"       \ coc#refresh()
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 function! s:check_back_space() abort
   let col = col('.') - 1

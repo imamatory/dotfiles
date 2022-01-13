@@ -29,7 +29,10 @@
           - k9s
           - gh
           - git
+          - git-delta
           - gnupg
+          - pyenv
+          - pyenv-virtualenv
 
     - name: Clean homebrew
       command: "brew cleanup"

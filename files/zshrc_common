@@ -1,4 +1,5 @@
 export LANG=en_US.UTF-8
+export ES_TMPDIR="/opt/homebrew/var/lib/elasticsearch/tmp"
 export LC_CTYPE=en_US.UTF-8
 export LANGUAGE=en_US:en
 export LC_ALL=en_US.UTF-8
@@ -15,8 +16,6 @@ ZSH_THEME="robbyrussell"
 ZSH="$(antibody home)/https-COLON--SLASH--SLASH-github.com-SLASH-robbyrussell-SLASH-oh-my-zsh"
 
 set -o vi
-
-. $HOME/.asdf/asdf.sh
 
 # Theme
 
@@ -40,7 +39,6 @@ antibody bundle robbyrussell/oh-my-zsh path:plugins/docker-compose
 antibody bundle robbyrussell/oh-my-zsh path:plugins/kubectl
 antibody bundle robbyrussell/oh-my-zsh path:plugins/yarn
 # antibody bundle robbyrussell/oh-my-zsh path:plugins/stack
-# antibody bundle robbyrussell/oh-my-zsh path:plugins/pyenv
 antibody bundle darvid/zsh-poetry
 
 antibody bundle mattberther/zsh-pyenv
@@ -166,6 +164,10 @@ alias last-week="git log --oneline --since 'last week'"
 alias ips='iex -S mix phx.server'
 alias ism='iex -S mix'
 
+# prevents overriding of TERM in tmux
+export ZSH_TMUX_FIXTERM=false
+export ZSH_TMUX_TERM=xterm-256colour
+
 # if [ $TERM = "xterm-kitty" ]; then
 #     alias ssh="kitty +kitten ssh"
 
@@ -189,8 +191,16 @@ export PATH=$PATH:$ANDROID_HOME/tools
 export PATH=$PATH:$ANDROID_HOME/tools/bin
 export PATH=$PATH:$ANDROID_HOME/platform-tools
 
+export PATH="$HOME/.poetry/bin:$PATH"
+
 # export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
 # eval "$(pyenv init --path)"
 
-export PATH="$HOME/.poetry/bin:$PATH"
+export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_FALLBACK_LIBRARY_PATH
+export LD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$LD_LIBRARY_PATH
+
+. $HOME/.asdf/asdf.sh
+. $HOME/.asdf/completions/asdf.bash
+
+alias ibrew="arch -x86_64 /usr/local/homebrew/bin/brew"

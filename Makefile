@@ -14,7 +14,7 @@ prepare-setup:
 	sudo pacman -S --needed ansible
 
 
-mac-install: mac dotfiles editors
+mac-install: mac dotfiles nvim-install
 
 mac:
 	ansible-playbook mac.yml -i inventory -vvv -K
@@ -29,8 +29,8 @@ mac:
 # 	-w /dotfiles \
 # 	williamyeh/ansible:ubuntu18.04 bash
 
-editors:
-	ansible-playbook editors.yml -vv -i inventory -e curdir=$(pwd) -K
+nvim-install:
+	ansible-playbook nvim.yml -vv -i inventory -e curdir=$(pwd)
 
 zsh-configure:
 	ansible-playbook zsh.yml -vv -i inventory -e curdir=$(pwd) -K
@@ -83,7 +83,7 @@ gnome-settings:
 	gsettings set org.gnome.desktop.peripherals.keyboard delay 190
 
 mac-settings:
-	defaults write -g InitialKeyRepeat -int 8 # normal minimum is 15 (225 ms)
+	defaults write -g InitialKeyRepeat -int 9 # normal minimum is 15 (225 ms)
 	defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 
 common:
@@ -97,5 +97,5 @@ homebrew:
 x-code:
 	xcode-select --install || true
 
-mac-prepare: x-code homebrew
+mac-install: x-code homebrew
 	brew install ansible
