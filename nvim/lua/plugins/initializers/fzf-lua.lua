@@ -1,6 +1,4 @@
-local M = {}
-
-function M.setup()
+return function()
   require('fzf-lua').setup {
     winopts = {
       preview = {
@@ -10,9 +8,7 @@ function M.setup()
       }
     },
     fzf_opts = {
-      ['--layout'] = 'default',
+      ['--layout'] = 'default'
     }
   }
 end
-
-return M

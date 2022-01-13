@@ -34,17 +34,19 @@ return require('packer').startup({
       use 'onemanstartup/vim-slim'
       use 'ekalinin/Dockerfile.vim'
       use 'editorconfig/editorconfig-vim'
-      use { 'ibhagwan/fzf-lua',
+      use {'ibhagwan/fzf-lua',
         -- optional for icon support
-        requires = { 'kyazdani42/nvim-web-devicons' },
-        config = function () require('plugins.initializers.fzf-lua').setup() end
+        requires = {'kyazdani42/nvim-web-devicons'},
+        config = require('plugins.initializers.fzf-lua')
       }
       use 'dyng/ctrlsf.vim'
       use 'junegunn/vim-easy-align'
       use 'vtm9/vim-dispatch'
       use 'janko-m/vim-test'
       use 'airblade/vim-rooter'
-      use 'christoomey/vim-tmux-navigator'
+      use { 'numToStr/Navigator.nvim',
+        config = require('plugins.initializers.navigator-nvim')
+      }
       use 'jszakmeister/vim-togglecursor'
       use 'vtm9/vim-pry'
       use 'kana/vim-textobj-user'

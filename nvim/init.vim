@@ -200,11 +200,11 @@ nmap <F8> :TagbarToggle<CR>
 " nmap <leader>] <Plug>AirlineSelectNextTab
 
 " Map ctrl-movement keys to window switching
-map <C-k> <C-w><Up>
-map <C-j> <C-w><Down>
-map <C-l> <C-w><Right>
-map <C-h> <C-w><Left>
-nnoremap <silent> <bs> <C-w><Left>
+" map <C-k> <C-w><Up>
+" map <C-j> <C-w><Down>
+" map <C-l> <C-w><Right>
+" map <C-h> <C-w><Left>
+" nnoremap <silent> <bs> <C-w><Left>
 
 nmap <silent> // :nohlsearch<CR>
 noremap ,hl :set hlsearch! hlsearch?<CR>

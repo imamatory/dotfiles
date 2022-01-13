@@ -11,3 +11,6 @@ function _G.put(...)
 end
 
 require('plugins')
+
+vim.cmd("au BufWritePost **/nvim/lua/plugins/init.lua lua reload()")
+vim.cmd("au BufWritePost **/nvim/lua/plugins/init.lua PackerCompile")
