@@ -185,11 +185,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 export PATH=$PATH:~/.cargo/bin
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-export ANDROID_HOME=$HOME/Android/Sdk
-export PATH=$PATH:$ANDROID_HOME/emulator
-export PATH=$PATH:$ANDROID_HOME/tools
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
 
 export PATH="$HOME/.poetry/bin:$PATH"
 
@@ -204,3 +199,4 @@ export LD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$LD_LIBRARY_PATH
 . $HOME/.asdf/completions/asdf.bash
 
 alias ibrew="arch -x86_64 /usr/local/homebrew/bin/brew"
+eval "$(pyenv init -)"

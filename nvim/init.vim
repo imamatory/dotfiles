@@ -13,6 +13,7 @@ Plug 'neoclide/coc.nvim', { 'branch': 'master', 'do': { -> coc#util#install()} }
 
 nnoremap <silent> <leader>a :<C-u>CocList -A --normal yank<CR>
 let g:coc_global_extensions = [
+      \ 'coc-rls',
       \ 'coc-flutter',
       \ 'coc-html',
       \ 'coc-lists',
@@ -36,8 +37,8 @@ let g:coc_global_extensions = [
       \ 'coc-docker',
       \ 'coc-jest',
       \ 'coc-tsserver',
+      \ 'coc-xml',
       \]
-      \ " \ 'coc-json',
 
 call plug#end()
 
