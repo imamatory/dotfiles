@@ -38,6 +38,7 @@ let g:coc_global_extensions = [
       \ 'coc-jest',
       \ 'coc-tsserver',
       \ 'coc-xml',
+      \ 'coc-sql',
       \]
 
 call plug#end()
@@ -273,7 +274,7 @@ nnoremap <Leader>ft <cmd>lua require('fzf-lua').filetypes()<CR>
 
 nnoremap <silent> <Leader>/ <cmd>lua require('fzf-lua').grep_project()<CR>
 vnoremap <leader>/  <cmd>lua require('fzf-lua').grep_visual()<CR>
-vnoremap <leader>k  <cmd>lua require('fzf-lua').grep_cword()<CR>
+nnoremap <leader>k  <cmd>lua require('fzf-lua').grep_cword()<CR>
 
 nmap <leader>mp <Plug>MarkdownPreview
 nmap <leader>ms <Plug>MarkdownPreviewStop
@@ -316,7 +317,7 @@ vmap \f :CljfmtRange<cr>
 
 let g:clj_fmt_autosave = 0
 
-nmap <C-i> :NERDTreeFind<CR>
+nnoremap <tab> :NERDTreeFind<CR>
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>
 
 let NERDTreeIgnore = ['\.pyc$']

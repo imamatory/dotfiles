@@ -125,5 +125,16 @@ key_bindings:
   - { key: K, mods: Command, chars: "\x06\x4b" }
   - { key: L, mods: Command, chars: "\x06\x4c" }
 
+  # Select window 1-9
+  - { key: Key1, mods: Command, chars: "\x02\x31" }
+  - { key: Key2, mods: Command, chars: "\x02\x32" }
+  - { key: Key3, mods: Command, chars: "\x02\x33" }
+  - { key: Key4, mods: Command, chars: "\x02\x34" }
+  - { key: Key5, mods: Command, chars: "\x02\x35" }
+  - { key: Key6, mods: Command, chars: "\x02\x36" }
+  - { key: Key7, mods: Command, chars: "\x02\x37" }
+  - { key: Key8, mods: Command, chars: "\x02\x38" }
+  - { key: Key9, mods: Command, chars: "\x02\x39" }
+
     # Toggle the zoom state of the current tmux pane
   - { key: O, mods: Command, chars: "\x02\x7a" }

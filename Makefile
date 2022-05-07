@@ -83,7 +83,7 @@ gnome-settings:
 	gsettings set org.gnome.desktop.peripherals.keyboard delay 190
 
 mac-settings:
-	defaults write -g InitialKeyRepeat -int 9 # normal minimum is 15 (225 ms)
+	defaults write -g InitialKeyRepeat -int 11 # normal minimum is 15 (225 ms)
 	defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
 
 common:
