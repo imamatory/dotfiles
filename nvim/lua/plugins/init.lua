@@ -1,16 +1,42 @@
+local fuzzyfinder = {
+  { 'junegunn/fzf.vim' },
+  {
+    'nvim-telescope/telescope.nvim', branch = '0.1.x',
+    requires = { {'nvim-lua/plenary.nvim'} },
+    config = require('plugins.initializers.telescope-nvim')
+  },
+  { 'windwp/nvim-spectre' },
+}
+
+local treesitter = {
+  {
+    'nvim-treesitter/nvim-treesitter',
+    config = require('plugins.initializers.nvim-treesitter'),
+    run = function()
+        local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+        ts_update()
+    end,
+  },
+  {
+    'windwp/nvim-ts-autotag',
+    requires = { 'nvim-treesitter/nvim-treesitter' },
+  },
+}
+
 return require('packer').startup({
     function(use)
       use 'wbthomason/packer.nvim'
+      require('plugins.lsp').run(use)
+      use(treesitter)
+      use(fuzzyfinder)
       use 'tpope/vim-sensible'
       use 'tpope/vim-surround'
       use 'tpope/vim-repeat'
       use 'nathanaelkane/vim-indent-guides'
       use 'scrooloose/nerdtree'
-      use 'nanotech/jellybeans.vim'
-      use 'marko-cerovac/material.nvim'
-      use 'trevordmiller/nova-vim'
       use 'vim-airline/vim-airline'
       use 'vim-airline/vim-airline-themes'
+      use { 'catppuccin/nvim', as = 'catppuccin' }
       use 'xolox/vim-misc'
       use 'terryma/vim-multiple-cursors'
       use 'tpope/vim-commentary'
@@ -18,41 +44,28 @@ return require('packer').startup({
       use 'tpope/vim-fugitive'
       use 'michaeljsmith/vim-indent-object'
       use 'Chiel92/vim-autoformat'
-      use 'maxmellon/vim-jsx-pretty'
       use 'imamatory/leader-clipboard'
       use 'digitaltoad/vim-pug'
       use 'elzr/vim-json'
-      use 'tpope/vim-bundler'
-      use 'tpope/vim-rails'
-      use 'vim-ruby/vim-ruby'
       use 'AndrewRadev/splitjoin.vim'
       use 'ap/vim-css-color'
       use 'hhsnopek/vim-sugarss'
       use 'slashmili/alchemist.vim'
-      use 'elixir-lang/vim-elixir'
-      use 'c-brenn/phoenix.vim'
-      use 'onemanstartup/vim-slim'
       use 'ekalinin/Dockerfile.vim'
       use 'editorconfig/editorconfig-vim'
-      use {'ibhagwan/fzf-lua',
-        -- optional for icon support
-        requires = {'kyazdani42/nvim-web-devicons'},
-        config = require('plugins.initializers.fzf-lua')
-      }
       use 'dyng/ctrlsf.vim'
       use 'junegunn/vim-easy-align'
       use 'vtm9/vim-dispatch'
       use 'janko-m/vim-test'
       use 'airblade/vim-rooter'
-      use { 'numToStr/Navigator.nvim',
-        config = require('plugins.initializers.navigator-nvim')
-      }
+      use { 'numToStr/Navigator.nvim', config = require('plugins.initializers.navigator-nvim') }
       use 'jszakmeister/vim-togglecursor'
       use 'vtm9/vim-pry'
       use 'kana/vim-textobj-user'
       use 'whatyouhide/vim-textobj-xmlattr'
       use 'nelstrom/vim-textobj-rubyblock'
       use 'sheerun/vim-polyglot'
+      use({ 'iamcco/markdown-preview.nvim', run = 'cd app && yarn install', setup = function() vim.g.mkdp_filetypes = { 'markdown' } end, ft = { 'markdown' } })
     end,
     config = {
       display = {

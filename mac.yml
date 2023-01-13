@@ -33,6 +33,7 @@
           - gnupg
           - pyenv
           - pyenv-virtualenv
+          - gnu-sed  # for nvim-spectre
 
     - name: Clean homebrew
       command: "brew cleanup"

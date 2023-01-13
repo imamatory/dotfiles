@@ -1,11 +1,13 @@
 export LANG=en_US.UTF-8
-export ES_TMPDIR="/opt/homebrew/var/lib/elasticsearch/tmp"
 export LC_CTYPE=en_US.UTF-8
-export LANGUAGE=en_US:en
 export LC_ALL=en_US.UTF-8
+export LANGUAGE=en_US:en
+export ES_TMPDIR="/opt/homebrew/var/lib/elasticsearch/tmp"
 export EDITOR="nvim"
 export BAT_THEME="Monokai Extended Light"
 export FZF_DEFAULT_OPTS=' --color light'
+
+export K9SCONFIG='~/.k9s/config.yml'
 
 [ -f ~/.zsh_vars ] && source ~/.zsh_vars
 [ -f ~/.zprofile ] && source ~/.zprofile
@@ -106,6 +108,8 @@ plugins=(
 #   zsh-completions
 )
 
+eval "$(pyenv init -)"
+
 # source $ZSH/oh-my-zsh.sh
 autoload -U compinit && compinit
 
@@ -156,8 +160,8 @@ alias kx="kubectx"
 alias kittyconfig="nvim ~/.config/kitty/kitty.conf"
 alias ls="lsd"
 alias cat="bat"
-alias pbcopy="xsel --clipboard --input"
-alias pbpaste="xsel --clipboard --output"
+# alias pbcopy="xsel --clipboard --input"
+# alias pbpaste="xsel --clipboard --output"
 alias last-week="git log --oneline --since 'last week'"
 # alias ghc="stack ghc"
 # alias ghci="stack ghci"
@@ -186,7 +190,7 @@ export PATH=$PATH:~/.cargo/bin
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-export PATH="$HOME/.poetry/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH"
 
 # export PYENV_ROOT="$HOME/.pyenv"
 # export PATH="$PYENV_ROOT/bin:$PATH"
@@ -199,4 +203,3 @@ export LD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$LD_LIBRARY_PATH
 . $HOME/.asdf/completions/asdf.bash
 
 alias ibrew="arch -x86_64 /usr/local/homebrew/bin/brew"
-eval "$(pyenv init -)"

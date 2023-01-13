@@ -9,6 +9,9 @@ return function()
     },
     fzf_opts = {
       ['--layout'] = 'default'
+    },
+    grep = {
+      rg_opts = '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=512',
     }
   }
 end
