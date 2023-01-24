@@ -85,6 +85,7 @@ gnome-settings:
 mac-settings:
 	defaults write -g InitialKeyRepeat -int 11 # normal minimum is 15 (225 ms)
 	defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
+	defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false  # vscode enable key repeat on hold
 
 common:
 	ansible-playbook -i inventory -vvv common.yml -K

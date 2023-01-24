@@ -1,7 +1,7 @@
 local M = {}
 
 function M.run(use)
-  local servers = {
+  local lsp_servers = {
     'tsserver',
     'ansiblels',
     'bashls',
@@ -16,8 +16,8 @@ function M.run(use)
     'sorbet',
     'sqlls',
     'sumneko_lua',
-    'stylelint_lsp',
     'terraformls',
+    'tsserver',
     'vimls',
     'yamlls',
     'html',
@@ -26,6 +26,12 @@ function M.run(use)
     'jsonls',
     'solargraph',
     'sumneko_lua',
+    'rust_analyzer',
+  }
+  local dap_servers = {
+    'python',
+    'codelldb',
+    'delve',
   }
 
   use {
@@ -33,6 +39,9 @@ function M.run(use)
     'neovim/nvim-lspconfig',
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
+    'mfussenegger/nvim-dap',
+    'jayp0521/mason-nvim-dap.nvim',
+
     {
       'folke/trouble.nvim',
       requires = 'kyazdani42/nvim-web-devicons',
@@ -72,19 +81,57 @@ function M.run(use)
     -- Snippets
     'L3MON4D3/LuaSnip',
     'rafamadriz/friendly-snippets',
+
+    -- Rust
+    'simrat39/rust-tools.nvim',
+  }
+
+  use {
+    'jose-elias-alvarez/null-ls.nvim',
+    -- 'MunifTanjim/prettier.nvim',
   }
 
   require('mason').setup()
   require('mason-lspconfig').setup({
-    ensure_installed = servers
+    ensure_installed = lsp_servers
+  })
+
+  require("mason-nvim-dap").setup({
+    ensure_installed = dap_servers
   })
 
 
   local on_attach = function(client, bufnr)
     local opts = { buffer = bufnr }
     local bind = vim.keymap.set
+    local group = vim.api.nvim_create_augroup("lsp_format_on_save", { clear = false })
+    local event = "BufWritePre" -- or "BufWritePost"
+    local async = event == "BufWritePost"
 
-    bind('n', '<leader>l', vim.lsp.buf.format, opts)
+    if client.supports_method("textDocument/formatting") then
+      bind("n", "<Leader>l", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format by " .. client.name })
+
+      -- format on save
+      vim.api.nvim_clear_autocmds({ buffer = bufnr, group = group })
+      vim.api.nvim_create_autocmd(event, {
+        buffer = bufnr,
+        group = group,
+        callback = function()
+          vim.lsp.buf.format({ bufnr = bufnr, async = async })
+        end,
+        desc = "[lsp] format on save by " .. client.name,
+      })
+    end
+
+    if client.supports_method("textDocument/rangeFormatting") then
+      bind("x", "<Leader>l", function()
+        vim.lsp.buf.format({ bufnr = vim.api.nvim_get_current_buf() })
+      end, { buffer = bufnr, desc = "[lsp] format by " .. client.name })
+    end
+
+    -- bind('n', '<leader>l', vim.lsp.buf.format, { bufnr = vim.api.nvim_get_current_buf() })
     bind('n', 'rn', vim.lsp.buf.rename, opts)
     bind('n', '<leader>ca', vim.lsp.buf.code_action, opts)
     bind('n', 'gd', vim.lsp.buf.definition, opts)
@@ -92,6 +139,11 @@ function M.run(use)
     bind('n', '<leader>i', '<cmd>PyrightOrganizeImports<CR>', opts)
     bind('n', '[g', vim.diagnostic.goto_prev, opts)
     bind('n', ']g', vim.diagnostic.goto_next, opts)
+    bind('n', 'gl', vim.lsp.buf.declaration, opts)
+    -- bind('n', '<leader>cd', vim.lsp.buf.definition, opts)
+    bind('n', 'gm', vim.lsp.buf.implementation, opts)
+    bind('n', 'gt', vim.lsp.buf.type_definition, opts)
+    bind('n', 'gr', vim.lsp.buf.references, opts)
   end
 
   local lsp_flags = {
@@ -124,19 +176,98 @@ function M.run(use)
     }
   }
 
-  require('lspconfig')['pyright'].setup{
+  require('lspconfig').pyright.setup {
     on_attach = on_attach,
     flags = lsp_flags,
   }
 
-  require('lspconfig')['jsonls'].setup{
+  require('lspconfig').jsonls.setup {
     on_attach = on_attach,
     flags = lsp_flags,
     init_options = {
       provideFormatter = true,
     }
   }
-  require'lspconfig'.sumneko_lua.setup{}
+
+  require('lspconfig').sumneko_lua.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+  }
+
+  require('lspconfig').tsserver.setup {
+    on_attach = function(client, bufnr)
+      client.server_capabilities.documentFormattingProvider = false
+      client.server_capabilities.documentRangeFormattingProvider = false
+      on_attach(client, bufnr)
+    end,
+    flags = lsp_flags,
+  }
+  -- require('prettier').setup({
+  --   on_attach = on_attach,
+  --   flags = lsp_flags,
+  --   bin = 'prettier',
+  --   filetypes = {
+  --     "css",
+  --     "graphql",
+  --     "html",
+  --     "javascript",
+  --     "javascriptreact",
+  --     "json",
+  --     "markdown",
+  --     "scss",
+  --     "typescript",
+  --     "typescriptreact",
+  --     "yaml",
+  --   },
+  -- })
+
+  require 'lspconfig'.eslint.setup {
+    on_attach = function(client, bufnr)
+      on_attach(client, bufnr)
+      -- AUTOFIX on save
+      -- local group = vim.api.nvim_create_augroup("lsp_eslint_format_on_save", { clear = false })
+      -- local event = "BufWritePre"
+      -- vim.api.nvim_create_autocmd(event, {
+      --   buffer = bufnr,
+      --   group = group,
+      --   callback = function()
+      --     vim.cmd "EslintFixAll"
+      --   end,
+      --   desc = "[lsp] format on save by " .. client.name,
+      -- })
+
+      local opts = { buffer = bufnr }
+      local bind = vim.keymap.set
+      bind('n', '<leader>l', '<cmd>EslintFixAll<CR>', opts)
+    end,
+    flags = lsp_flags,
+  }
+
+  local capabilities = vim.lsp.protocol.make_client_capabilities()
+  capabilities.textDocument.completion.completionItem.snippetSupport = true
+
+  require 'lspconfig'.cssls.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    capabilities = capabilities,
+  }
+
+  require 'lspconfig'.rust_analyzer.setup {
+    on_attach = on_attach,
+    flags = lsp_flags,
+    settings = {
+      ["rust-analyzer"] = {
+        cargo = {
+          allFeatures = true,
+        },
+        completion = {
+          postfix = {
+            enable = false,
+          },
+        },
+      },
+    },
+  }
 
   -- define line number hl for lines with Lsp errors
   vim.cmd [[sign define DiagnosticSignWarn text= texthl= numhl=DiagnosticSignWarn linehl=]]
@@ -149,6 +280,27 @@ function M.run(use)
     virtual_text = { prefix = '<' },
     float = { scope = 'line', border = 'rounded', focusable = false },
     severity_sort = true
+  })
+
+  local rt = require('rust-tools')
+
+  rt.setup({
+    server = {
+      on_attach = function(_, bufnr)
+        -- Hover actions
+        -- vim.keymap.set("n", "K", rt.hover_actions.hover_actions, { buffer = bufnr })
+        -- -- Code action groups
+        -- vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
+      end,
+    },
+  })
+
+  local null_ls = require('null-ls')
+  null_ls.setup({
+    sources = {
+      null_ls.builtins.diagnostics.stylelint,
+      null_ls.builtins.formatting.stylelint,
+    },
   })
 
   -- add borders to some floating things

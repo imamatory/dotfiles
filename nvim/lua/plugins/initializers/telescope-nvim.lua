@@ -4,15 +4,15 @@ return function()
 		extensions = {
 			fzf = {
 				fuzzy = true, -- false will only do exact matching
-				override_generic_sorter = true, -- override the generic sorter
-				override_file_sorter = true, -- override the file sorter
+				override_generic_sorter = true,
+				override_file_sorter = true,
 				case_mode = 'smart_case' -- or "ignore_case" or "respect_case"
-				-- the default case_mode is "smart_case"
 			}
 		},
 		pickers = {
 			buffers = {
-				sort_lastused = true
+				sort_lastused = true,
+				sort_mru = true,
 			}
 		}
 	}
@@ -33,7 +33,6 @@ return function()
 		layout_config = { width = 0.9, height = 0.9 }
 	}
 
-	map('n', 'gf', function() builtin.git_files(horizontalLayout) end)
 	map('n', 'gF', function()
 		builtin.find_files(merge(horizontalLayout,
 			{ hidden = true, no_ignore = true }))
@@ -56,7 +55,7 @@ return function()
 		}))
 	end)
 	map('n', 'gb', function()
-		builtin.buffers(merge(horizontalLayout, { sort_lastused = true }))
+		builtin.buffers(merge(horizontalLayout, {}))
 	end)
 	map('n', 'gh', function()
 		builtin.oldfiles(merge(horizontalLayout, { cwd_only = true }))

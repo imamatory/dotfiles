@@ -1,22 +1,31 @@
 return function()
     local parser_configs =
-        require('nvim-treesitter.parsers').get_parser_configs()
+    require('nvim-treesitter.parsers').get_parser_configs()
     parser_configs.http = {
         install_info = {
             url = 'https://github.com/NTBBloodbath/tree-sitter-http',
-            files = {'src/parser.c'},
+            files = { 'src/parser.c' },
             branch = 'main'
         }
     }
-    require'nvim-treesitter.configs'.setup {
+    parser_configs.pug = {
+        install_info = {
+            url = "https://github.com/zealot128/tree-sitter-pug",
+            files = { "src/parser.c", "src/scanner.cc" },
+            branch = "master"
+        },
+        filetype = "pug",
+        used_by = { "vue" }
+    }
+    require 'nvim-treesitter.configs'.setup {
         ensure_installed = 'all',
-        ignore_install = {'haskell'},
+        ignore_install = { 'haskell', 'scala', 'c_sharp' },
         highlight = {
             enable = true, -- false will disable the whole extension
-            indent = {enable = true},
+            indent = { enable = true },
             use_languagetree = true
         },
-        context_commentstring = {enable = true, enable_autocmd = true},
+        context_commentstring = { enable = true, enable_autocmd = true },
         pairs = {
             enable = true,
             disable = {},
@@ -24,7 +33,7 @@ return function()
             highlight_self = false, -- whether to highlight also the part of the pair under cursor (or only the partner)
             goto_right_end = false, -- whether to go to the end of the right partner or the beginning
             fallback_cmd_normal = 'call matchit#Match_wrapper(\'\',1,\'n\')', -- What command to issue when we can't find a pair (e.g. "normal! %")
-            keymaps = {goto_partner = '<leader>%'} -- do not work
+            keymaps = { goto_partner = '<leader>%' } -- do not work
         }
     }
 end
