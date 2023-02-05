@@ -32,9 +32,6 @@ mac:
 nvim-install:
 	ansible-playbook nvim.yml -vv -i inventory -e curdir=$(pwd)
 
-zsh-configure:
-	ansible-playbook zsh.yml -vv -i inventory -e curdir=$(pwd) -K
-
 tmux-configure:
 	ansible-playbook tmux.yml -vv -i inventory
 
@@ -57,6 +54,9 @@ myzsh-install:
 
 dotfiles:
 	ansible-playbook -i inventory -vv dotfiles.yml
+
+theme:
+	ansible-playbook -i inventory -vv theme.yml
 
 ubuntu:
 	ansible-playbook -i inventory -vv ubuntu.yml -K
@@ -88,7 +88,7 @@ mac-settings:
 	defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false  # vscode enable key repeat on hold
 
 common:
-	ansible-playbook -i inventory -vvv common.yml -K
+	ansible-playbook -i inventory -vv common.yml
 
 homebrew:
 	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sudo -u $$USER bash

@@ -13,9 +13,9 @@
           - ripgrep
           - tig
           - bat
-          - lsd
+          - exa
           - jq
-          - getantibody/tap/antibody
+          - zinit
           - neovim
           - tmux
           - tig
@@ -34,6 +34,7 @@
           - pyenv
           - pyenv-virtualenv
           - gnu-sed  # for nvim-spectre
+          - direnv
 
     - name: Clean homebrew
       command: "brew cleanup"

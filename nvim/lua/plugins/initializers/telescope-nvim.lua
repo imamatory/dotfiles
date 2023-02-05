@@ -33,19 +33,34 @@ return function()
 		layout_config = { width = 0.9, height = 0.9 }
 	}
 
-	map('n', 'gF', function()
-		builtin.find_files(merge(horizontalLayout,
-			{ hidden = true, no_ignore = true }))
-	end)
-	-- map('n', 'gc', function() builtin.live_grep(verticalLayout) end)
-	-- map('n', 'gC', function()
-	-- 	-- builtin.live_grep(merge(verticalLayout, {
-	-- 	telescope.extensions.live_grep_args.live_grep_args(merge(verticalLayout, {
-	-- 		additional_args = function()
-	-- 			return { '--hidden', '--no-ignore' }
-	-- 		end
-	-- 	}))
-	-- end)
+	function vim.getVisualSelection()
+		vim.cmd('noau normal! "vy"')
+		local text = vim.fn.getreg('v')
+		vim.fn.setreg('v', {})
+
+		text = string.gsub(text, "\n", "")
+		if #text > 0 then
+			return text
+		else
+			return ''
+		end
+	end
+
+	local tb = require('telescope.builtin')
+	local opts = { noremap = true, silent = true }
+
+	-- map('n', '<space>g', ':Telescope current_buffer_fuzzy_find<cr>', opts)
+	-- map('v', '<space>g', function()
+	-- 	local text = vim.getVisualSelection()
+	-- 	tb.current_buffer_fuzzy_find({ default_text = text })
+	-- end, opts)
+
+	map('n', '<space>/', ':Telescope live_grep<cr>', opts)
+	map('v', '<space>/', function()
+		local text = vim.getVisualSelection()
+		tb.live_grep({ default_text = text })
+	end, opts)
+
 	map('n', 'go', function() builtin.grep_string(verticalLayout) end)
 	map('n', 'gO', function()
 		builtin.grep_string(merge(verticalLayout, {

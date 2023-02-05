@@ -27,6 +27,7 @@ function M.run(use)
     'solargraph',
     'sumneko_lua',
     'rust_analyzer',
+    'stylelint_lsp',
   }
   local dap_servers = {
     'python',
@@ -40,7 +41,10 @@ function M.run(use)
     'williamboman/mason.nvim',
     'williamboman/mason-lspconfig.nvim',
     'mfussenegger/nvim-dap',
-    'jayp0521/mason-nvim-dap.nvim',
+    {
+      'jayp0521/mason-nvim-dap.nvim',
+      requires = { 'williamboman/mason.nvim' },
+    },
 
     {
       'folke/trouble.nvim',
@@ -82,8 +86,9 @@ function M.run(use)
     'L3MON4D3/LuaSnip',
     'rafamadriz/friendly-snippets',
 
-    -- Rust
+    -- Langs
     'simrat39/rust-tools.nvim',
+    'leoluz/nvim-dap-go'
   }
 
   use {
@@ -96,7 +101,7 @@ function M.run(use)
     ensure_installed = lsp_servers
   })
 
-  require("mason-nvim-dap").setup({
+  require('mason-nvim-dap').setup({
     ensure_installed = dap_servers
   })
 
@@ -252,6 +257,26 @@ function M.run(use)
     capabilities = capabilities,
   }
 
+  require 'lspconfig'.stylelint_lsp.setup {
+    settings = {
+      stylelintplus = {
+        autoFixOnFormat = true,
+        autoFixOnSave = true
+      }
+    }
+  }
+
+  require 'lspconfig'.gopls.setup {
+    settings = {
+      gopls = {
+        analyses = {
+          unusedparams = true,
+        },
+        staticcheck = true,
+      },
+    }
+  }
+
   require 'lspconfig'.rust_analyzer.setup {
     on_attach = on_attach,
     flags = lsp_flags,
@@ -268,6 +293,7 @@ function M.run(use)
       },
     },
   }
+  require 'dap-go'.setup()
 
   -- define line number hl for lines with Lsp errors
   vim.cmd [[sign define DiagnosticSignWarn text= texthl= numhl=DiagnosticSignWarn linehl=]]
@@ -292,14 +318,6 @@ function M.run(use)
         -- -- Code action groups
         -- vim.keymap.set("n", "<Leader>a", rt.code_action_group.code_action_group, { buffer = bufnr })
       end,
-    },
-  })
-
-  local null_ls = require('null-ls')
-  null_ls.setup({
-    sources = {
-      null_ls.builtins.diagnostics.stylelint,
-      null_ls.builtins.formatting.stylelint,
     },
   })
 

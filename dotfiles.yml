@@ -79,3 +79,10 @@
         dest: ~/.gitconfig
         state: link
         force: yes
+
+    # - name: Zsh prompt powerline10k
+    #   file:
+    #     src: "{{ playbook_dir }}/zsh/prompt.sh"
+    #     dest: ~/.p10k.zsh
+    #     state: link
+    #     force: yes
