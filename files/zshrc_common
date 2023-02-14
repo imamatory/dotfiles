@@ -19,8 +19,6 @@ HIST_IGNORE_ALL_DUPS=true
 HISTSIZE=1000
 SAVEHIST=1000
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
 eval "$(direnv hook zsh)"
 
 # prevents overriding of TERM in tmux
@@ -39,12 +37,24 @@ export PATH="$HOME/.local/bin:$PATH"
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export LD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$LD_LIBRARY_PATH
 
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
+eval "$(pyenv init -)"
+eval "$(pyenv virtualenv-init -)"
 
 source $HOME/dotfiles/zsh/plugins.sh
 source $HOME/dotfiles/zsh/aliases.sh
 source $HOME/dotfiles/zsh/fzf.sh
 
+plugins=(
+  poetry
+)
+
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+. $(brew --prefix asdf)/libexec/asdf.sh
+
+export PYENV_ROOT="$HOME/.pyenv"
+command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
+
+autoload -Uz _zinit
+(( ${+_comps} )) && _comps[zinit]=_zinit

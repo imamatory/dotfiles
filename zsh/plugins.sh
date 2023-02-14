@@ -21,16 +21,11 @@ zi light-mode for \
   OMZ::plugins/vi-mode/vi-mode.plugin.zsh \
   OMZP::extract \
   OMZP::bgnotify \
-  MichaelAquilina/zsh-you-should-use \
-  mattberther/zsh-pyenv
+  MichaelAquilina/zsh-you-should-use
 
-zi light ogham/exa
 zi light sharkdp/bat
 zi light sharkdp/fd
 zi light BurntSushi/ripgrep
-
-# zi ice depth=1;
-# zi light romkatv/powerlevel10k
 
 # Load starship theme
 zinit ice as"command" from"gh-r" \
@@ -39,4 +34,10 @@ zinit ice as"command" from"gh-r" \
     ./starship completions zsh > _starship
   " \
   atpull="%atclone" src"init.zsh"
-zinit light starship/starship
+zi light starship/starship
+
+# poetry
+zinit ice has='poetry' wait'0a' as='completion' id-as'poetry/completion' lucid \
+  atclone='poetry completions zsh > _poetry' \
+  atpull='%atclone'
+zinit light zdharma-continuum/null

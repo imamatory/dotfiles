@@ -19,10 +19,6 @@ nnoremap <silent> <Leader>ts :TestSuite<CR>
 nnoremap <silent> <Leader>tl :TestLast<CR>
 nnoremap <silent> <Leader>tv :TestVisit<CR>
 
-" let g:dispatch_quickfix_height = 90
-" :let g:session_autoload = 'yes'
-" :let g:session_autosave = 'yes'
-
 " Configure backspace so it acts as it should act
 set backspace=eol,start,indent
 

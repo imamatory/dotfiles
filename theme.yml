@@ -4,5 +4,16 @@
 
     - name: Install alacritty theme
       git:
-        repo: "https://github.com/catppuccin/alacritty.git"
-        dest: "~/.config/alacritty/catppuccin"
+        repo: https://github.com/catppuccin/alacritty.git
+        dest: ~/.config/alacritty/catppuccin
+
+    - file:
+       path: ~/.config/k9s
+       state: directory
+       recurse: Yes
+
+    - name: Install k9s theme
+      ansible.builtin.get_url:
+        url: https://github.com/catppuccin/k9s/raw/main/dist/frappe.yml
+        dest: ~/.config/k9s/skin.yml
+

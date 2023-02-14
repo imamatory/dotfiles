@@ -16,8 +16,8 @@ alias last-week="git log --oneline --since 'last week'"
 alias ips='iex -S mix phx.server'
 alias ism='iex -S mix'
 
-alias ls='exa --icons'
-alias la='exa -la --icons'
-alias lt='exa --tree --icons'
+alias ls='lsd'
+alias ll='lsd -la'
+alias lt='lsd --tree'
 
 alias ibrew="arch -x86_64 /usr/local/homebrew/bin/brew"
