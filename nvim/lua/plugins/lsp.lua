@@ -93,7 +93,7 @@ function M.run(use)
 
     use {
         'jose-elias-alvarez/null-ls.nvim',
-        -- 'MunifTanjim/prettier.nvim',
+        'MunifTanjim/prettier.nvim'
     }
 
     require('mason').setup()
@@ -208,24 +208,24 @@ function M.run(use)
         end,
         flags = lsp_flags,
     }
-    -- require('prettier').setup({
-    --   on_attach = on_attach,
-    --   flags = lsp_flags,
-    --   bin = 'prettier',
-    --   filetypes = {
-    --     "css",
-    --     "graphql",
-    --     "html",
-    --     "javascript",
-    --     "javascriptreact",
-    --     "json",
-    --     "markdown",
-    --     "scss",
-    --     "typescript",
-    --     "typescriptreact",
-    --     "yaml",
-    --   },
-    -- })
+    require('prettier').setup({
+        on_attach = on_attach,
+        flags = lsp_flags,
+        bin = 'prettier',
+        filetypes = {
+            "css",
+            "graphql",
+            "html",
+            "javascript",
+            "javascriptreact",
+            "json",
+            "markdown",
+            "scss",
+            "typescript",
+            "typescriptreact",
+            "yaml",
+        },
+    })
 
     require 'lspconfig'.eslint.setup {
         on_attach = function(client, bufnr)

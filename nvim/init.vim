@@ -203,15 +203,23 @@ nmap <silent> ]b :bn<CR>
 " vim-rooter
 let g:rooter_patterns = ['Makefile','Rakefile', 'mix.exs', '.git/']
 
-nnoremap <silent> <Leader>b <cmd>lua require('telescope.builtin').buffers()<CR>
-nnoremap <silent> <Leader>h <cmd>lua require('telescope.builtin').oldfiles()<CR>
-nnoremap <silent> <Leader>o <cmd>lua require('telescope.builtin').git_files()<CR>
-nnoremap <silent> <Leader>fo <cmd>lua require('telescope.builtin').find_files()<CR>
-nnoremap <Leader>ft <cmd>lua require('telescope.builtin').filetypes()<CR>
+" nnoremap <silent> <Leader>b <cmd>lua require('telescope.builtin').buffers()<CR>
+" nnoremap <silent> <Leader>h <cmd>lua require('telescope.builtin').oldfiles()<CR>
+" nnoremap <silent> <Leader>o <cmd>lua require('telescope.builtin').git_files()<CR>
+" nnoremap <silent> <Leader>fo <cmd>lua require('telescope.builtin').find_files()<CR>
+" nnoremap <Leader>ft <cmd>lua require('telescope.builtin').filetypes()<CR>
+" nnoremap <silent> <Leader>/ <cmd>lua require('telescope.builtin').live_grep()<CR>
+" vnoremap <leader>/  <cmd>lua require('telescope.builtin').grep_string()<CR>
+" nnoremap <leader>k  <cmd>lua require('telescope.builtin').grep_string()<CR>
 
-nnoremap <silent> <Leader>/ <cmd>lua require('telescope.builtin').live_grep()<CR>
-vnoremap <leader>/  <cmd>lua require('telescope.builtin').grep_string()<CR>
-nnoremap <leader>k  <cmd>lua require('telescope.builtin').grep_string()<CR>
+nnoremap <silent> <Leader>b <cmd>lua require('fzf-lua').buffers()<CR>
+nnoremap <silent> <Leader>h <cmd>lua require('fzf-lua').oldfiles()<CR>
+nnoremap <silent> <Leader>o <cmd>lua require('fzf-lua').git_files()<CR>
+nnoremap <silent> <Leader>fo <cmd>lua require('fzf-lua').find_files()<CR>
+nnoremap <Leader>ft <cmd>lua require('fzf-lua').filetypes()<CR>
+nnoremap <silent> <Leader>/ <cmd>lua require('fzf-lua').grep()<CR>
+vnoremap <leader>/  <cmd>lua require('fzf-lua').grep_visual()<CR>
+nnoremap <leader>k  <cmd>lua require('fzf-lua').grep_cword()<CR>
 
 nnoremap <leader>xx <cmd>TroubleToggle<cr>
 nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
