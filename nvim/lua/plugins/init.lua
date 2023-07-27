@@ -78,6 +78,18 @@ return require('packer').startup({
       setup = function() vim.g.mkdp_filetypes = { 'markdown' } end,
       ft = { 'markdown' }
     })
+    use { 'github/copilot.vim', config = require('plugins.initializers.copilot-vim') }
+    use({
+      'jackMort/ChatGPT.nvim',
+      config = function()
+        require('chatgpt').setup()
+      end,
+      requires = {
+        'MunifTanjim/nui.nvim',
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope.nvim'
+      }
+    })
   end,
   config = {
     display = {
