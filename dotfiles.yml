@@ -37,8 +37,8 @@
 
     - name: alacritty config
       file:
-        src: "{{ playbook_dir }}/files/alacritty.yml"
-        dest: ~/.alacritty.yml
+        src: "{{ playbook_dir }}/files/alacritty.toml"
+        dest: ~/.alacritty.toml
         force: yes
         state: link
 

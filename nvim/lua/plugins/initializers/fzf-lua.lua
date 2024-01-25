@@ -11,7 +11,8 @@ return function()
       ['--layout'] = 'default'
     },
     grep = {
-      rg_opts = '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=512',
+      rg_opts =
+      '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=512 --glob=!.git/',
     }
   }
 end

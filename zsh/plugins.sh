@@ -14,14 +14,15 @@ zi light-mode for \
   OMZ::lib/git.zsh \
   OMZ::plugins/git/git.plugin.zsh \
   OMZ::plugins/tmux/tmux.plugin.zsh \
-  OMZ::plugins/docker/docker.plugin.zsh \
   OMZ::plugins/docker-compose/docker-compose.plugin.zsh \
-  OMZ::plugins/kubectl/kubectl.plugin.zsh \
   OMZ::plugins/yarn/yarn.plugin.zsh \
   OMZ::plugins/vi-mode/vi-mode.plugin.zsh \
   OMZP::extract \
   OMZP::bgnotify \
   MichaelAquilina/zsh-you-should-use
+
+zinit ice as"completion"
+zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
 zi light sharkdp/bat
 zi light sharkdp/fd
@@ -41,3 +42,11 @@ zinit ice has='poetry' wait'0a' as='completion' id-as'poetry/completion' lucid \
   atclone='poetry completions zsh > _poetry' \
   atpull='%atclone'
 zinit light zdharma-continuum/null
+
+zi wait lucid light-mode for \
+  atinit"zicompinit; zicdreplay" \
+      zdharma-continuum/fast-syntax-highlighting \
+  atload"_zsh_autosuggest_start" \
+      zsh-users/zsh-autosuggestions \
+  blockf atpull'zinit creinstall -q .' \
+      zsh-users/zsh-completions

@@ -1,0 +1,163 @@
+import = ["/Users/im/.config/alacritty/catppuccin/catppuccin-frappe.toml"]
+
+[env]
+LANG = "en_US.UTF-8"
+LC_ALL = "en_US.UTF-8"
+TERM = "xterm-256color"
+
+[font]
+size = 12
+
+[font.bold]
+family = "Monaco"
+style = "Bold"
+
+[font.glyph_offset]
+y = 1
+
+[font.italic]
+family = "Monaco"
+style = "Italic"
+
+[font.normal]
+family = "Hack Nerd Font Mono"
+
+[[keyboard.bindings]]
+action = "Quit"
+key = "Q"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "SpawnNewInstance"
+key = "N"
+mods = "Command"
+
+[[keyboard.bindings]]
+action = "ResetFontSize"
+key = "Key0"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "IncreaseFontSize"
+key = "Equals"
+mods = "Control"
+
+[[keyboard.bindings]]
+action = "DecreaseFontSize"
+key = "Minus"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u0002c"
+key = "T"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0006H"
+key = "H"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0006J"
+key = "J"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0006K"
+key = "K"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0006L"
+key = "L"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00021"
+key = "Key1"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00022"
+key = "Key2"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00023"
+key = "Key3"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00024"
+key = "Key4"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00025"
+key = "Key5"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00026"
+key = "Key6"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00027"
+key = "Key7"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00028"
+key = "Key8"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u00029"
+key = "Key9"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u0002z"
+key = "O"
+mods = "Command"
+
+[[keyboard.bindings]]
+chars = "\u001B[13;2u"
+key = "Return"
+mods = "Shift"
+
+[[keyboard.bindings]]
+chars = "\u001B[13;5u"
+key = "Return"
+mods = "Control"
+
+[[keyboard.bindings]]
+chars = "\u001B[32;2u"
+key = "Space"
+mods = "Shift"
+
+[mouse]
+hide_when_typing = true
+
+[[mouse.bindings]]
+action = "PasteSelection"
+mouse = "Middle"
+mods = "Control|Shift"
+
+[selection]
+save_to_clipboard = true
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[shell]
+program = "/bin/zsh"
+args = ["-l", "-c", "tmux"]
+
+[window]
+dynamic_title = true
+option_as_alt = "Both"
+startup_mode = "Maximized"
+
+[window.padding]
+x = 2
+y = 2
