@@ -221,16 +221,20 @@ nnoremap <silent> <Leader>/ <cmd>lua require('fzf-lua').grep()<CR>
 vnoremap <leader>/  <cmd>lua require('fzf-lua').grep_visual()<CR>
 nnoremap <leader>k  <cmd>lua require('fzf-lua').grep_cword()<CR>
 
-nnoremap <leader>xx <cmd>TroubleToggle<cr>
-nnoremap <leader>xw <cmd>TroubleToggle workspace_diagnostics<cr>
-nnoremap <leader>xd <cmd>TroubleToggle document_diagnostics<cr>
-nnoremap <leader>xq <cmd>TroubleToggle quickfix<cr>
-nnoremap <leader>xl <cmd>TroubleToggle loclist<cr>
+nnoremap <leader>xx <cmd>Trouble diagnostics<cr>
+nnoremap <leader>xw <cmd>Trouble workspace_diagnostics<cr>
+nnoremap <leader>xd <cmd>Trouble document_diagnostics<cr>
+nnoremap <leader>xq <cmd>Trouble quickfix<cr>
+nnoremap <leader>xl <cmd>Trouble loclist<cr>
 nnoremap gR <cmd>TroubleToggle lsp_references<cr>
 
 nmap <leader>mp <Plug>MarkdownPreview
 nmap <leader>ms <Plug>MarkdownPreviewStop
 nmap <leader>mt <Plug>MarkdownPreviewToggle
+
+nnoremap <silent> <Leader>cd :Copilot disable<CR>
+nnoremap <silent> <Leader>ce :Copilot enable<CR>
+nnoremap <silent> <Leader>cr :Copilot restart<CR>
 
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(

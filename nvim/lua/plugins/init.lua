@@ -15,18 +15,12 @@ local fuzzyfinder = {
 }
 
 local treesitter = {
-  {
-    'nvim-treesitter/nvim-treesitter',
-    config = require('plugins.initializers.nvim-treesitter'),
-    run = function()
-      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
-      ts_update()
-    end,
-  },
-  {
-    'windwp/nvim-ts-autotag',
-    requires = { 'nvim-treesitter/nvim-treesitter' },
-  },
+  'nvim-treesitter/nvim-treesitter',
+  config = require('plugins.initializers.nvim-treesitter'),
+  run = function()
+    local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+    ts_update()
+  end,
 }
 
 return require('packer').startup({

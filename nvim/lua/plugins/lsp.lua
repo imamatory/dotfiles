@@ -2,7 +2,7 @@ local M = {}
 
 function M.run(use)
   local lsp_servers = {
-    'tsserver',
+    'ts_ls',
     'ansiblels',
     'bashls',
     'dockerls',
@@ -16,7 +16,6 @@ function M.run(use)
     'sqlls',
     'lua_ls',
     'terraformls',
-    'tsserver',
     'vimls',
     'yamlls',
     'html',
@@ -200,14 +199,6 @@ function M.run(use)
     flags = lsp_flags,
   }
 
-  require('lspconfig').tsserver.setup {
-    on_attach = function(client, bufnr)
-      client.server_capabilities.documentFormattingProvider = false
-      client.server_capabilities.documentRangeFormattingProvider = false
-      on_attach(client, bufnr)
-    end,
-    flags = lsp_flags,
-  }
   require('prettier').setup({
     on_attach = on_attach,
     flags = lsp_flags,
@@ -341,43 +332,6 @@ function M.run(use)
       })
     }
   }
-
-  -- add borders to some floating things
-  -- vim.lsp.handlers['textDocument/hover'] = lsp.with(vim.lsp.handlers.hover, { border = 'rounded', focusable = false })
-  -- vim.lsp.handlers['textDocument/signatureHelp'] =
-  -- lsp.with(vim.lsp.handlers.signature_help, { border = 'rounded', focusable = false })
-
-  -- lsp.use('pyright', {
-  --   flags = {
-  --     allow_incremental_sync = true,
-  --     debounce_text_changes = 200,
-  --   },
-  --   settings = {
-  --     python = {
-  --       analysis = {
-  --         extraPaths = { 'cc' },
-  --         autoSearchPaths = true,
-  --         useLibraryCodeForTypes = true,
-  --         diagnosticMode = 'workspace',
-  --       }
-  --     }
-  --   }
-  -- })
-
-  -- local cmp = require('cmp')
-  -- local cmp_select = { behavior = cmp.SelectBehavior.Select }
-  -- local sources = lsp.defaults.cmp_sources()
-  -- table.insert(sources, { name = 'nvim_lsp_signature_help' })
-
-  -- local cmp_config = lsp.defaults.cmp_config({
-  --   sources = sources,
-  --   mapping = {
-  --     ['<C-p>'] = cmp.mapping.select_prev_item(cmp_select),
-  --     ['<C-n>'] = cmp.mapping.select_next_item(cmp_select),
-  --   },
-  -- })
-
-  -- cmp.setup(cmp_config)
 end
 
 return M
