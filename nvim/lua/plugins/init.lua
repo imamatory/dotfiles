@@ -28,7 +28,19 @@ return require('packer').startup({
     use 'wbthomason/packer.nvim'
     require('plugins.lsp').run(use)
     use(treesitter)
-    use { 'windwp/nvim-spectre', requires = { 'nvim-lua/plenary.nvim' }, }
+    use { 'windwp/nvim-spectre',
+      requires = { 'nvim-lua/plenary.nvim' },
+      replace_engine = {
+        ["sed"] = {
+          cmd = "sed",
+          args = {
+            "-i",
+            "",
+            "-E",
+          },
+        },
+      },
+    }
     use(fuzzyfinder)
     use 'tpope/vim-sensible'
     use 'tpope/vim-surround'

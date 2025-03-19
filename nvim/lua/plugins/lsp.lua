@@ -87,7 +87,14 @@ function M.run(use)
 
     -- Langs
     'simrat39/rust-tools.nvim',
-    'leoluz/nvim-dap-go'
+    'leoluz/nvim-dap-go',
+    -- {
+    --   'pmizio/typescript-tools.nvim',
+    --   requires = { 'nvim-lua/plenary.nvim', 'neovim/nvim-lspconfig' },
+    --   config = function()
+    --     require('typescript-tools').setup {}
+    --   end,
+    -- }
   }
 
   use {
@@ -218,27 +225,27 @@ function M.run(use)
     },
   })
 
-  require 'lspconfig'.eslint.setup {
-    on_attach = function(client, bufnr)
-      on_attach(client, bufnr)
-      -- AUTOFIX on save
-      -- local group = vim.api.nvim_create_augroup("lsp_eslint_format_on_save", { clear = false })
-      -- local event = "BufWritePre"
-      -- vim.api.nvim_create_autocmd(event, {
-      --   buffer = bufnr,
-      --   group = group,
-      --   callback = function()
-      --     vim.cmd "EslintFixAll"
-      --   end,
-      --   desc = "[lsp] format on save by " .. client.name,
-      -- })
+  -- require 'lspconfig'.eslint.setup {
+  --   on_attach = function(client, bufnr)
+  --     on_attach(client, bufnr)
+  --     -- AUTOFIX on save
+  --     -- local group = vim.api.nvim_create_augroup("lsp_eslint_format_on_save", { clear = false })
+  --     -- local event = "BufWritePre"
+  --     -- vim.api.nvim_create_autocmd(event, {
+  --     --   buffer = bufnr,
+  --     --   group = group,
+  --     --   callback = function()
+  --     --     vim.cmd "EslintFixAll"
+  --     --   end,
+  --     --   desc = "[lsp] format on save by " .. client.name,
+  --     -- })
 
-      local opts = { buffer = bufnr }
-      local bind = vim.keymap.set
-      bind('n', '<leader>l', '<cmd>EslintFixAll<CR>', opts)
-    end,
-    flags = lsp_flags,
-  }
+  --     local opts = { buffer = bufnr }
+  --     local bind = vim.keymap.set
+  --     bind('n', '<leader>l', '<cmd>EslintFixAll<CR>', opts)
+  --   end,
+  --   flags = lsp_flags,
+  -- }
 
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true

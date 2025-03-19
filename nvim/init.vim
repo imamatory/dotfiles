@@ -69,7 +69,7 @@ set incsearch
 set inccommand=nosplit
 
 set cmdheight=1
-set scrolloff=3
+" set scrolloff=3
 set showcmd       " display incomplete commands
 set autowrite     " Automatically :write before running commands
 
@@ -285,7 +285,7 @@ set nowritebackup
 " set cmdheight=2
 
 " You will have bad experience for diagnostic messages when it's default 4000.
-set updatetime=300
+" set updatetime=300
 
 " don't give |ins-completion-menu| messages.
 " set shortmess+=c
