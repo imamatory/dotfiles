@@ -1,33 +1,12 @@
-ANSIBLE_PREFIX := docker run --rm \
-  -e HOST_USER=$(USER) \
-  -e SSH_AUTH_SOCK=/ssh-agent \
-  -v $(SSH_AUTH_SOCK):/ssh-agent \
-  -v $(HOME):/host/home \
-  -v $(CURDIR):/dotfiles \
-  -w /dotfiles \
-  williamyeh/ansible:ubuntu18.04 \
-  ansible-playbook -i inventory -vv
-
 OS_FAMILY := $(shell uname -s)
 
 prepare-setup:
 	sudo pacman -S --needed ansible
 
-
 mac-install: mac dotfiles nvim-install
 
 mac:
 	ansible-playbook mac.yml -i inventory -vvv -K
-
-# ansible:
-# 	docker run --rm -it \
-# 	-e HOST_USER=$(USER) \
-# 	-e SSH_AUTH_SOCK=/ssh-agent \
-# 	-v $(SSH_AUTH_SOCK):/ssh-agent \
-# 	-v $(HOME):/host/home \
-# 	-v $(CURDIR):/dotfiles \
-# 	-w /dotfiles \
-# 	williamyeh/ansible:ubuntu18.04 bash
 
 nvim-install:
 	ansible-playbook nvim.yml -vv -i inventory -e curdir=$(pwd)
@@ -49,9 +28,6 @@ docker-push:
 docker-bash:
 	docker run -it imamatory/dotfiles
 
-myzsh-install:
-	$(ANSIBLE_PREFIX) myzsh.yml
-
 dotfiles:
 	ansible-playbook -i inventory -vv dotfiles.yml
 
@@ -68,8 +44,6 @@ setup-arch: prepare-setup gnome-settings arch-packages asdf
 	ansible-playbook -i inventory -vvv setup-arch.yml
 
 asdf:
-	git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.8.1 || true
-	. $(HOME)/.asdf/asdf.sh
 	asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
 	asdf plugin-add ruby || true
 	asdf plugin-add golang || true

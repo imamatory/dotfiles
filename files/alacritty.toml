@@ -1,4 +1,4 @@
-import = ["/Users/im/.config/alacritty/catppuccin/catppuccin-frappe.toml"]
+general.import = ["/Users/im/.config/alacritty/catppuccin/catppuccin-frappe.toml"]
 
 [env]
 LANG = "en_US.UTF-8"
@@ -149,7 +149,7 @@ mods = "Control|Shift"
 save_to_clipboard = true
 semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
-[shell]
+[terminal.shell]
 program = "/bin/zsh"
 args = ["-l", "-c", "tmux"]
 

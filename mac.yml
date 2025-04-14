@@ -2,7 +2,7 @@
 - hosts: all
   tasks:
     - homebrew:
-        state: presen
+        state: present
         name:
           - readline
           - wget
@@ -13,7 +13,9 @@
           - ripgrep
           - tig
           - bat
-          - exa
+          - gitui
+          - fzf
+          - asdf
           - jq
           - zinit
           - neovim
@@ -21,7 +23,6 @@
           - tig
           - fd
           - alacritty
-          - htop
           - lsof
           - keychain
           - kubectl

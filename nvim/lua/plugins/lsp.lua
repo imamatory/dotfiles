@@ -98,7 +98,7 @@ function M.run(use)
   }
 
   use {
-    'jose-elias-alvarez/null-ls.nvim',
+    'nvimtools/none-ls.nvim',
     'MunifTanjim/prettier.nvim'
   }
 
@@ -330,15 +330,6 @@ function M.run(use)
       end,
     },
   })
-
-  local null_ls = require('null-ls')
-  null_ls.setup {
-    sources = {
-      null_ls.builtins.diagnostics.flake8.with({
-        command = 'poetry run flake8'
-      })
-    }
-  }
 end
 
 return M
