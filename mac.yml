@@ -36,6 +36,7 @@
           - pyenv-virtualenv
           - gnu-sed  # for nvim-spectre
           - direnv
+          - viddy
 
     - name: Clean homebrew
       command: "brew cleanup"

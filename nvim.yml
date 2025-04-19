@@ -2,7 +2,6 @@
 - hosts: all
   vars:
     config: ~/.bash_profile
-    nvim_packer_path: ~/.local/share/nvim/site/pack/packer/start
   tasks:
 
     - file:
@@ -11,21 +10,11 @@
         state: link
 
     - file:
+        src: "{{ playbook_dir }}/files/vimrc"
+        dest: ~/.config/nvim/init.vim
+        state: link
+
+    - file:
         path: ~/.local/share/nvim/site/autoload
         state: directory
         recurse: Yes
-
-    - file:
-        path: "{{ nvim_packer_path}}"
-        state: directory
-        recurse: Yes
-
-    - name: Install packer.nivm
-      git:
-        repo: "https://github.com/wbthomason/packer.nvim"
-        dest: "{{ nvim_packer_path}}/packer.nvim"
-        depth: 1
-        version: master
-
-    - name: Install packer deps
-      shell: "nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'"

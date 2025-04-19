@@ -15,12 +15,6 @@
         force: yes
         state: directory
 
-    - file:
-        src: "{{ playbook_dir }}/files/vimrc"
-        dest: ~/.config/nvim/init.vim
-        force: yes
-        state: link
-
     - name: Tmux
       file:
         src: "{{ playbook_dir }}/files/tmux.conf"

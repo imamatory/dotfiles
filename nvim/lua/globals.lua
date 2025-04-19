@@ -75,3 +75,26 @@ function _G.ReloadConfig()
         vim.opt.hlsearch = false
     end
 end
+
+-- -- Set leader key before lazy
+-- vim.g.mapleader = " "
+-- vim.g.maplocalleader = " "
+
+-- -- Basic options
+-- vim.opt.backup = false
+-- vim.opt.writebackup = false
+-- vim.opt.updatetime = 300
+-- vim.opt.signcolumn = "yes"
+-- vim.opt.termguicolors = true
+-- vim.opt.cursorline = true
+-- vim.opt.number = true
+-- vim.opt.relativenumber = true
+-- vim.opt.wrap = false
+-- vim.opt.expandtab = true
+-- vim.opt.tabstop = 2
+-- vim.opt.shiftwidth = 2
+-- vim.opt.smartindent = true
+-- vim.opt.ignorecase = true
+-- vim.opt.smartcase = true
+-- vim.opt.hlsearch = true
+-- vim.opt.incsearch = true
