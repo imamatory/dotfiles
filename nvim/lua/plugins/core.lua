@@ -32,4 +32,4 @@ return {
   { "jszakmeister/vim-togglecursor" },
   { "vtm9/vim-pry" },
   { "sheerun/vim-polyglot" },
-} 
+}

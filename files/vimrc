@@ -109,9 +109,6 @@ let g:alchemist_tag_disable = 1
 augroup au_common
   au!
 
-  au BufWritePost init.vim,.vimrc source %
-  " au BufWritePost *.re,*.rei :ReasonPrettyPrint
-
   " Automatically removing all trailing whitespace
   au BufWritePre * :%s/\s\+$//e
 
@@ -229,10 +226,6 @@ nmap <leader>mp <Plug>MarkdownPreview
 nmap <leader>ms <Plug>MarkdownPreviewStop
 nmap <leader>mt <Plug>MarkdownPreviewToggle
 
-nnoremap <silent> <Leader>cd :Copilot disable<CR>
-nnoremap <silent> <Leader>ce :Copilot enable<CR>
-nnoremap <silent> <Leader>cr :Copilot restart<CR>
-
 command! -bang -nargs=* Rg
   \ call fzf#vim#grep(
   \   "rg --column --line-number --no-heading --color=always --fixed-strings --smart-case --hidden --follow --glob '!.git/*' ".shellescape(<q-args>), 1,
@@ -259,7 +252,7 @@ xmap ga <Plug>(EasyAlign)
 " Start interactive EasyAlign for a motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-nmap <Leader>pi :call pry#insert()<CR>
+" nmap <Leader>pi :call pry#insert()<CR>
 
 nnoremap <tab> :NERDTreeFind<CR>
 nmap <silent> <leader><leader> :NERDTreeToggle<CR>
@@ -297,52 +290,6 @@ endfunction
 
 " Use K to show documentation in preview window
 nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" Remap for rename current word
-" nmap <leader>rn <Plug>(coc-rename)
-
-" Remap for format selected region
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-
-" augroup mygroup
-"   autocmd!
-"   " Setup formatexpr specified filetype(s).
-"   autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-"   " Update signature help on jump placeholder
-"   autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-" augroup end
-
-" Remap for do codeAction of selected region, ex: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap for do codeAction of current line
-" nmap <leader>ac  <Plug>(coc-codeaction)
-" Fix autofix problem of current line
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Create mappings for function text object, requires document symbols feature of languageserver.
-" xmap if <Plug>(coc-funcobj-i)
-" xmap af <Plug>(coc-funcobj-a)
-" omap if <Plug>(coc-funcobj-i)
-" omap af <Plug>(coc-funcobj-a)
-
-" Use <C-d> for select selections ranges, needs server support, like: coc-tsserver
-" nmap <silent> <C-d> <Plug>(coc-range-select)
-" xmap <silent> <C-d> <Plug>(coc-range-select)
-
-" Use `:Format` to format current buffer
-" command! -nargs=0 Format :call CocAction('format')
-
-" nnoremap <Leader>l :Format<CR>
-" nnoremap <Leader>i :CocCommand python.sortImports<CR>
-
-" Use `:Fold` to fold current buffer
-" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" use `:OR` for organize import of current buffer
-" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add status line support, for integration with other plugin, checkout `:h coc-status`
 " set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}

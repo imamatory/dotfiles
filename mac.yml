@@ -15,7 +15,6 @@
           - bat
           - gitui
           - fzf
-          - asdf
           - jq
           - zinit
           - neovim

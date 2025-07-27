@@ -44,6 +44,7 @@
           - kubectx
           - k9s
           - github-cli
+          - mise
       become: true
       tags: pacman
 
@@ -63,9 +64,7 @@
       shell: |
         yay -S --noconfirm --needed \
           debtap \
-          google-chrome \
-          antibody \
-          asdf-vm
+          google-chrome
 
 
     - pip:

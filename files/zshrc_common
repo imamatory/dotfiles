@@ -47,9 +47,6 @@ source $HOME/dotfiles/zsh/fzf.sh
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
-export ASDF_DATA_DIR=~/.asdf
-export PATH="$ASDF_DATA_DIR/shims:$PATH"
-
 export PYENV_ROOT="$HOME/.pyenv"
 command -v pyenv >/dev/null || export PATH="$PYENV_ROOT/bin:$PATH"
 
@@ -68,3 +65,5 @@ fi
 source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
+
+eval "$(mise activate zsh)"

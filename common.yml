@@ -21,11 +21,6 @@
         repo: "https://github.com/tmux-plugins/tpm"
         dest: ~/.tmux/plugins/tpm
 
-    - name: Setup asdf
-      git:
-        repo: "https://github.com/asdf-vm/asdf.git"
-        dest: ~/.asdf
-
     - name: Set shell
       become: yes
       shell: "chsh -s $(which zsh);"

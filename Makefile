@@ -40,7 +40,7 @@ ubuntu:
 arch-packages:
 	ansible-playbook -i inventory -vvv arch.yml -K
 
-setup-arch: prepare-setup gnome-settings arch-packages asdf
+setup-arch: prepare-setup gnome-settings arch-packages
 	ansible-playbook -i inventory -vvv setup-arch.yml
 
 asdf:

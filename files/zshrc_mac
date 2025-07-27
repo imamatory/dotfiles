@@ -6,7 +6,6 @@ export PATH=$PATH:$ANDROID_HOME/platform-tools
 # export PATH=$PATH:/usr/local/opt/python/libexec/bin
 # export PATH=$PATH:/usr/local/lib/python3.7/site-packages
 export PATH=/usr/local/bin:$PATH
-export PATH=$HOME/.asdf/shims:$PATH
 export PATH="/usr/local/opt/sqlite/bin:$PATH"
 export PATH="/usr/local/sbin:$PATH"
 export TMPDIR=/private/var/folders/tmp
