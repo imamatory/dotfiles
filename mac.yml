@@ -31,8 +31,6 @@
           - git
           - git-delta
           - gnupg
-          - pyenv
-          - pyenv-virtualenv
           - gnu-sed  # for nvim-spectre
           - direnv
           - viddy

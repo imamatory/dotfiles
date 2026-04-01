@@ -3,8 +3,6 @@ set nocompatible
 let $PATH = $PATH . ':' . expand('~/.local/bin') . ':' . '/usr/local/bin/'
 let $LANG = 'en'
 
-let g:python3_host_prog = '~/.pyenv/shims/python3'
-
 lua require('init')
 
 let mapleader = "\<Space>"

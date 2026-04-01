@@ -86,36 +86,40 @@ return {
       capabilities.textDocument.completion.completionItem.snippetSupport = true
 
       -- Python
-      require('lspconfig').pyright.setup {
+      vim.lsp.config('pyright', {
         on_attach = on_attach,
         flags = lsp_flags,
         cmd = { 'poetry', 'run', 'pyright-langserver', '--stdio' }
-      }
+      })
+      vim.lsp.enable('pyright')
 
       -- JSON
-      require('lspconfig').jsonls.setup {
+      vim.lsp.config('jsonls', {
         on_attach = on_attach,
         flags = lsp_flags,
         init_options = {
           provideFormatter = true,
         }
-      }
+      })
+      vim.lsp.enable('jsonls')
 
       -- Lua
-      require('lspconfig').lua_ls.setup {
+      vim.lsp.config('lua_ls', {
         on_attach = on_attach,
         flags = lsp_flags,
-      }
+      })
+      vim.lsp.enable('lua_ls')
 
       -- CSS
-      require('lspconfig').cssls.setup {
+      vim.lsp.config('cssls', {
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
-      }
+      })
+      vim.lsp.enable('cssls')
 
       -- Stylelint
-      require('lspconfig').stylelint_lsp.setup {
+      vim.lsp.config('stylelint_lsp', {
         on_attach = on_attach,
         flags = lsp_flags,
         capabilities = capabilities,
@@ -133,10 +137,11 @@ return {
           'vue',
           'wxss',
         },
-      }
+      })
+      vim.lsp.enable('stylelint_lsp')
 
       -- Go
-      require('lspconfig').gopls.setup {
+      vim.lsp.config('gopls', {
         on_attach = on_attach,
         flags = lsp_flags,
         settings = {
@@ -147,10 +152,11 @@ return {
             staticcheck = true,
           },
         }
-      }
+      })
+      vim.lsp.enable('gopls')
 
       -- Rust
-      require('lspconfig').rust_analyzer.setup {
+      vim.lsp.config('rust_analyzer', {
         on_attach = on_attach,
         flags = lsp_flags,
         settings = {
@@ -165,7 +171,8 @@ return {
             },
           },
         },
-      }
+      })
+      vim.lsp.enable('rust_analyzer')
 
       -- Configure diagnostics
       vim.diagnostic.config({
