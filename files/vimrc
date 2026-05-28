@@ -3,6 +3,15 @@ set nocompatible
 let $PATH = $PATH . ':' . expand('~/.local/bin') . ':' . '/usr/local/bin/'
 let $LANG = 'en'
 
+" Disable vim-polyglot for languages handled by treesitter to avoid conflicts
+let g:polyglot_disabled = [
+  \ 'javascript', 'typescript', 'tsx', 'jsx',
+  \ 'python', 'go', 'rust', 'lua',
+  \ 'elixir', 'ruby', 'bash', 'sh',
+  \ 'html', 'css', 'scss', 'json', 'yaml', 'toml',
+  \ 'markdown', 'dockerfile', 'terraform', 'vim',
+  \ ]
+
 lua require('init')
 
 let mapleader = "\<Space>"

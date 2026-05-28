@@ -1,4 +1,23 @@
 _G.vim = vim
+
+-- nvim 0.12 compat: query captures can now be nil in match tables, but older
+-- nvim-treesitter query_predicates.lua doesn't guard against this before
+-- calling get_node_text / get_range, causing a crash in the highlighter and
+-- anywhere languagetree:parse() is called (e.g. codecompanion token counting).
+do
+    local _get_node_text = vim.treesitter.get_node_text
+    vim.treesitter.get_node_text = function(node, source, opts)
+        if node == nil then return "" end
+        return _get_node_text(node, source, opts)
+    end
+
+    local _get_range = vim.treesitter.get_range
+    vim.treesitter.get_range = function(node, source, metadata)
+        if node == nil then return { 0, 0, 0, 0 } end
+        return _get_range(node, source, metadata)
+    end
+end
+
 _G.g = vim.g
 _G.cmd = vim.cmd
 _G.fn = vim.fn
@@ -6,14 +25,14 @@ _G.lsp = vim.lsp
 
 -- https://github.com/nanotee/nvim-lua-guide#tips-2
 function _G.put(...)
-  local objects = {}
-  for i = 1, select('#', ...) do
-    local v = select(i, ...)
-    table.insert(objects, vim.inspect(v))
-  end
+    local objects = {}
+    for i = 1, select('#', ...) do
+        local v = select(i, ...)
+        table.insert(objects, vim.inspect(v))
+    end
 
-  print(table.concat(objects, '\n'))
-  return ...
+    print(table.concat(objects, '\n'))
+    return ...
 end
 
 function _G.merge(dest, source, strategy)
@@ -25,7 +44,6 @@ function _G.au(event, filetype, action)
 end
 
 function _G.map(mode, lhs, rhs, opts)
-
     local finalRhs = ''
     local callback = nil
     if type(rhs) == 'string' then
@@ -58,19 +76,19 @@ function _G.hi(group, options)
     local blend = options.blend and 'blend=' .. options.blend or ''
     local hl =
         'highlight ' .. group .. ' ' .. style .. ' ' .. fg .. ' ' .. bg .. ' ' ..
-            sp .. ' ' .. blend
+        sp .. ' ' .. blend
     vim.cmd(hl)
 end
 
 function _G.ReloadConfig()
     local hls_status = vim.v.hlsearch
-    for name,_ in pairs(package.loaded) do
-    if name:match('^cnull') then
-      package.loaded[name] = nil
+    for name, _ in pairs(package.loaded) do
+        if name:match('^cnull') then
+            package.loaded[name] = nil
+        end
     end
-  end
 
-  dofile(vim.fn.stdpath('config') .. '/lua/init.lua')
+    dofile(vim.fn.stdpath('config') .. '/lua/init.lua')
     if hls_status == 0 then
         vim.opt.hlsearch = false
     end

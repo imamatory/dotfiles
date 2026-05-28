@@ -25,44 +25,131 @@ return {
   {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
+    dependencies = {
+      -- Context-aware commentstring (standalone setup, not via treesitter module)
+      {
+        "JoosepAlviste/nvim-ts-context-commentstring",
+        config = function()
+          vim.g.skip_ts_context_commentstring_module = true
+          require('ts_context_commentstring').setup {}
+        end,
+      },
+      -- Required for pairs module
+      "theHamsta/nvim-treesitter-pairs",
+      -- Textobjects: function/class/parameter motions and selections
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
     config = function()
       local parser_configs =
           require('nvim-treesitter.parsers').get_parser_configs()
       parser_configs.http = {
-          install_info = {
-              url = 'https://github.com/NTBBloodbath/tree-sitter-http',
-              files = { 'src/parser.c' },
-              branch = 'main'
-          }
+        install_info = {
+          url = 'https://github.com/NTBBloodbath/tree-sitter-http',
+          files = { 'src/parser.c' },
+          branch = 'main'
+        }
       }
       parser_configs.pug = {
-          install_info = {
-              url = "https://github.com/zealot128/tree-sitter-pug",
-              files = { "src/parser.c", "src/scanner.cc" },
-              branch = "master"
-          },
-          filetype = "pug",
-          used_by = { "vue" }
+        install_info = {
+          url = "https://github.com/zealot128/tree-sitter-pug",
+          files = { "src/parser.c", "src/scanner.cc" },
+          branch = "master"
+        },
+        filetype = "pug",
+        used_by = { "vue" }
       }
+
       require 'nvim-treesitter.configs'.setup {
-          ignore_install = { 'haskell', 'scala', 'c_sharp', 'kotlin', 'nickel' },
-          highlight = {
-              enable = true, -- false will disable the whole extension
-              indent = { enable = true },
-              use_languagetree = true
+        ensure_installed = {
+          -- Web
+          'html', 'css', 'scss', 'javascript', 'typescript', 'tsx',
+          -- Data / config
+          'json', 'yaml', 'toml',
+          -- Scripting / systems
+          'lua', 'python', 'bash', 'rust', 'go',
+          -- Backend / infra
+          'elixir', 'ruby', 'sql', 'terraform', 'dockerfile',
+          -- Vim / docs
+          'vim', 'vimdoc', 'markdown', 'markdown_inline',
+          -- Build / misc
+          'make', 'regex',
+        },
+        ignore_install = { 'haskell', 'scala', 'c_sharp', 'kotlin', 'nickel' },
+
+        highlight = {
+          enable = true,
+          disable = function(lang, buf)
+            -- Disable for codecompanion chat buffers (avoids nvim 0.12 crash)
+            local buf_name = vim.api.nvim_buf_get_name(buf)
+            if buf_name:match("codecompanion") then
+              return true
+            end
+          end,
+        },
+
+        indent = { enable = true },
+
+        incremental_selection = {
+          enable = true,
+          keymaps = {
+            init_selection    = '<CR>',
+            node_incremental  = '<CR>',
+            node_decremental  = '<BS>',
+            scope_incremental = '<TAB>',
           },
-          context_commentstring = { enable = true, enable_autocmd = true },
-          pairs = {
-              enable = true,
-              disable = {},
-              highlight_pair_events = {},                                       -- e.g. {"CursorMoved"}, -- when to highlight the pairs, use {} to deactivate highlighting
-              highlight_self = false,                                           -- whether to highlight also the part of the pair under cursor (or only the partner)
-              goto_right_end = false,                                           -- whether to go to the end of the right partner or the beginning
-              fallback_cmd_normal = 'call matchit#Match_wrapper(\'\',1,\'n\')', -- What command to issue when we can't find a pair (e.g. "normal! %")
-              keymaps = { goto_partner = '<leader>%' }                          -- do not work
-          }
+        },
+
+        pairs = {
+          enable = true,
+          disable = {},
+          highlight_pair_events = {},
+          highlight_self = false,
+          goto_right_end = false,
+          fallback_cmd_normal = 'call matchit#Match_wrapper(\'\',1,\'n\')',
+          keymaps = { goto_partner = '<leader>%' }
+        },
+
+        textobjects = {
+          select = {
+            enable = true,
+            lookahead = true,
+            keymaps = {
+              ['af'] = '@function.outer',
+              ['if'] = '@function.inner',
+              ['ac'] = '@class.outer',
+              ['ic'] = '@class.inner',
+              ['aa'] = '@parameter.outer',
+              ['ia'] = '@parameter.inner',
+            },
+          },
+          move = {
+            enable = true,
+            set_jumps = true,
+            goto_next_start     = { [']f'] = '@function.outer', [']c'] = '@class.outer' },
+            goto_next_end       = { [']F'] = '@function.outer', [']C'] = '@class.outer' },
+            goto_previous_start = { ['[f'] = '@function.outer', ['[c'] = '@class.outer' },
+            goto_previous_end   = { ['[F'] = '@function.outer', ['[C'] = '@class.outer' },
+          },
+          swap = {
+            enable = true,
+            swap_next     = { ['<leader>sp'] = '@parameter.inner' },
+            swap_previous = { ['<leader>sP'] = '@parameter.inner' },
+          },
+        },
       }
     end,
+  },
+
+  -- Sticky context header: shows current function/class at top of window
+  {
+    "nvim-treesitter/nvim-treesitter-context",
+    dependencies = { "nvim-treesitter/nvim-treesitter" },
+    opts = {
+      enable = true,
+      max_lines = 3,
+      trim_scope = 'outer',
+      mode = 'cursor',
+    },
   },
 
   -- Spectre
