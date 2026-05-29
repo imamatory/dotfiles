@@ -14,7 +14,6 @@ return {
   { "tpope/vim-abolish" },
   { "tpope/vim-fugitive" },
   { "michaeljsmith/vim-indent-object" },
-  { "Chiel92/vim-autoformat" },
   { "imamatory/leader-clipboard" },
   { "digitaltoad/vim-pug" },
   { "elzr/vim-json" },

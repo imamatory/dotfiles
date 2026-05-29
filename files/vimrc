@@ -116,9 +116,6 @@ let g:alchemist_tag_disable = 1
 augroup au_common
   au!
 
-  " Automatically removing all trailing whitespace
-  au BufWritePre * :%s/\s\+$//e
-
   au BufRead,BufNewFile {.babelrc,.eslintrc} set ft=json
 augroup END
 
