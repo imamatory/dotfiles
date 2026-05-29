@@ -1,19 +1,19 @@
 _G.vim = vim
 
--- nvim 0.12 compat: query captures can now be nil in match tables, but older
--- nvim-treesitter query_predicates.lua doesn't guard against this before
--- calling get_node_text / get_range, causing a crash in the highlighter and
--- anywhere languagetree:parse() is called (e.g. codecompanion token counting).
+-- nvim 0.12 compat: query captures can be nil or numbers (byte offsets) in
+-- match tables, but nvim-treesitter query_predicates.lua doesn't guard against
+-- this before calling get_node_text / get_range, causing a crash.
+-- type(node) ~= "userdata" catches nil, numbers, and any non-TSNode value.
 do
     local _get_node_text = vim.treesitter.get_node_text
     vim.treesitter.get_node_text = function(node, source, opts)
-        if node == nil then return "" end
+        if node == nil or type(node) ~= "userdata" then return "" end
         return _get_node_text(node, source, opts)
     end
 
     local _get_range = vim.treesitter.get_range
     vim.treesitter.get_range = function(node, source, metadata)
-        if node == nil then return { 0, 0, 0, 0 } end
+        if node == nil or type(node) ~= "userdata" then return { 0, 0, 0, 0 } end
         return _get_range(node, source, metadata)
     end
 end
