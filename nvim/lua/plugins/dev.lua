@@ -59,6 +59,9 @@ return {
         used_by = { "vue" }
       }
 
+      -- Neovim 0.12 may detect filetype as "Dockerfile" (capital D)
+      vim.treesitter.language.register('dockerfile', 'Dockerfile')
+
       require 'nvim-treesitter.configs'.setup {
         ensure_installed = {
           -- Web

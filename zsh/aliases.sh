@@ -22,3 +22,4 @@ alias lt='lsd --tree'
 
 alias ibrew="arch -x86_64 /usr/local/homebrew/bin/brew"
 alias gu=gitui
+alias oc=opencode

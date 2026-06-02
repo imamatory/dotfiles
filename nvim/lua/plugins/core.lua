@@ -18,7 +18,6 @@ return {
   { "digitaltoad/vim-pug" },
   { "elzr/vim-json" },
   { "AndrewRadev/splitjoin.vim" },
-  { "ap/vim-css-color" },
   { "hhsnopek/vim-sugarss" },
   { "slashmili/alchemist.vim" },
   { "ekalinin/Dockerfile.vim" },

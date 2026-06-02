@@ -56,9 +56,20 @@
         force: yes
 
     - name: Gitui theme
-      file:
-        src: "{{ playbook_dir }}/files/gitui-theme.ron"
+      get_url:
+        url: https://raw.githubusercontent.com/catppuccin/gitui/main/themes/catppuccin-frappe.ron
         dest: ~/.config/gitui/theme.ron
+        force: yes
+
+    - file:
+        path: ~/.config/ghostty
+        state: directory
+        force: yes
+
+    - name: Ghostty config
+      file:
+        src: "{{ playbook_dir }}/files/ghostty/config.ghostty"
+        dest: ~/.config/ghostty/config.ghostty
         state: link
         force: yes
 

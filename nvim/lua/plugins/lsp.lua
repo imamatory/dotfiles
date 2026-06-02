@@ -17,7 +17,6 @@ local lsp_servers = {
   'jsonls',
   'solargraph',
   'rust_analyzer',
-  'stylelint_lsp',
   'helm_ls',
 }
 local dap_servers = {
@@ -34,13 +33,33 @@ local on_attach = function(client, bufnr)
   bind('n', '<leader>ca', vim.lsp.buf.code_action, opts)
   bind('n', 'gd', vim.lsp.buf.definition, opts)
   bind('n', 'K', vim.lsp.buf.hover, opts)
-  bind('n', '<leader>i', '<cmd>PyrightOrganizeImports<CR>', opts)
   bind('n', '[g', vim.diagnostic.goto_prev, opts)
   bind('n', ']g', vim.diagnostic.goto_next, opts)
   bind('n', 'gl', vim.lsp.buf.declaration, opts)
   bind('n', 'gm', vim.lsp.buf.implementation, opts)
   bind('n', 'gt', vim.lsp.buf.type_definition, opts)
   bind('n', 'gr', vim.lsp.buf.references, opts)
+end
+
+local function detect_python_path(root_dir)
+  if not root_dir then return end
+
+  -- Try .venv in project root (uv / python -m venv default)
+  local dot_venv = root_dir .. '/.venv/bin/python'
+  if vim.fn.executable(dot_venv) == 1 then
+    return dot_venv
+  end
+
+  -- Try poetry
+  local poetry_env = vim.fn.system('cd ' .. vim.fn.shellescape(root_dir) .. ' && poetry env info -p 2>/dev/null')
+  if vim.v.shell_error == 0 and poetry_env ~= '' then
+    local poetry_python = vim.fn.trim(poetry_env) .. '/bin/python'
+    if vim.fn.executable(poetry_python) == 1 then
+      return poetry_python
+    end
+  end
+
+  return nil
 end
 
 return {
@@ -62,9 +81,45 @@ return {
 
       -- Python
       vim.lsp.config('pyright', {
-        on_attach = on_attach,
+        on_attach = function(client, bufnr)
+          on_attach(client, bufnr)
+
+          vim.keymap.set('n', '<leader>i', function()
+            local params = {
+              command = 'pyright.organizeimports',
+              arguments = { vim.uri_from_bufnr(bufnr) },
+            }
+            client.request('workspace/executeCommand', params, nil, bufnr)
+          end, { buffer = bufnr, desc = 'Pyright Organize Imports' })
+
+          local python_path = detect_python_path(client.config.root_dir)
+          if python_path then
+            client.config.settings = vim.tbl_deep_extend('force', client.config.settings or {}, {
+              python = { pythonPath = python_path },
+            })
+            client:notify('workspace/didChangeConfiguration', { settings = nil })
+          end
+        end,
         flags = lsp_flags,
-        cmd = { 'poetry', 'run', 'pyright-langserver', '--stdio' }
+        cmd = { vim.fn.expand('~/.local/share/nvim/mason/bin/pyright-langserver'), '--stdio' },
+        root_markers = {
+          'pyrightconfig.json',
+          'pyproject.toml',
+          'setup.py',
+          'setup.cfg',
+          'requirements.txt',
+          'Pipfile',
+          '.git',
+        },
+        settings = {
+          python = {
+            analysis = {
+              autoSearchPaths = true,
+              useLibraryCodeForTypes = true,
+              diagnosticMode = 'openFilesOnly',
+            },
+          },
+        },
       })
       vim.lsp.enable('pyright')
 
@@ -92,28 +147,6 @@ return {
         capabilities = capabilities,
       })
       vim.lsp.enable('cssls')
-
-      -- Stylelint
-      vim.lsp.config('stylelint_lsp', {
-        on_attach = on_attach,
-        flags = lsp_flags,
-        capabilities = capabilities,
-        settings = {
-          stylelintplus = {
-            autoFixOnFormat = true,
-            autoFixOnSave = true
-          }
-        },
-        filetypes = {
-          'css',
-          'less',
-          'scss',
-          'sugarss',
-          'vue',
-          'wxss',
-        },
-      })
-      vim.lsp.enable('stylelint_lsp')
 
       -- Go
       vim.lsp.config('gopls', {
