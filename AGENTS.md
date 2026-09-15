@@ -23,23 +23,22 @@ All playbooks use `-i inventory` (localhost) and `-vv` verbosity. `-K` prompts f
 ## Directory layout
 
 ```
-files/           — dotfiles symlinked into ~/ (zshrc, tmux.conf, gitconfig, tigrc, alacritty.toml, gitui configs, vimrc, xprofile, xmodemap)
+files/           — dotfiles symlinked into ~/ (zshrc, tmux.conf, gitconfig, tigrc, alacritty.toml, gitui configs, xprofile, xmodemap)
 zsh/             — scripts sourced by zshrc: aliases.sh, plugins.sh (Zinit), fzf.sh
-nvim/            — Neovim config, symlinked to ~/.config/nvim
-  init.vim       — entry point, calls require('init')
+nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
+  init.lua       — entry point, calls require('config.lazy')
   lua/
-    init.lua     — requires globals, config.lazy, mappings
-    config/lazy.lua — lazy.nvim bootstrap
-    plugins/      — each file exports get_plugins() returning a list of plugin specs
-      init.lua    — collects all plugin modules (core, lsp, dev, nvim-cmp, ai)
+    config/      — lazy.lua (bootstrap + extras imports), options.lua, keymaps.lua, autocmds.lua (auto-loaded by LazyVim)
+    plugins/     — plain spec lists: colors, ai (avante), core (treesitter), editor, test
 ```
 
 ## Neovim architecture
 
-- Plugin manager: **lazy.nvim** (lockfile: `nvim/lazy-lock.json`).
-- Plugin specs are modular: each file in `lua/plugins/*.lua` exports `get_plugins()`.
-- `plugins/init.lua` iterates over modules and aggregates specs.
-- Highlights: catppuccin (frappe), fzf-lua (not telescope), avante.nvim (AI), nvim-spectre (search/replace), vim-test with dispatch.
+- **LazyVim distribution** on lazy.nvim (lockfile: `nvim/lazy-lock.json`). Lives on the `lazyvim` branch; master keeps the old hand-rolled config.
+- Extras imported in `lua/config/lazy.lua`: snacks_picker, dap.core, lang extras (typescript, go, python, ruby, elixir, rust, json, yaml, docker, markdown), formatting.prettier.
+- Leader `<Space>`, localleader `\` (LazyVim defaults).
+- Colorscheme: catppuccin frappe. AI: avante.nvim (Anthropic). Also vim-test + dispatch (`<leader>t`), nvim-spectre (`<leader>ssr`), Navigator window nav (`C-h/j/k/l`), vim-easy-align (`ga`), fugitive.
+- xcode↔branch flip: `~/.config/nvim` symlink points at `~/dotfiles/nvim`, so `git switch master`/`lazyvim` swaps configs in place. Old nvim data dir backed up at `~/.local/share/nvim.bak-old-config`.
 
 ## OS-specific notes
 

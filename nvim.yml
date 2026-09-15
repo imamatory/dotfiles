@@ -8,13 +8,3 @@
         src: "{{ playbook_dir }}/nvim"
         dest: ~/.config/nvim
         state: link
-
-    - file:
-        src: "{{ playbook_dir }}/files/vimrc"
-        dest: ~/.config/nvim/init.vim
-        state: link
-
-    - file:
-        path: ~/.local/share/nvim/site/autoload
-        state: directory
-        recurse: Yes
