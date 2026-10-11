@@ -1,14 +1,14 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
-  local lazyroot = vim.fn.fnamemodify(lazypath, ":p:h")
-  vim.system({
+  local lazyroot = vim.fn.fnamemodify(lazypath, ":p")
+  vim.fn.system({
     "git",
     "clone",
     "--filter=blob:none",
     "--branch=stable",
     "https://github.com/folke/lazy.nvim.git",
     lazyroot,
-  }):wait()
+  })
   if vim.v.shell_error ~= 0 then
     error("Failed to clone lazy.nvim:\n" .. lazyroot)
   end

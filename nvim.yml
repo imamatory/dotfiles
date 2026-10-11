@@ -4,6 +4,11 @@
     config: ~/.bash_profile
   tasks:
 
+    - name: Remove empty ~/.config/nvim directory (safe, only if empty)
+      ansible.builtin.command: rmdir ~/.config/nvim
+      failed_when: false
+      changed_when: true
+
     - file:
         src: "{{ playbook_dir }}/nvim"
         dest: ~/.config/nvim

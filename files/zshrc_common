@@ -94,7 +94,7 @@ if [ -f '/Users/im/yandex-cloud/path.bash.inc' ]; then source '/Users/im/yandex-
 if [ -f '/Users/im/yandex-cloud/completion.zsh.inc' ]; then source '/Users/im/yandex-cloud/completion.zsh.inc'; fi
 
 # The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/im/.docker/completions $fpath)
+fpath=(/Users/im-rbc/.docker/completions $fpath)
 autoload -Uz compinit
-compinit
+(( ${+_comps[docker]} )) || compinit
 # End of Docker CLI completions

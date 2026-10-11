@@ -21,7 +21,6 @@
           - tmux
           - tig
           - fd
-          - alacritty
           - lsof
           - keychain
           - kubectl
@@ -31,10 +30,13 @@
           - git
           - git-delta
           - gnupg
-          - gnu-sed  # for nvim-spectre
+          - gnu-sed # for nvim-spectre
           - direnv
           - ghostty
           - viddy
+          - mise
+          - uv
+          - anomalyco/tap/opencode-v2
 
     - name: Clean homebrew
       command: "brew cleanup"
