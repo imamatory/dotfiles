@@ -4,6 +4,7 @@
     - homebrew:
         state: present
         name:
+          - awscli
           - readline
           - wget
           - zsh
@@ -37,6 +38,7 @@
           - mise
           - uv
           - anomalyco/tap/opencode-v2
+          - zed
 
     - name: Clean homebrew
       command: "brew cleanup"
