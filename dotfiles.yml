@@ -61,6 +61,13 @@
         dest: ~/.config/gitui/theme.ron
         force: yes
 
+    - name: Starship
+      file:
+        src: "{{ playbook_dir }}/files/starship.toml"
+        dest: ~/.config/starship.toml
+        state: link
+        force: yes
+
     - file:
         path: ~/.config/ghostty
         state: directory
@@ -70,6 +77,18 @@
       file:
         src: "{{ playbook_dir }}/files/ghostty/config.ghostty"
         dest: ~/.config/ghostty/config.ghostty
+        state: link
+        force: yes
+
+    - file:
+        path: ~/.config/opencode
+        state: directory
+        force: yes
+
+    - name: OpenCode CLI config
+      file:
+        src: "{{ playbook_dir }}/files/opencode/cli.json"
+        dest: ~/.config/opencode/cli.json
         state: link
         force: yes
 

@@ -40,6 +40,16 @@ nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
 - Colorscheme: catppuccin frappe. AI: avante.nvim (Anthropic). Also vim-test + dispatch (`<leader>t`), nvim-spectre (`<leader>ssr`), Navigator window nav (`C-h/j/k/l`), vim-easy-align (`ga`), fugitive.
 - xcode↔branch flip: `~/.config/nvim` symlink points at `~/dotfiles/nvim`, so `git switch master`/`lazyvim` swaps configs in place. Old nvim data dir backed up at `~/.local/share/nvim.bak-old-config`.
 
+## Troubleshooting
+
+- **nvim crashes immediately on macOS startup (SIGKILL, no error shown):** check `~/Library/Logs/DiagnosticReports/nvim-*.ips`. A `CODESIGNING "Invalid Page"` kill in `lua_pcall → dlopen` means avante.nvim's cargo-built sidecars (`~/.local/share/nvim/lazy/avante.nvim/lua/avante_*.so`) fail signature validation after a rebuild. Fix — copy to a fresh inode, then ad-hoc re-sign:
+  ```sh
+  cd ~/.local/share/nvim/lazy/avante.nvim/lua
+  cp avante_templates.so /tmp/x.so && mv /tmp/x.so avante_templates.so
+  codesign --force --sign - avante_templates.so
+  ```
+  Use whichever `avante_*.so` the crash report fingered; applying it to all four is safe. Re-signing in place is NOT enough — the kernel keeps flagging the cached inode, so the file must be replaced first. Note `nvim --headless +qa` won't reproduce this (crash happens when a UI attaches).
+
 ## OS-specific notes
 
 - **Arch** (`arch.yml`): pacman packages + Yay from AUR for google-chrome, debtap.

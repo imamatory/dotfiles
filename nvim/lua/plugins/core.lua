@@ -5,6 +5,7 @@ return {
       linters_by_ft = {
         markdown = {},
         ["markdown.mdx"] = {},
+        yaml = {},
       },
     },
   },
@@ -24,6 +25,7 @@ return {
         "luap",
         "markdown",
         "markdown_inline",
+        "pug",
         "python",
         "query",
         "regex",

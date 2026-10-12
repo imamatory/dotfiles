@@ -33,6 +33,7 @@
           - gnupg
           - gnu-sed # for nvim-spectre
           - direnv
+          - starship
           - ghostty
           - viddy
           - mise

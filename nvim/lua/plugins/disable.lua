@@ -10,7 +10,10 @@ return {
     opts = {
       scroll = { enabled = false },
       animate = { enabled = false },
-      indent = { animate = { enabled = false } },
+      indent = {
+        animate = { enabled = false },
+        scope = { enabled = false },
+      },
       dim = { animate = { enabled = false } },
       words = { enabled = false },
       notifier = {
@@ -43,10 +46,6 @@ return {
   },
   {
     "folke/flash.nvim",
-    enabled = false,
-  },
-  {
-    "MeanderingProgrammer/render-markdown.nvim",
     enabled = false,
   },
 }

@@ -21,6 +21,7 @@
           - fd
           - alacritty
           - kitty
+          - starship
           - xsel
           - htop
           - hub

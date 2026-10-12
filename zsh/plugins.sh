@@ -28,15 +28,6 @@ zi light sharkdp/bat
 zi light sharkdp/fd
 zi light BurntSushi/ripgrep
 
-# Load starship theme
-zinit ice as"command" from"gh-r" \
-  atclone="
-    ./starship init zsh > init.zsh
-    ./starship completions zsh > _starship
-  " \
-  atpull="%atclone" src"init.zsh"
-zi light starship/starship
-
 # poetry
 zinit ice has='poetry' wait'0a' as='completion' id-as'poetry/completion' lucid \
   atclone='poetry completions zsh > _poetry' \
