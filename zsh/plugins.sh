@@ -24,10 +24,6 @@ zi light-mode for \
 zinit ice as"completion"
 zinit snippet https://github.com/docker/cli/blob/master/contrib/completion/zsh/_docker
 
-zi light sharkdp/bat
-zi light sharkdp/fd
-zi light BurntSushi/ripgrep
-
 # poetry
 zinit ice has='poetry' wait'0a' as='completion' id-as'poetry/completion' lucid \
   atclone='poetry completions zsh > _poetry' \

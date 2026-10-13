@@ -48,7 +48,12 @@ source $HOME/dotfiles/zsh/plugins.sh
 source $HOME/dotfiles/zsh/aliases.sh
 source $HOME/dotfiles/zsh/fzf.sh
 
-command -v starship >/dev/null && eval "$(starship init zsh)"
+# Bypass any zinit shim; prefer the Homebrew binary on mac.
+if (( $+commands[starship] )); then
+  starship_bin=/opt/homebrew/bin/starship
+  [[ -x $starship_bin ]] || starship_bin=${commands[starship]}
+  eval "$($starship_bin init zsh)"
+fi
 
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
