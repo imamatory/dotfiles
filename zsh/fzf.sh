@@ -1,4 +1,8 @@
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# Homebrew fzf doesn't ship ~/.fzf.zsh; use its built-in shell integration.
+# This binds ctrl-t (files), ctrl-r (history), alt-c (cd).
+if command -v fzf > /dev/null; then
+  source <(fzf --zsh)
+fi
 
 fzf_opts=(
   '--border'

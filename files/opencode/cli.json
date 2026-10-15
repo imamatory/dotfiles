@@ -1,8 +1,13 @@
 {
   "$schema": "https://opencode.ai/v2/cli.json",
+  "tabs": {
+    "mode": "off"
+  },
   "keybinds": {
     "agent.cycle": "tab",
-    "agent.cycle.reverse": "shift+tab"
+    "agent.cycle.reverse": "shift+tab",
+    "session.tab.previous": "ctrl+[",
+    "session.tab.next": "ctrl+]"
   },
   "theme": {
     "name": "catppuccin-frappe"

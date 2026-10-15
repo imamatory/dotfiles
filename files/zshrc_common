@@ -102,3 +102,4 @@ fpath=(/Users/im-rbc/.docker/completions $fpath)
 autoload -Uz compinit
 (( ${+_comps[docker]} )) || compinit
 # End of Docker CLI completions
+export PATH=/opt/homebrew/opt/libpq/bin:$PATH

@@ -41,6 +41,7 @@
           - uv
           - anomalyco/tap/opencode-v2
           - zed
+          - libpq # psql
 
     - name: Clean homebrew
       command: "brew cleanup"
