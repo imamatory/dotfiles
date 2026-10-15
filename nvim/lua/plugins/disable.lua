@@ -33,6 +33,10 @@ return {
   {
     "folke/noice.nvim",
     opts = {
+      -- hide LSP progress popups ("✔ pyright ..." bottom-right) from pyright/ruff
+      lsp = {
+        progress = { enabled = false },
+      },
       views = {
         cmdline_popup = { border = "single" },
         popupmenu = { border = "single" },
