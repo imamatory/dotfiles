@@ -79,8 +79,6 @@
         install_recommends: false
         name:
           - tig
-          - ruby
-          - ruby-dev
           - nodejs
           - npm
           - neovim
@@ -113,7 +111,7 @@
 
     - name: Install antibody
       become: yes
-      shell: 'curl -sSL git.io/antibody | bash -s'
+      shell: "curl -sSL git.io/antibody | bash -s"
       args:
         creates: /usr/local/bin/antibody
 

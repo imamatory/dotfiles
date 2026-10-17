@@ -43,15 +43,6 @@ arch-packages:
 setup-arch: prepare-setup gnome-settings arch-packages
 	ansible-playbook -i inventory -vvv setup-arch.yml
 
-asdf:
-	asdf plugin-add nodejs https://github.com/asdf-vm/asdf-nodejs.git || true
-	asdf plugin-add ruby || true
-	asdf plugin-add golang || true
-	asdf plugin-add python || true
-	asdf plugin-add java || true
-	asdf install nodejs latest
-	asdf global nodejs latest
-
 gnome-settings:
 	gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 14
 	gsettings set org.gnome.desktop.peripherals.keyboard delay 190
