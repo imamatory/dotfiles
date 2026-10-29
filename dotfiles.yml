@@ -92,4 +92,16 @@
         state: link
         force: yes
 
+    - name: OpenCode config
+      file:
+        src: "{{ playbook_dir }}/files/opencode/opencode.json"
+        dest: ~/.config/opencode/opencode.json
+        state: link
+        force: yes
 
+    - name: SSH config
+      file:
+        src: "{{ playbook_dir }}/files/ssh_config"
+        dest: ~/.ssh/config
+        state: link
+        force: yes
