@@ -1,7 +1,6 @@
 [user]
   name = Vadim Safonov
   email = imamatory@gmail.com
-	signingkey = /Users/im-rbc/.ssh/id_ed25519_signing.pub
 
 [pull]
 	rebase = true
@@ -26,9 +25,9 @@
     colorMoved = default
 [init]
 	defaultBranch = main
-[gpg]
-	format = ssh
-[commit]
-	gpgsign = true
-[tag]
-	gpgsign = true
+
+# Sign only in repos with a GitHub remote
+[includeIf "hasconfig:remote.*.url:git@github.com:*/**"]
+	path = ~/.gitconfig-github
+[includeIf "hasconfig:remote.*.url:https://github.com/**"]
+	path = ~/.gitconfig-github
