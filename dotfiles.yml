@@ -43,13 +43,6 @@
         state: link
         force: yes
 
-    - name: Git config for GitHub repos
-      file:
-        src: "{{ playbook_dir }}/files/gitconfig-github"
-        dest: ~/.gitconfig-github
-        state: link
-        force: yes
-
     - file:
         path: ~/.config/gitui
         state: directory
