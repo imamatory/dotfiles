@@ -8,6 +8,7 @@ local packages = {
 	"dockerfile-language-server",
 	"elixir-ls",
 	"gopls",
+	"helm-ls",
 	"json-lsp",
 	"lua-language-server",
 	"marksman",
