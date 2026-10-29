@@ -21,5 +21,6 @@
     "thinking": "hide",
     "verbosity": "low"
   },
-  "animations": true
+  "animations": true,
+  "plugins": ["superpowers@git+https://github.com/obra/superpowers.git"]
 }
