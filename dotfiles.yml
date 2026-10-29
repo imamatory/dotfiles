@@ -9,6 +9,18 @@
         force: yes
         state: link
 
+    - name: Mise config
+      file:
+        path: ~/.config/mise
+        state: directory
+
+    - name: Mise
+      file:
+        src: "{{ playbook_dir }}/files/mise.toml"
+        dest: ~/.config/mise/config.toml
+        force: yes
+        state: link
+
     - name: Neovim
       file:
         dest: ~/.config/nvim

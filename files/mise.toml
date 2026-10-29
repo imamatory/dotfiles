@@ -1,0 +1,120 @@
+[tools]
+go = "latest"
+node = "latest"
+python = "3.14"
+rust = "latest"
+"github:alltuner/mise-completions-sync" = "latest"  # generates zsh completions for the tools
+
+[bootstrap.packages]
+"brew:awscli" = "latest"
+"brew:readline" = "latest"
+"brew:wget" = "latest"
+"brew:zsh" = "latest"
+"brew:zsh-completions" = "latest"
+"brew:pkgconf" = "latest"
+"brew:fzf" = "latest"
+"brew:ripgrep" = "latest"
+"brew:tig" = "latest"
+"brew:bat" = "latest"
+"brew:lsd" = "latest"
+"brew:gitui" = "latest"
+"brew:jq" = "latest"
+"brew:zinit" = "latest"
+"brew:neovim" = "latest"
+"brew:tmux" = "latest"
+"brew:fd" = "latest"
+"brew:lsof" = "latest"
+"brew:keychain" = "latest"
+"brew:kubernetes-cli" = "latest"
+"brew:kubectx" = "latest"
+"brew:k9s" = "latest"
+"brew:gh" = "latest"
+"brew:git" = "latest"
+"brew:git-delta" = "latest"
+"brew:gnupg" = "latest"
+"brew:gnu-sed" = "latest"       # for nvim-spectre
+"brew:coreutils" = "latest"
+"brew:findutils" = "latest"
+"brew:gnu-tar" = "latest"
+"brew:grep" = "latest"
+"brew:gawk" = "latest"
+"brew:direnv" = "latest"
+"brew:starship" = "latest"
+"brew:viddy" = "latest"
+"brew:mise" = "latest"
+"brew:uv" = "latest"
+"brew:opencode" = "latest"
+"brew:kubeseal" = "latest"
+"brew:libpq" = "latest"         # psql
+"brew-cask:ghostty" = "latest"
+"brew-cask:zed" = "latest"
+"brew-cask:1password-cli" = "latest"
+"brew-cask:beekeeper-studio" = "latest"
+"brew-cask:keka" = "latest"
+"brew-cask:postman" = "latest"
+"brew:ansible" = "latest"
+"brew:dotenvx/brew/dotenvx" = "latest"
+"brew:helm" = "latest"
+"brew:pnpm" = "latest"
+"brew:rclone" = "latest"
+"brew:zereight/gitlab-mcp/zereight-mcp-gitlab" = "latest"
+
+[bootstrap.brew.taps]
+"dotenvx/brew" = "https://github.com/dotenvx/homebrew-brew.git"
+"zereight/gitlab-mcp" = "https://github.com/zereight/homebrew-gitlab-mcp.git"
+
+# Completions are generated, not tracked: postinstall refreshes what changed,
+# post-tools does the full pass on a fresh machine once misecompsync exists.
+[hooks]
+postinstall = "misecompsync --shell zsh --new-only"
+
+[bootstrap.hooks.post-tools]
+run = "mise completion zsh --install || true; misecompsync --shell zsh"
+
+# mise installs brew: packages through brew, so brew has to exist first.
+[bootstrap.hooks.pre-packages]
+run = 'command -v brew >/dev/null 2>&1 || [ -x /opt/homebrew/bin/brew ] || NONINTERACTIVE=1 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+
+# macOS preferences: what the old `make mac-settings` wrote, plus the Dock,
+# trackpad and text-substitution settings that differ from the defaults here.
+[bootstrap.macos.keyboard]
+key_repeat = 1                       # normal minimum is 2 (30 ms)
+initial_key_repeat = 11              # normal minimum is 15 (225 ms)
+automatic_capitalization = false
+automatic_spelling_correction = false
+
+[bootstrap.macos.dock]
+autohide = true
+tilesize = 47
+
+[bootstrap.macos.trackpad]
+tap_to_click = true
+
+[bootstrap.macos.defaults."com.microsoft.VSCode"]
+ApplePressAndHoldEnabled = false     # vscode: key repeat on hold
+
+[bootstrap.macos.defaults.kCFPreferencesAnyApplication]
+TSMLanguageIndicatorEnabled = "0"    # no layout popup near the cursor (a string on this machine)
+
+# Screenshots and screen recordings go to one folder instead of the desktop.
+# macOS does not create it, and a screenshot into a missing folder goes nowhere,
+# hence the directory below.
+[bootstrap.macos.defaults."com.apple.screencapture"]
+location = "~/Downloads/Screenshots"
+location-screenshot = "~/Downloads/Screenshots"
+location-screenrecording = "~/Downloads/Screenshots"
+
+[bootstrap.directories."~/Downloads/Screenshots"]
+mode = "0755"
+
+# One command for the whole machine: `mise run upgrade`. mise upgrade only walks
+# [tools], so brew and zinit are listed explicitly. zinit is a shell function,
+# hence the zsh that sources it first. -y because a task must not stop for a prompt.
+[tasks.upgrade]
+description = "update mise tools, brew packages and zinit plugins"
+run = [
+  "mise upgrade --global",
+  "brew update",
+  "brew upgrade -y",
+  "zsh -c 'source ~/.local/share/zinit/zinit.git/zinit.zsh && zinit self-update && zinit update --all'",
+]

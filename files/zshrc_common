@@ -46,6 +46,9 @@ export PATH="$PNPM_HOME/bin:$PATH"
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export LD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$LD_LIBRARY_PATH
 
+# finished completion files written by misecompsync and `mise completion zsh --install`
+fpath=("$HOME/.local/share/mise-completions/zsh" "$HOME/.local/share/zsh/site-functions" $fpath)
+
 if [[ -o interactive ]]; then
   autoload -Uz compinit
   compinit

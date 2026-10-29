@@ -10,10 +10,8 @@ Primary entry: `Makefile`. Common targets:
 
 | Command             | What it does                                             |
 | ------------------- | -------------------------------------------------------- |
-| `make setup-arch`   | Full Arch install (prep → gnome-settings → pacman → AUR) |
-| `make mac`          | macOS: installs Homebrew packages (see `mac.yml`)        |
-| `make mac-install`  | xcode → homebrew → ansible, then runs `mac`              |
-| `make ubuntu`       | Ubuntu apt + cargo installs                              |
+| `make mac`          | macOS: `mise bootstrap` installs brew packages + interpreters + macOS defaults from `files/mise.toml` |
+| `make mac-install`  | xcode → homebrew → ansible+mise, then dotfiles, mac, nvim |
 | `make dotfiles`     | Symlinks config files from `files/` → `~/`               |
 | `make nvim-install` | Symlinks `nvim/` → `~/.config/nvim`                      |
 | `make common`       | fzf, TPM, chsh to zsh (runs on all OS)                   |
@@ -50,11 +48,11 @@ nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
   ```
   Use whichever `avante_*.so` the crash report fingered; applying it to all four is safe. Re-signing in place is NOT enough — the kernel keeps flagging the cached inode, so the file must be replaced first. Note `nvim --headless +qa` won't reproduce this (crash happens when a UI attaches).
 
-## OS-specific notes
+## Mise
 
-- **Arch** (`arch.yml`): pacman packages + Yay from AUR for google-chrome, debtap.
-- **macOS** (`mac.yml`): Homebrew packages only — no dotfiles here, run `make dotfiles` separately.
-- **Ubuntu** (`ubuntu.yml`): apt, cargo, manual .deb downloads for ripgrep/bat/kitty-terminfo, oh-my-zsh, spacemacs.
+- `files/mise.toml` is symlinked to `~/.config/mise/config.toml` by `make dotfiles`. `[tools]` holds interpreters (go, node, python, rust); `[bootstrap.packages]` holds every brew formula and cask (taps in `[bootstrap.brew.taps]`). Hooks (as in mokevnin/dotfiles): `pre-packages` installs brew if missing, `postinstall`/`post-tools` generate zsh completions via `misecompsync` (fpath set in `files/zshrc_common`). Symlinks stay with Ansible.
+- `mise run upgrade` updates everything: mise tools, brew, zinit plugins (`zinit update --all`).
+- Apply with `make mac` (`mise bootstrap --only packages,files,tools,macos-defaults`, which also applies `[bootstrap.macos.*]` — replaces the old `mac-settings` target); preview with `--dry-run`, check with `mise bootstrap macos defaults status`; restart the Dock with `killall Dock`. Use canonical brew names (`kubernetes-cli`, `pkgconf`).
 
 ## Git config
 

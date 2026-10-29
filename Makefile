@@ -1,12 +1,7 @@
 OS_FAMILY := $(shell uname -s)
 
-prepare-setup:
-	sudo pacman -S --needed ansible
-
-mac-install: mac dotfiles nvim-install
-
 mac:
-	ansible-playbook mac.yml -i inventory -vvv -K
+	mise bootstrap --only packages,files,tools,macos-defaults --yes
 
 nvim-install:
 	ansible-playbook nvim.yml -vv -i inventory -e curdir=$(pwd)
@@ -17,41 +12,12 @@ tmux-configure:
 kitty-configure:
 	ansible-playbook kitty.yml -vv -i inventory
 
-docker-build:
-	docker build . -t imamatory/dotfiles \
-	  --build-arg GIT_USER="Vadim Safonov" \
-	  --build-arg GIT_EMAIL="imamatory@gmail.com"
-
-docker-push:
-	docker push imamatory/dotfiles
-
-docker-bash:
-	docker run -it imamatory/dotfiles
-
 dotfiles:
 	ansible-playbook -i inventory -vv dotfiles.yml
 
 theme:
 	ansible-playbook -i inventory -vv theme.yml
 
-ubuntu:
-	ansible-playbook -i inventory -vv ubuntu.yml -K
-
-arch-packages:
-	ansible-playbook -i inventory -vvv arch.yml -K
-
-setup-arch: prepare-setup gnome-settings arch-packages
-	ansible-playbook -i inventory -vvv setup-arch.yml
-
-gnome-settings:
-	gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 14
-	gsettings set org.gnome.desktop.peripherals.keyboard delay 190
-
-mac-settings:
-	defaults write -g InitialKeyRepeat -int 11 # normal minimum is 15 (225 ms)
-	defaults write -g KeyRepeat -int 1 # normal minimum is 2 (30 ms)
-	defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false  # vscode enable key repeat on hold
-	defaults write kCFPreferencesAnyApplication TSMLanguageIndicatorEnabled 0  # disable kb layout popup near curor
 
 common:
 	ansible-playbook -i inventory -vv common.yml
@@ -65,4 +31,7 @@ x-code:
 	xcode-select --install || true
 
 mac-install: x-code homebrew
-	brew install ansible
+	brew install ansible mise
+	$(MAKE) dotfiles
+	$(MAKE) mac
+	$(MAKE) nvim-install
