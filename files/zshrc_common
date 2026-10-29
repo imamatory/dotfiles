@@ -36,6 +36,13 @@ export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
 
+if [[ "$OSTYPE" == darwin* ]]; then
+  export PNPM_HOME="$HOME/Library/pnpm"
+else
+  export PNPM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pnpm"
+fi
+export PATH="$PNPM_HOME/bin:$PATH"
+
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_FALLBACK_LIBRARY_PATH
 export LD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$LD_LIBRARY_PATH
 
@@ -103,3 +110,13 @@ autoload -Uz compinit
 (( ${+_comps[docker]} )) || compinit
 # End of Docker CLI completions
 export PATH=/opt/homebrew/opt/libpq/bin:$PATH
+# GNU utils without the "g" prefix
+for pkg in coreutils findutils gnu-sed gnu-tar grep gawk; do
+  export PATH=/opt/homebrew/opt/$pkg/libexec/gnubin:$PATH
+done
+unset pkg
+
+# Reload SSH keys from the macOS keychain into launchd's ssh-agent (empty after reboot)
+if [[ $OSTYPE == darwin* ]]; then
+  ssh-add --apple-load-keychain 2>/dev/null
+fi

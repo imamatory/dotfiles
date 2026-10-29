@@ -33,6 +33,11 @@
           - git-delta
           - gnupg
           - gnu-sed # for nvim-spectre
+          - coreutils
+          - findutils
+          - gnu-tar
+          - grep
+          - gawk
           - direnv
           - starship
           - ghostty
@@ -41,6 +46,7 @@
           - uv
           - anomalyco/tap/opencode-v2
           - zed
+          - kubeseal
           - libpq # psql
 
     - name: Clean homebrew
