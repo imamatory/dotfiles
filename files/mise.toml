@@ -4,6 +4,7 @@ node = "latest"
 python = "3.14"
 rust = "latest"
 "github:alltuner/mise-completions-sync" = "latest"  # generates zsh completions for the tools
+lsd = "latest"
 
 [bootstrap.packages]
 "brew:awscli" = "latest"
@@ -16,7 +17,6 @@ rust = "latest"
 "brew:ripgrep" = "latest"
 "brew:tig" = "latest"
 "brew:bat" = "latest"
-"brew:lsd" = "latest"
 "brew:gitui" = "latest"
 "brew:jq" = "latest"
 "brew:zinit" = "latest"
