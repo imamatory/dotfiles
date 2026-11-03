@@ -57,6 +57,8 @@ lsd = "latest"
 "brew:helm" = "latest"
 "brew:pnpm" = "latest"
 "brew:rclone" = "latest"
+"brew:wrk" = "latest"           # HTTP load testing
+"brew:temporal" = "latest"      # Temporal CLI (dev server + UI)
 "brew:zereight/gitlab-mcp/zereight-mcp-gitlab" = "latest"
 
 [bootstrap.brew.taps]
