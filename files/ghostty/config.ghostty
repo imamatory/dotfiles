@@ -5,4 +5,4 @@ keybind = ctrl+l=goto_split:right
 
 font-family = "IBM Plex Mono"
 
-scrollback-limit = 50000
+scrollback-limit = 100000
