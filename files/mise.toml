@@ -5,6 +5,7 @@ python = "3.14"
 rust = "latest"
 "github:alltuner/mise-completions-sync" = "latest"  # generates zsh completions for the tools
 lsd = "latest"
+"npm:@owloops/claude-powerline" = "1.32.6"  # Claude Code statusline; pinned, bump via `mise outdated --bump`
 
 [bootstrap.packages]
 "brew:awscli" = "latest"
