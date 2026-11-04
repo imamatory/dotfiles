@@ -1,3 +1,6 @@
+# Single mise config for the whole machine; `make dotfiles` links it to
+# ~/.config/mise/config.toml. Apply with `make mac` (= mise bootstrap).
+
 [tools]
 go = "latest"
 node = "latest"
@@ -53,7 +56,6 @@ lsd = "latest"
 "brew-cask:beekeeper-studio" = "latest"
 "brew-cask:keka" = "latest"
 "brew-cask:postman" = "latest"
-"brew:ansible" = "latest"
 "brew:dotenvx/brew/dotenvx" = "latest"
 "brew:helm" = "latest"
 "brew:pnpm" = "latest"
@@ -120,4 +122,34 @@ run = [
   "brew update",
   "brew upgrade -y",
   "zsh -c 'source ~/.local/share/zinit/zinit.git/zinit.zsh && zinit self-update && zinit update --all'",
+]
+
+[dotfiles]
+"~/.zshrc" = "files/zshrc_common"
+"~/.tmux.conf" = "files/tmux.conf"
+"~/.alacritty.toml" = "files/alacritty.toml"
+"~/.tigrc" = "files/tigrc"
+"~/.gitconfig" = "files/gitconfig"
+"~/.config/gitui/key_bindings.ron" = "files/gitui-key-bindings.ron"
+"~/.config/starship.toml" = "files/starship.toml"
+"~/.config/ghostty/config.ghostty" = "files/ghostty/config.ghostty"
+"~/.config/opencode/cli.json" = "files/opencode/cli.json"
+"~/.config/opencode/opencode.json" = "files/opencode/opencode.json"
+"~/.ssh/config" = "files/ssh_config"
+"~/.config/nvim" = "nvim"
+
+[bootstrap.repos]
+"~/.tmux/plugins/tpm" = { url = "https://github.com/tmux-plugins/tpm" }
+"~/.config/alacritty/catppuccin" = { url = "https://github.com/catppuccin/alacritty.git" }
+
+[bootstrap.user]
+login_shell = "zsh"
+
+# Runs on every `mise bootstrap`, so it must be safe to repeat (curl overwrites).
+[tasks.bootstrap]
+description = "download catppuccin themes for gitui and k9s"
+run = [
+  "mkdir -p ~/.config/gitui ~/.config/k9s",
+  "curl -fsSL https://raw.githubusercontent.com/catppuccin/gitui/main/themes/catppuccin-frappe.ron -o ~/.config/gitui/theme.ron",
+  "curl -fsSL https://raw.githubusercontent.com/catppuccin/k9s/main/dist/frappe.yml -o ~/.config/k9s/skin.yml",
 ]

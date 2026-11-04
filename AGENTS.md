@@ -2,7 +2,7 @@
 
 ## What this repo is
 
-Ansible-managed personal dotfiles. The whole repo is the source of truth — every `*.yml` playbook is run against `localhost` (inventory is single-entry). There is no CI/CD, no tests, and no Dockerfile (despite `docker-*` Makefile targets referring to `imamatory/dotfiles`).
+Mise-managed personal dotfiles (Ansible was removed). A single root `mise.toml` holds everything: packages, tools, macOS defaults, `[dotfiles]` symlinks, `[bootstrap.repos]` and the login shell. No CI/CD, no tests.
 
 ## Entry points & commands
 
@@ -10,13 +10,10 @@ Primary entry: `Makefile`. Common targets:
 
 | Command             | What it does                                             |
 | ------------------- | -------------------------------------------------------- |
-| `make mac`          | macOS: `mise bootstrap` installs brew packages + interpreters + macOS defaults from `files/mise.toml` |
-| `make mac-install`  | xcode → homebrew → ansible+mise, then dotfiles, mac, nvim |
-| `make dotfiles`     | Symlinks config files from `files/` → `~/`               |
-| `make nvim-install` | Symlinks `nvim/` → `~/.config/nvim`                      |
-| `make common`       | fzf, TPM, chsh to zsh (runs on all OS)                   |
+| `make mac`          | `make dotfiles`, then `mise bootstrap`: brew packages, tools, macOS defaults, repos (tpm, alacritty theme), dotfiles, login shell |
+| `make mac-install`  | xcode → homebrew → mise, then `make mac` |
+| `make dotfiles`     | Links `mise.toml` as the global mise config, then `mise dot apply` |
 
-All playbooks use `-i inventory` (localhost) and `-vv` verbosity. `-K` prompts for sudo.
 
 ## Directory layout
 
@@ -50,9 +47,9 @@ nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
 
 ## Mise
 
-- `files/mise.toml` is symlinked to `~/.config/mise/config.toml` by `make dotfiles`. `[tools]` holds interpreters (go, node, python, rust); `[bootstrap.packages]` holds every brew formula and cask (taps in `[bootstrap.brew.taps]`). Hooks (as in mokevnin/dotfiles): `pre-packages` installs brew if missing, `postinstall`/`post-tools` generate zsh completions via `misecompsync` (fpath set in `files/zshrc_common`). Symlinks stay with Ansible.
+- `mise.toml` is symlinked to `~/.config/mise/config.toml` by `make dotfiles`. `[tools]` holds interpreters (go, node, python, rust); `[bootstrap.packages]` holds every brew formula and cask (taps in `[bootstrap.brew.taps]`). Hooks (as in mokevnin/dotfiles): `pre-packages` installs brew if missing, `postinstall`/`post-tools` generate zsh completions via `misecompsync` (fpath set in `files/zshrc_common`). Symlinks, git clones (tpm, alacritty theme) and the login shell live in the same `mise.toml` (`[dotfiles]`, `[bootstrap.repos]`, `[bootstrap.user]`).
 - `mise run upgrade` updates everything: mise tools, brew, zinit plugins (`zinit update --all`).
-- Apply with `make mac` (`mise bootstrap --only packages,files,tools,macos-defaults`, which also applies `[bootstrap.macos.*]` — replaces the old `mac-settings` target); preview with `--dry-run`, check with `mise bootstrap macos defaults status`; restart the Dock with `killall Dock`. Use canonical brew names (`kubernetes-cli`, `pkgconf`).
+- Apply with `make mac` (`mise bootstrap --only packages,files,tools,macos-defaults,repos,dotfiles,user,task`, which also applies `[bootstrap.macos.*]` — replaces the old `mac-settings` target); preview with `--dry-run`, check with `mise bootstrap macos defaults status`; restart the Dock with `killall Dock`. Use canonical brew names (`kubernetes-cli`, `pkgconf`).
 
 ## Git config
 

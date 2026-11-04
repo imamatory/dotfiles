@@ -1,26 +1,12 @@
-OS_FAMILY := $(shell uname -s)
+mac: dotfiles
+	mise bootstrap --only packages,files,tools,macos-defaults,repos,dotfiles,user,task --yes
 
-mac:
-	mise bootstrap --only packages,files,tools,macos-defaults --yes
-
-nvim-install:
-	ansible-playbook nvim.yml -vv -i inventory -e curdir=$(pwd)
-
-tmux-configure:
-	ansible-playbook tmux.yml -vv -i inventory
-
-kitty-configure:
-	ansible-playbook kitty.yml -vv -i inventory
-
+# Links mise.toml as the global mise config (bootstrap packages/tools), then deploys [dotfiles].
 dotfiles:
-	ansible-playbook -i inventory -vv dotfiles.yml
-
-theme:
-	ansible-playbook -i inventory -vv theme.yml
-
-
-common:
-	ansible-playbook -i inventory -vv common.yml
+	mkdir -p ~/.config/mise
+	ln -sfn $(CURDIR)/mise.toml ~/.config/mise/config.toml
+	mise trust
+	mise dot apply
 
 homebrew:
 	curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh | sudo -u $$USER bash
@@ -31,7 +17,5 @@ x-code:
 	xcode-select --install || true
 
 mac-install: x-code homebrew
-	brew install ansible mise
-	$(MAKE) dotfiles
+	brew install mise
 	$(MAKE) mac
-	$(MAKE) nvim-install
