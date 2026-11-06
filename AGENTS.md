@@ -51,6 +51,12 @@ nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
 - `mise run upgrade` updates everything: mise tools, brew, zinit plugins (`zinit update --all`).
 - Apply with `make mac` (`mise bootstrap --only packages,files,tools,macos-defaults,repos,dotfiles,user,task`, which also applies `[bootstrap.macos.*]` — replaces the old `mac-settings` target); preview with `--dry-run`, check with `mise bootstrap macos defaults status`; restart the Dock with `killall Dock`. Use canonical brew names (`kubernetes-cli`, `pkgconf`).
 
+## Agent skills
+
+- `.claude/skills/` and `skills-lock.json` are the source of truth for skills (packages `mattpocock/skills`, `vercel-labs/skills`), not a working copy. Do not install, update or remove global skills yourself; the user does that by hand (see README).
+- Add or update skills here with the `skills` CLI (`skills add <package> -a claude-code -y -s <name>`, `skills update -p`) so the lock stays consistent. Do not use `skills experimental_install` (it restores from GitHub into `.agents/skills`).
+- Never copy these skills into other repos' tracked files.
+
 ## Git config
 
 - Pager: `git-delta` with `navigate = true`, `light = false`.
