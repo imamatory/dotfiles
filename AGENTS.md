@@ -51,6 +51,10 @@ nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
 - `mise run upgrade` updates everything: mise tools, brew, zinit plugins (`zinit update --all`).
 - Apply with `make mac` (`mise bootstrap --only packages,files,tools,macos-defaults,repos,dotfiles,user,task`, which also applies `[bootstrap.macos.*]` — replaces the old `mac-settings` target); preview with `--dry-run`, check with `mise bootstrap macos defaults status`; restart the Dock with `killall Dock`. Use canonical brew names (`kubernetes-cli`, `pkgconf`).
 
+## CLI tools for agents
+
+Installed via `[bootstrap.packages]`; prefer them over slower defaults: `rg` (search), `fd` (find files), `ast-grep`/`sg` (structural search and rewrites), `jq`/`yq` (JSON/YAML), `gh`/`glab` (GitHub/GitLab), `shellcheck`/`shfmt` (lint and format shell scripts, run on any changed `.sh`/zsh script), `hyperfine` (benchmarks, e.g. zsh startup).
+
 ## Agent skills
 
 - `.claude/skills/` and `skills-lock.json` are the source of truth for skills (packages `mattpocock/skills`, `vercel-labs/skills`), not a working copy. Do not install, update or remove global skills yourself; the user does that by hand (see README).
