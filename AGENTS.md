@@ -53,7 +53,7 @@ nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
 
 ## CLI tools for agents
 
-Installed via `[bootstrap.packages]`; prefer them over slower defaults: `rg` (search), `fd` (find files), `ast-grep`/`sg` (structural search and rewrites), `jq`/`yq` (JSON/YAML), `gh`/`glab` (GitHub/GitLab), `shellcheck`/`shfmt` (lint and format shell scripts, run on any changed `.sh`/zsh script), `hyperfine` (benchmarks, e.g. zsh startup).
+Installed via `[bootstrap.packages]`; prefer them over slower defaults: `rg` (search), `fd` (find files), `ast-grep`/`sg` (structural search and rewrites), `jq`/`yq` (JSON/YAML), `gh`/`glab` (GitHub/GitLab), `shellcheck`/`shfmt` (lint and format sh/bash scripts only, they do not support zsh; for zsh files like `files/zshrc_common` and `zsh/*.sh` use `zsh -n <file>` to check syntax), `hyperfine` (benchmarks, e.g. zsh startup).
 
 ## Agent skills
 
