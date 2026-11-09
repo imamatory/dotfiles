@@ -142,6 +142,7 @@ run = [
 "~/.config/opencode/cli.json" = "files/opencode/cli.json"
 "~/.config/opencode/opencode.json" = "files/opencode/opencode.json"
 "~/.ssh/config" = "files/ssh_config"
+"~/.config/rex/init.lua" = "files/rex/init.lua"
 "~/.config/nvim" = "nvim"
 
 [bootstrap.repos]
