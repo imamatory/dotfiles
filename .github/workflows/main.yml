@@ -28,14 +28,15 @@ jobs:
           # nothing later pushes, so the token does not need to stay in .git/config
           persist-credentials: false
 
-      # installs mise and only the linter, nothing from [tools]
+      # installs mise only, nothing from [tools]; the linter is fetched by `mise x` below
       - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5.2.7
         with:
           version: 2026.11.10
-          install_args: actionlint
+          install: false
 
+      # actionlint is not in mise.toml, so the shim has no version: pin it here
       - name: Lint workflows
-        run: actionlint
+        run: mise x actionlint@1.7.12 -- actionlint
 
       # shfmt/shellcheck do not support zsh, so check syntax only
       - name: Check zsh syntax
