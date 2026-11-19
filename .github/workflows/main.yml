@@ -1,0 +1,66 @@
+name: Main
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+# Read-only: the check publishes nothing. Only automerge below asks for write,
+# and only on its own job.
+permissions:
+  contents: read
+
+# A new push cancels the older runs of the same pull request (or of master).
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: macos-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          # nothing later pushes, so the token does not need to stay in .git/config
+          persist-credentials: false
+
+      # installs mise and only the linter, nothing from [tools]
+      - uses: jdx/mise-action@b44d12e7d0d8ee7461bb893e1b1993500433185b # v5.2.7
+        with:
+          version: 2026.11.10
+          install_args: actionlint
+
+      - name: Lint workflows
+        run: actionlint
+
+      # shfmt/shellcheck do not support zsh, so check syntax only
+      - name: Check zsh syntax
+        run: |
+          zsh -n files/zshrc_common
+          for f in zsh/*.sh; do zsh -n "$f"; done
+
+      # the runner already has its own ~/.gitconfig, hence --force-dotfiles.
+      # Still a --dry-run, nothing gets written.
+      - name: Dotfiles plan
+        run: mise bootstrap --dry-run --only dotfiles --force-dotfiles
+
+  # Dependabot PRs merge themselves once the check above is green. master has no
+  # required checks, so `--auto` would not wait for anything: `needs` is the gate.
+  automerge:
+    needs: check
+    if: github.event.pull_request.user.login == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - name: Merge
+        run: gh pr merge "$PR_NUMBER" --repo "$GITHUB_REPOSITORY" --squash --delete-branch
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}

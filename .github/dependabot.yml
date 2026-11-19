@@ -1,0 +1,14 @@
+version: 2
+updates:
+  # The only ecosystem dependabot understands in this repo. The tools in
+  # mise.toml are almost all on "latest" and are updated by `mise upgrade`.
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    # a release is not picked up the week it comes out, same idea as
+    # minimum_release_age in mise.toml
+    cooldown:
+      default-days: 7
+    commit-message:
+      prefix: ci
