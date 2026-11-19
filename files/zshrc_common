@@ -52,6 +52,12 @@ fpath=("$HOME/.local/share/mise-completions/zsh" "$HOME/.local/share/zsh/site-fu
 if [[ -o interactive ]]; then
   autoload -Uz compinit
   compinit
+
+  # awscli has no `aws completion` subcommand, only aws_completer (bash-style)
+  if (( $+commands[aws_completer] )); then
+    autoload -Uz bashcompinit && bashcompinit
+    complete -C "$commands[aws_completer]" aws
+  fi
 fi
 
 source $HOME/dotfiles/zsh/plugins.sh
