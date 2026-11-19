@@ -18,6 +18,8 @@ npx skills add ~/dotfiles/.claude/skills -g -a claude-code -y -s tdd grilling   
 npx skills add ~/dotfiles/.claude/skills -g -a claude-code -y -s '*'            # install everything (all skills in the folder)
 ```
 
+`make skills` is the shortcut for the install-everything command. Do not also enable the `mattpocock-skills` Claude Code plugin: it ships the same skills again as `mattpocock-skills:*` (that was the source of the duplicates).
+
 They land in `~/.agents/skills` (symlinked from `~/.claude/skills`). The global lock `~/.agents/.skill-lock.json` records this local path as the source, so `skills update -g` does not fetch upstream.
 
 Update flow: change the folder and lock here (`npx skills add <package> -a claude-code -y -s <name>` or `npx skills update -p`), review the `SKILL.md` diff (the hash says nothing about behaviour), commit, then reinstall globally with the command above. Do not use `skills experimental_install`: it restores from GitHub into the project's `.agents/skills` and ignores `-g`.
