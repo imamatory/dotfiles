@@ -3,6 +3,10 @@ local opt = vim.opt
 
 vim.g.autoformat = false
 
+-- Project root = git root. LazyVim's default puts "lsp" first, which picks a
+-- sub-package dir in monorepos, and "lua" matches any dir that has a lua/ folder.
+vim.g.root_spec = { { ".git" }, "cwd" }
+
 opt.wrap = false
 opt.swapfile = false
 opt.inccommand = "nosplit"
