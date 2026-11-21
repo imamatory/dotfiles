@@ -18,7 +18,7 @@ Primary entry: `Makefile`. Common targets:
 ## Directory layout
 
 ```
-files/           — dotfiles symlinked into ~/ (zshrc, tmux.conf, gitconfig, tigrc, alacritty.toml, gitui configs, xprofile, xmodemap)
+files/           — dotfiles symlinked into ~/ (zshrc, zshenv — bash-like options for non-interactive agent shells, tmux.conf, gitconfig, tigrc, alacritty.toml, gitui configs, xprofile, xmodemap)
 zsh/             — scripts sourced by zshrc: aliases.sh, plugins.sh (Zinit), fzf.sh
 nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
   init.lua       — entry point, calls require('config.lazy')

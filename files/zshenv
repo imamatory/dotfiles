@@ -1,0 +1,12 @@
+# Read by every zsh, including non-interactive ones (.zshrc is not).
+# Make agent shells (Claude Code, Codex, opencode, ...) behave like bash, so
+# unescaped commands they generate do not break. Gated on agent env vars so
+# plain zsh scripts keep native zsh semantics.
+if [[ ! -o interactive && -n "${AI_AGENT}${CLAUDECODE}${CODEX_SANDBOX}${OPENCODE}" ]]; then
+  # Не падать с ошибкой 'no matches found' при неэкранированных ?, *, ^ в URL и git-ревизиях
+  setopt NO_NOMATCH
+  # Разбивать переменные по пробелам как в bash/sh ($ARGS вместо ${=ARGS})
+  setopt SH_WORD_SPLIT
+  # Индексация массивов с 0, а не с 1 (как в bash)
+  setopt KSH_ARRAYS
+fi

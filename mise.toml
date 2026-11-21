@@ -134,6 +134,7 @@ run = [
 
 [dotfiles]
 "~/.zshrc" = "files/zshrc_common"
+"~/.zshenv" = "files/zshenv"
 "~/.tmux.conf" = "files/tmux.conf"
 "~/.alacritty.toml" = "files/alacritty.toml"
 "~/.tigrc" = "files/tigrc"
