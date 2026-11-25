@@ -68,4 +68,3 @@ Installed via `[bootstrap.packages]`; prefer them over slower defaults: `rg` (se
 - `init.defaultBranch = main`
 - `merge.conflictstyle = diff3`
 - User: Vadim Safonov / imamatory@gmail.com
-- Hardcoded personal paths in zshrc: `/Users/im/yandex-cloud`, `/Users/im/.docker/completions`.

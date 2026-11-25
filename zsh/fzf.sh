@@ -1,5 +1,5 @@
 # Homebrew fzf doesn't ship ~/.fzf.zsh; use its built-in shell integration.
-# This binds ctrl-t (files), ctrl-r (history), alt-c (cd).
+# This binds ctrl-t (files), alt-c (cd) and ctrl-r (history; atuin takes it over in zshrc).
 if command -v fzf > /dev/null; then
   source <(fzf --zsh)
 fi
@@ -43,8 +43,10 @@ g() {
   fi
 }
 
+# fuzzy-open files in nvim; border, height, multi and ctrl-y come from FZF_DEFAULT_OPTS
 f() {
-fzf --border --height 80% --reverse --multi --bind "ctrl-y:execute-silent(echo {+} | xargs -o pbcopy)" --bind "enter:execute(echo {+} | xargs -o nvim)" --preview "([[ -f {} ]] && (bat --style=changes,numbers --color=always {} || cat {})) || ([[ -d {} ]] && (exa --icons --tree --level=2 {} | less)) || echo {} 2> /dev/null | head -200"
+  fzf --bind "enter:execute(echo {+} | xargs -o nvim)" \
+    --preview '[[ -d {} ]] && lsd --tree --depth 2 --color=always {} || bat --style=changes,numbers --color=always --line-range :200 {}'
 }
 
 bindkey -s "^F" 'f^M'

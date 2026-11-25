@@ -2,127 +2,61 @@ export LANG=en_US.UTF-8
 export LC_CTYPE=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export LANGUAGE=en_US:en
-export ES_TMPDIR="/opt/homebrew/var/lib/elasticsearch/tmp"
 export EDITOR="nvim"
 export BAT_THEME="1337"
-export FZF_DEFAULT_OPTS=' --color light'
 
-export K9SCONFIG='~/.k9s/config.yml'
+# One copy of each dir: login and nested shells prepend the same entries again.
+typeset -U path fpath
 
-[ -n "${ZSH_VERSION-}" ] || return 0
+[[ -f ~/.zsh_vars ]] && source ~/.zsh_vars
+# Login shells (terminal tabs, tmux panes) have read ~/.zprofile already.
+[[ -o login ]] || { [[ -f ~/.zprofile ]] && source ~/.zprofile }
 
-[ -f ~/.zsh_vars ] && source ~/.zsh_vars
-[ -f ~/.zprofile ] && source ~/.zprofile
+HISTFILE=~/.zsh_history
+HISTSIZE=100000
+SAVEHIST=100000
+# SHARE_HISTORY: panes write and read history as commands run, not on exit.
+# zsh-autosuggestions reads this history; atuin keeps its own (Ctrl-R).
+setopt EXTENDED_HISTORY HIST_IGNORE_ALL_DUPS HIST_IGNORE_SPACE HIST_REDUCE_BLANKS SHARE_HISTORY
 
-set -o vi
-
-DISABLE_AUTO_UPDATE=true
-HIST_IGNORE_ALL_DUPS=true
-HISTSIZE=1000
-SAVEHIST=1000
-
-eval "$(direnv hook zsh)"
-
-# prevents overriding of TERM in tmux
+# OMZ tmux plugin: keep the TERM that tmux sets.
 export ZSH_TMUX_FIXTERM=false
-export ZSH_TMUX_TERM=screen-256colour
-
-export PATH=$PATH:~/.cargo/bin
-
-export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-
-export PATH="$HOME/.local/bin:$PATH"
 
 if [[ "$OSTYPE" == darwin* ]]; then
   export PNPM_HOME="$HOME/Library/pnpm"
 else
   export PNPM_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/pnpm"
 fi
-export PATH="$PNPM_HOME/bin:$PATH"
+path=("$PNPM_HOME/bin" "$HOME/.local/bin" $path "$HOME/.cargo/bin")
 
 export DYLD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$DYLD_FALLBACK_LIBRARY_PATH
-export LD_FALLBACK_LIBRARY_PATH=/opt/homebrew/lib:$LD_LIBRARY_PATH
 
-# finished completion files written by misecompsync and `mise completion zsh --install`
+# Completions: add every fpath entry here, before the single compinit, which
+# runs in zinit's turbo block (zsh/plugins.sh). These dirs are filled by
+# misecompsync and `mise completion zsh --install`.
 fpath=("$HOME/.local/share/mise-completions/zsh" "$HOME/.local/share/zsh/site-functions" $fpath)
-
-if [[ -o interactive ]]; then
-  autoload -Uz compinit
-  compinit
-
-  # awscli has no `aws completion` subcommand, only aws_completer (bash-style)
-  if (( $+commands[aws_completer] )); then
-    autoload -Uz bashcompinit && bashcompinit
-    complete -C "$commands[aws_completer]" aws
-  fi
-fi
+# The following lines have been added by Docker Desktop to enable Docker CLI completions.
+fpath=("$HOME/.docker/completions" $fpath)
+# End of Docker CLI completions
 
 source $HOME/dotfiles/zsh/plugins.sh
 source $HOME/dotfiles/zsh/aliases.sh
 source $HOME/dotfiles/zsh/fzf.sh
 
-# Bypass any zinit shim; prefer the Homebrew binary on mac.
-if (( $+commands[starship] )); then
-  starship_bin=/opt/homebrew/bin/starship
-  [[ -x $starship_bin ]] || starship_bin=${commands[starship]}
-  eval "$($starship_bin init zsh)"
-fi
-
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
-### Added by Zinit's installer
-if [[ ! -f $HOME/.local/share/zinit/zinit.git/zinit.zsh ]]; then
-    print -P "%F{33} %F{220}Installing %F{33}ZDHARMA-CONTINUUM%F{220} Initiative Plugin Manager (%F{33}zdharma-continuum/zinit%F{220})…%f"
-    command mkdir -p "$HOME/.local/share/zinit" && command chmod g-rwX "$HOME/.local/share/zinit"
-    command git clone https://github.com/zdharma-continuum/zinit "$HOME/.local/share/zinit/zinit.git" && \
-        print -P "%F{33} %F{34}Installation successful.%f%b" || \
-        print -P "%F{160} The clone has failed.%f%b"
-fi
-
-source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
-autoload -Uz _zinit
-(( ${+_comps} )) && _comps[zinit]=_zinit
-
+(( $+commands[starship] )) && eval "$(starship init zsh)"
 eval "$(mise activate zsh)"
 
-# export PYENV_ROOT="$HOME/.pyenv"
-# [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-# eval "$(pyenv init - zsh)"
-
-# --- Auto-tmux for interactive terminals only ---
-
-# if [[ $- == *i* ]] && [ -t 1 ] && [[ -z "$TMUX" ]]; then
-#   if command -v tmux >/dev/null 2>&1; then
-#     TMUX_SESSION_NAME="main"
-
-#     if tmux has-session -t "$TMUX_SESSION_NAME" 2>/dev/null; then
-#       exec tmux attach-session -t "$TMUX_SESSION_NAME"
-#     else
-#       exec tmux new-session -s "$TMUX_SESSION_NAME"
-#     fi
-#   fi
-# fi
-
-# The next line updates PATH for CLI.
-if [ -f '/Users/im/yandex-cloud/path.bash.inc' ]; then source '/Users/im/yandex-cloud/path.bash.inc'; fi
-
-# The next line enables shell command completion for yc.
-if [ -f '/Users/im/yandex-cloud/completion.zsh.inc' ]; then source '/Users/im/yandex-cloud/completion.zsh.inc'; fi
-
-# The following lines have been added by Docker Desktop to enable Docker CLI completions.
-fpath=(/Users/im-rbc/.docker/completions $fpath)
-autoload -Uz compinit
-(( ${+_comps[docker]} )) || compinit
-# End of Docker CLI completions
-export PATH=/opt/homebrew/opt/libpq/bin:$PATH
+path=(/opt/homebrew/opt/libpq/bin $path)
 # GNU utils without the "g" prefix
 for pkg in coreutils findutils gnu-sed gnu-tar grep gawk; do
-  export PATH=/opt/homebrew/opt/$pkg/libexec/gnubin:$PATH
+  path=(/opt/homebrew/opt/$pkg/libexec/gnubin $path)
 done
 unset pkg
 
-# Reload SSH keys from the macOS keychain into launchd's ssh-agent (empty after reboot)
-if [[ $OSTYPE == darwin* ]]; then
-  ssh-add --apple-load-keychain 2>/dev/null
-fi
+# SSH keys come from the macOS keychain on first use (UseKeychain and
+# AddKeysToAgent in files/ssh_config), so no ssh-add at startup.
+
+# Ctrl-R: atuin history search (overrides fzf's). Up arrow stays zsh's own.
+(( $+commands[atuin] )) && eval "$(atuin init zsh --disable-up-arrow)"
+# z / zi: jump to frecent dirs. Keep last: zoxide must see the final chpwd hooks.
+(( $+commands[zoxide] )) && eval "$(zoxide init zsh)"
