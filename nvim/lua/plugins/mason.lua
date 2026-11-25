@@ -2,6 +2,7 @@
 -- plus a :MasonInstallAll command for manual re-sync.
 local packages = {
 	-- LSP servers
+	"bash-language-server",
 	"codelldb",
 	"delve",
 	"docker-compose-language-service",
@@ -14,6 +15,7 @@ local packages = {
 	"marksman",
 	"pyright",
 	"ruff",
+	"taplo",
 	"tree-sitter-cli",
 	"vtsls",
 	"yaml-language-server",
@@ -25,8 +27,7 @@ local packages = {
 	-- linters (NOTE: removed erb-lint)
 	"golangci-lint",
 	"hadolint",
-	"markdownlint-cli2",
-	"markdown-toc",
+	"shellcheck",
 	-- DAP
 	"js-debug-adapter",
 }

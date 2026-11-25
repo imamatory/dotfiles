@@ -24,26 +24,26 @@ nvim/            — Neovim (LazyVim) config, symlinked to ~/.config/nvim
   init.lua       — entry point, calls require('config.lazy')
   lua/
     config/      — lazy.lua (bootstrap + extras imports), options.lua, keymaps.lua, autocmds.lua (auto-loaded by LazyVim)
-    plugins/     — plain spec lists: colors, ai (avante), core (treesitter), editor, test
+    plugins/     — plain spec lists, one file per concern, all auto-imported
 ```
 
 ## Neovim architecture
 
-- **LazyVim distribution** on lazy.nvim (lockfile: `nvim/lazy-lock.json`). Lives on the `lazyvim` branch; master keeps the old hand-rolled config.
-- Extras imported in `lua/config/lazy.lua`: snacks_picker, dap.core, lang extras (typescript, go, python, elixir, rust, json, yaml, docker, markdown), formatting.prettier.
+- **LazyVim distribution** on lazy.nvim (lockfile: `nvim/lazy-lock.json`).
+- Extras: import them in `lua/config/lazy.lua` and keep `extras` in `nvim/lazyvim.json` empty (`:LazyExtras` writes there and silently pulls in plugins).
+- Markdown: marksman + rumdl LSP (`plugins/markdown.lua`); rumdl is pinned per project via mise, so the server starts only where `.rumdl.toml` exists. The `lang.markdown` extra stays off (it brings render-markdown, markdown-preview, markdownlint-cli2); render-markdown is also disabled explicitly.
 - Leader `<Space>`, localleader `\` (LazyVim defaults).
-- Colorscheme: catppuccin frappe. AI: avante.nvim (Anthropic). Also vim-test + dispatch (`<leader>t`), nvim-spectre (`<leader>ssr`), Navigator window nav (`C-h/j/k/l`), vim-easy-align (`ga`), fugitive.
-- xcode↔branch flip: `~/.config/nvim` symlink points at `~/dotfiles/nvim`, so `git switch master`/`lazyvim` swaps configs in place. Old nvim data dir backed up at `~/.local/share/nvim.bak-old-config`.
+- Colorscheme: catppuccin frappe. Also vim-test + dispatch (`<leader>t`), nvim-spectre (`<leader>ssr`), Navigator window nav (`C-h/j/k/l`), vim-easy-align (`ga`), fugitive.
+- Format on save is off (`vim.g.autoformat = false` in `options.lua`); format with `<leader>cf`.
 
 ## Troubleshooting
 
-- **nvim crashes immediately on macOS startup (SIGKILL, no error shown):** check `~/Library/Logs/DiagnosticReports/nvim-*.ips`. A `CODESIGNING "Invalid Page"` kill in `lua_pcall → dlopen` means avante.nvim's cargo-built sidecars (`~/.local/share/nvim/lazy/avante.nvim/lua/avante_*.so`) fail signature validation after a rebuild. Fix — copy to a fresh inode, then ad-hoc re-sign:
+- **nvim crashes immediately on macOS startup (SIGKILL, no error shown):** check `~/Library/Logs/DiagnosticReports/nvim-*.ips`. A `CODESIGNING "Invalid Page"` kill in `lua_pcall → dlopen` means a plugin's locally built native library (`~/.local/share/nvim/lazy/<plugin>/**/*.so|*.dylib`, the one the crash report names) fails signature validation after a rebuild. Fix: copy it to a fresh inode, then ad-hoc re-sign:
   ```sh
-  cd ~/.local/share/nvim/lazy/avante.nvim/lua
-  cp avante_templates.so /tmp/x.so && mv /tmp/x.so avante_templates.so
-  codesign --force --sign - avante_templates.so
+  cp lib.so /tmp/x.so && mv /tmp/x.so lib.so
+  codesign --force --sign - lib.so
   ```
-  Use whichever `avante_*.so` the crash report fingered; applying it to all four is safe. Re-signing in place is NOT enough — the kernel keeps flagging the cached inode, so the file must be replaced first. Note `nvim --headless +qa` won't reproduce this (crash happens when a UI attaches).
+  Re-signing in place is NOT enough — the kernel keeps flagging the cached inode, so the file must be replaced first. Note `nvim --headless +qa` won't reproduce this (crash happens when a UI attaches).
 
 ## Mise
 
