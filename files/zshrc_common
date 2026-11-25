@@ -27,9 +27,6 @@ eval "$(direnv hook zsh)"
 export ZSH_TMUX_FIXTERM=false
 export ZSH_TMUX_TERM=screen-256colour
 
-bindkey '^[^ ' autosuggest-execute
-bindkey "\C- " autosuggest-accept
-
 export PATH=$PATH:~/.cargo/bin
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"

@@ -28,10 +28,12 @@ zinit ice has='poetry' wait'0a' as='completion' id-as'poetry/completion' lucid \
   atpull='%atclone'
 zinit light zdharma-continuum/null
 
+# Bind autosuggest keys in atload: a bindkey to a widget that does not exist yet
+# makes fast-syntax-highlighting (loaded first) warn "unhandled ZLE widget".
 zi wait lucid light-mode for \
   atinit"zicompinit; zicdreplay" \
       zdharma-continuum/fast-syntax-highlighting \
-  atload"_zsh_autosuggest_start" \
+  atload"_zsh_autosuggest_start; bindkey '^[^ ' autosuggest-execute; bindkey '^ ' autosuggest-accept" \
       zsh-users/zsh-autosuggestions \
   blockf atpull'zinit creinstall -q .' \
       zsh-users/zsh-completions
