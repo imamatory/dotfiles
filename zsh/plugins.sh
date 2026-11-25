@@ -9,8 +9,6 @@ zi light-mode for \
     zdharma-continuum/zinit-annex-rust
 
 zi light-mode for \
-  zsh-users/zsh-autosuggestions \
-  zdharma/fast-syntax-highlighting \
   OMZ::lib/git.zsh \
   OMZ::plugins/git/git.plugin.zsh \
   OMZ::plugins/tmux/tmux.plugin.zsh \
